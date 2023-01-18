@@ -24,4 +24,10 @@ export default {
   padding: 0;
 }
 
+.el-main {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 </style>

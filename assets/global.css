@@ -1,0 +1,12 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #f6f6f6;
+  color: #121212;
+  font-size: 15px;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}

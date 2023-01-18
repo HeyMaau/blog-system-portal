@@ -1,5 +1,30 @@
 <template>
-  <Tutorial/>
+  <div id="main-page-container">
+    <div id="article-list">
+      <div class="article-item-container">
+        <div class="article-item">
+          <h2 class="article-title">很长很长很长的标题</h2>
+          <div class="richtext-container">
+            <img src="~/static/test.jpg" class="article-cover">
+            <div class="article-summary">相对于v-slot指令，对大家来说都应该不是很陌生，在 2.6.0 中，vue为具名插槽和作用域插槽引入了一个新的统一的语法 (即
+              v-slot指令)。它取代了 slot 和 slot-scope在新版中的应用，当然vue官方暂时还木有删除老版本中具名插槽
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="article-item-container">
+        <div class="article-item">
+          <h2 class="article-title">很长很长很长的标题</h2>
+          <div class="richtext-container">
+            <img src="~/static/test.jpg" class="article-cover">
+            <div class="article-summary">相对于v-slot指令，对大家来说都应该不是很陌生，在 2.6.0 中，vue为具名插槽和作用域插槽引入了一个新的统一的语法 (即
+              v-slot指令)。它取代了 slot 和 slot-scope在新版中的应用，当然vue官方暂时还木有删除老版本中具名插槽
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -7,3 +32,59 @@ export default {
   name: 'IndexPage'
 }
 </script>
+
+<style scoped>
+
+#main-page-container {
+  display: flex;
+  justify-content: center;
+  width: 1000px;
+}
+
+#article-list {
+  width: 694px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+.article-title {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 18px;
+  font-weight: 600;
+  font-synthesis: style;
+  color: #121212;
+}
+
+.article-cover {
+  width: 190px;
+  height: 105px;
+  object-fit: cover;
+  flex-shrink: 0;
+  margin-right: 18px;
+  border-radius: 4px;
+}
+
+.richtext-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.article-item {
+
+}
+
+.article-item-container {
+  padding: 15px;
+  border-bottom: 1px solid #f0f2f7;
+  box-shadow: none;
+}
+
+.article-summary {
+  max-height: 100px;
+  line-height: 1.67;
+}
+
+</style>
