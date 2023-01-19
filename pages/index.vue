@@ -1,13 +1,12 @@
 <template>
   <div id="main-page-container">
     <div id="article-list">
-      <div class="article-item-container">
+      <div class="article-item-container" v-for="item in articleList" :key="item.id">
         <div class="article-item">
-          <h2 class="article-title">很长很长很长的标题</h2>
+          <h2 class="article-title">{{ item.title }}</h2>
           <div class="richtext-container">
-            <img src="~/static/test.jpg" class="article-cover">
-            <div class="article-summary">相对于v-slot指令，对大家来说都应该不是很陌生，在 2.6.0 中，vue为具名插槽和作用域插槽引入了一个新的统一的语法 (即
-              v-slot指令)。它取代了 slot 和 slot-scope在新版中的应用，当然vue官方暂时还木有删除老版本中具名插槽
+            <img src="~/static/test.jpg" class="article-cover" loading="lazy">
+            <div class="article-summary">{{ item.content }}
             </div>
           </div>
         </div>
@@ -29,7 +28,24 @@
 
 <script>
 export default {
-  name: 'IndexPage'
+  name: 'IndexPage',
+  data() {
+    return {
+      test: '哈哈'
+    }
+  },
+  methods: {},
+  async asyncData({$axios}) {
+    const {data: response} = await $axios.get('article/list', {
+      params: {
+        page: 1,
+        size: 20
+      }
+    })
+    return {
+      articleList: response.data.data
+    }
+  }
 }
 </script>
 
