@@ -1,0 +1,1 @@
+export const ARTICLE_SUMMARY_LENGTH = 125
