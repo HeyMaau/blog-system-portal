@@ -22,6 +22,8 @@ export default {
 
 .el-header {
   padding: 0;
+  position: sticky;
+  top: 0;
 }
 
 .el-main {

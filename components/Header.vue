@@ -1,7 +1,7 @@
 <template>
   <div id="header">
     <div id="header-link-area">
-      <nuxt-link to="/">manpok.top</nuxt-link>
+      <nuxt-link to="/" class="website-logo">manpok.top</nuxt-link>
       <nuxt-link to="/">首页</nuxt-link>
       <el-dropdown>
         <span class="el-dropdown-link">
@@ -41,17 +41,28 @@ export default {
 
 #header {
   height: 52px;
-  background-color: cornflowerblue;
+  background-color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
+  box-shadow: 0 1px 3px hsl(0deg 0% 7% / 10%);
+}
+
+.website-logo {
+  font-size: 20px;
+  color: black !important;
 }
 
 .el-input {
+  margin-left: 350px;
   width: 296px;
 }
 
+::v-deep .el-input__inner {
+  border-radius: 999px;
+}
+
 #header-link-area {
+  margin-left: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -60,10 +71,13 @@ export default {
 
 #header-link-area a {
   margin: 0 22px;
+  color: #8590a6;
 }
 
 .el-dropdown {
   margin: 0 22px;
+  color: #8590a6;
+  font-size: 15px;
 }
 
 #avatar {

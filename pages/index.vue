@@ -174,7 +174,7 @@ export default {
 
 .author-info-card {
   width: 100%;
-  padding: 0 14px;
+  padding: 0 20px;
 }
 
 .author-avatar {
