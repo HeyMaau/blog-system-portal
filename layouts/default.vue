@@ -14,7 +14,8 @@ import Header from "../components/Header";
 
 export default {
   name: "default",
-  components: {Header}
+  components: {Header},
+  middleware: 'get-categories'
 }
 </script>
 
