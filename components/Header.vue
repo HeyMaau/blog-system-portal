@@ -44,6 +44,7 @@ export default {
   background-color: white;
   display: flex;
   align-items: center;
+  justify-content: center;
   box-shadow: 0 1px 3px hsl(0deg 0% 7% / 10%);
 }
 
@@ -53,7 +54,7 @@ export default {
 }
 
 .el-input {
-  margin-left: 350px;
+  margin-left: 320px;
   width: 296px;
 }
 
@@ -62,21 +63,18 @@ export default {
 }
 
 #header-link-area {
-  margin-left: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 52px;
 }
 
-#header-link-area a {
+#header-link-area a, .el-dropdown {
   margin: 0 22px;
   color: #8590a6;
 }
 
 .el-dropdown {
-  margin: 0 22px;
-  color: #8590a6;
   font-size: 15px;
 }
 

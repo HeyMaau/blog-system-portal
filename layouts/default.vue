@@ -28,6 +28,7 @@ export default {
 }
 
 .el-main {
+  padding: 10px;
   height: 100%;
   display: flex;
   justify-content: center;
