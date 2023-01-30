@@ -21,7 +21,7 @@
       prefix-icon="el-icon-search"
       v-model="input">
     </el-input>
-    <img src="http://localhost:8080/admin/image/368901746140905472" crossorigin="anonymous" id="avatar"/>
+    <img src="~static/test.jpg" crossorigin="anonymous" id="avatar"/>
   </div>
 </template>
 
