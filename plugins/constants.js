@@ -1,1 +1,2 @@
 export const ARTICLE_SUMMARY_LENGTH = 125
+export const CODE_SUCCESS = 20000

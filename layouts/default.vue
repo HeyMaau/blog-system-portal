@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header>
-      <Header/>
+      <Header :categories="categoryList"/>
     </el-header>
     <el-main>
       <nuxt/>
@@ -11,11 +11,15 @@
 
 <script>
 import Header from "../components/Header";
+import {mapState} from 'vuex'
 
 export default {
   name: "default",
   components: {Header},
-  middleware: 'get-categories'
+  middleware: 'get-categories',
+  computed: {
+    ...mapState('articleCategory', ['categoryList'])
+  }
 }
 </script>
 
