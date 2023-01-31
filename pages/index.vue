@@ -6,8 +6,10 @@
           <h2 class="article-title">{{ item.title }}</h2>
           <div class="richtext-container">
             <img src="~/static/test.jpg" class="article-cover" loading="lazy"/>
-            <div class="article-summary">
-              {{ item.content }}
+            <div>
+              <div class="article-summary">
+                {{ item.content }}
+              </div>
               <button class="show-article-detail" @click="showArticleDetail(item.id, $event)">
                 阅读全文
                 <i class="el-icon-arrow-down"></i>
@@ -168,6 +170,7 @@ export default {
   max-height: 100px;
   line-height: 1.67;
   overflow: hidden;
+  display: inline;
 }
 
 #website-info-column {
