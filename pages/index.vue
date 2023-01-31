@@ -6,7 +6,13 @@
           <h2 class="article-title">{{ item.title }}</h2>
           <div class="richtext-container">
             <img src="~/static/test.jpg" class="article-cover" loading="lazy"/>
-            <div class="article-summary">{{ item.content }}</div>
+            <div class="article-summary">
+              {{ item.content }}
+              <button class="show-article-detail" @click="showArticleDetail(item.id, $event)">
+                阅读全文
+                <i class="el-icon-arrow-down"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -66,13 +72,13 @@
 </template>
 
 <script>
-import {ARTICLE_SUMMARY_LENGTH} from "../plugins/constants";
+import {ARTICLE_SUMMARY_LENGTH, CODE_SUCCESS} from "../plugins/constants";
 
 export default {
   name: 'IndexPage',
   data() {
     return {
-      test: '哈哈'
+      currentArticleContent: ''
     }
   },
   methods: {
@@ -82,6 +88,15 @@ export default {
           item.content = item.content.slice(0, ARTICLE_SUMMARY_LENGTH) + '...'
         }
       })
+    },
+    async showArticleDetail(articleID, $event) {
+      const {data: response} = await this.$axios.get('article/' + articleID)
+      if (response.code === CODE_SUCCESS) {
+        this.currentArticleContent = response.data.content
+      } else {
+        this.$message.error(response.message)
+      }
+      console.log(articleID, $event)
     }
   },
   async asyncData({$axios}) {
@@ -204,6 +219,20 @@ export default {
   font-weight: 600;
   font-synthesis: style;
   margin-bottom: 20px;
+}
+
+.show-article-detail {
+  color: #175199;
+  margin-left: 4px;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.el-icon-arrow-down {
+  font-weight: bold;
 }
 
 </style>

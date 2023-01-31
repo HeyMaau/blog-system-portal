@@ -1,9 +1,11 @@
 html, body {
   height: 100%;
   margin: 0;
+
 }
 
 body {
+  min-width: 1000px;
   background-color: #f6f6f6;
   color: #121212;
   font-size: 15px;

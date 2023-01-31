@@ -72,6 +72,7 @@ export default {
 #header-link-area a, .el-dropdown {
   margin: 0 22px;
   color: #8590a6;
+  flex-shrink: 0;
 }
 
 .el-dropdown {
