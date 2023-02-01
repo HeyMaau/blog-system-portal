@@ -6,13 +6,13 @@
           <h2 class="article-title">{{ item.title }}</h2>
           <div class="richtext-container">
             <img src="~/static/test.jpg" class="article-cover" loading="lazy" v-show="collapseState[item.id]"/>
-            <div>
+            <div class="article-content">
               <div class="article-summary" v-show="collapseState[item.id]">
                 {{ item.content }}
               </div>
-              <div v-show="!collapseState[item.id]" v-html="articleContent[item.id]">
+              <div v-show="!collapseState[item.id]" v-html="articleContent[item.id]" class="article-detail">
               </div>
-              <button class="show-article-detail" @click="showArticleDetail(item.id, $event)">
+              <button class="show-article-detail" @click="showArticleDetail(item.id, $event)" v-show="collapseState[item.id]">
                 阅读全文
                 <i class="el-icon-arrow-down"></i>
               </button>
@@ -171,7 +171,7 @@ export default {
 }
 
 .article-item-container {
-  padding: 15px;
+  padding: 20px;
   border-bottom: 1px solid #f0f2f7;
   box-shadow: none;
 }
@@ -246,6 +246,14 @@ export default {
 
 .el-icon-arrow-down {
   font-weight: bold;
+}
+
+.article-content {
+  width: 100%;
+}
+
+::v-deep .article-detail img {
+  max-width: 100%;
 }
 
 </style>
