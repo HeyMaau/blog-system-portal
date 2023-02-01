@@ -1,38 +1,6 @@
 <template>
   <div id="main-page-container">
-    <div id="article-list" class="card">
-      <div class="article-item-container" v-for="item in articleList" :key="item.id">
-        <div class="article-item">
-          <h2 class="article-title">{{ item.title }}</h2>
-          <div class="richtext-container">
-            <img src="~/static/test.jpg" class="article-cover" loading="lazy" v-show="collapseState[item.id]"/>
-            <div class="article-content">
-              <div class="article-summary" v-show="collapseState[item.id]">
-                {{ item.content }}
-              </div>
-              <div v-show="!collapseState[item.id]" v-html="articleContent[item.id]" class="article-detail">
-              </div>
-              <button class="show-article-detail" @click="showArticleDetail(item.id, $event)" v-show="collapseState[item.id]">
-                阅读全文
-                <i class="el-icon-arrow-down"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="article-item-container">
-        <div class="article-item">
-          <h2 class="article-title">很长很长很长的标题</h2>
-          <div class="richtext-container">
-            <img src="~/static/test.jpg" class="article-cover"/>
-            <div class="article-summary">相对于v-slot指令，对大家来说都应该不是很陌生，在 2.6.0
-              中，vue为具名插槽和作用域插槽引入了一个新的统一的语法 (即
-              v-slot指令)。它取代了 slot 和 slot-scope在新版中的应用，当然vue官方暂时还木有删除老版本中具名插槽
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <ArticleList :articleList="articleList" id="article-list"/>
     <div id="website-info-column">
       <div class="flex-column-horizontally-space-between card author-info-card">
         <img src="~static/test.jpg" height="100" width="100" alt="author avatar" class="author-avatar">
@@ -77,14 +45,12 @@
 
 <script>
 import {ARTICLE_SUMMARY_LENGTH, CODE_SUCCESS} from "../plugins/constants";
+import ArticleList from "@/components/ArticleList";
 
 export default {
   name: 'IndexPage',
-  data() {
-    return {
-      articleContent: {},
-      collapseState: {}
-    }
+  components: {
+    ArticleList
   },
   methods: {
     trimArticleSummary() {
@@ -104,11 +70,6 @@ export default {
       }
       console.log(articleID, $event)
     },
-    initCollapseState() {
-      this.articleList.forEach(item => {
-        this.$set(this.collapseState, item.id, true)
-      })
-    }
   },
   async asyncData({$axios}) {
     const {data: response} = await $axios.get('article/list', {
@@ -123,7 +84,6 @@ export default {
   },
   created() {
     this.trimArticleSummary()
-    this.initCollapseState()
   }
 }
 </script>
@@ -139,48 +99,6 @@ export default {
 #article-list {
   width: 694px;
   margin-right: 10px;
-}
-
-.article-title {
-  margin: 0;
-  line-height: 1.6;
-  font-size: 18px;
-  font-weight: 600;
-  font-synthesis: style;
-  color: #121212;
-}
-
-.article-cover {
-  width: 190px;
-  height: 105px;
-  object-fit: cover;
-  flex-shrink: 0;
-  margin-right: 18px;
-  border-radius: 4px;
-}
-
-.richtext-container {
-  display: flex;
-  align-items: center;
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-.article-item {
-
-}
-
-.article-item-container {
-  padding: 20px;
-  border-bottom: 1px solid #f0f2f7;
-  box-shadow: none;
-}
-
-.article-summary {
-  max-height: 100px;
-  line-height: 1.67;
-  overflow: hidden;
-  display: inline;
 }
 
 #website-info-column {
@@ -232,28 +150,6 @@ export default {
   font-weight: 600;
   font-synthesis: style;
   margin-bottom: 20px;
-}
-
-.show-article-detail {
-  color: #175199;
-  margin-left: 4px;
-  border: none;
-  background-color: transparent;
-  font-size: 15px;
-  cursor: pointer;
-  padding: 0;
-}
-
-.el-icon-arrow-down {
-  font-weight: bold;
-}
-
-.article-content {
-  width: 100%;
-}
-
-::v-deep .article-detail img {
-  max-width: 100%;
 }
 
 </style>
