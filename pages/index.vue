@@ -5,10 +5,12 @@
         <div class="article-item">
           <h2 class="article-title">{{ item.title }}</h2>
           <div class="richtext-container">
-            <img src="~/static/test.jpg" class="article-cover" loading="lazy"/>
+            <img src="~/static/test.jpg" class="article-cover" loading="lazy" v-show="collapseState[item.id]"/>
             <div>
-              <div class="article-summary">
+              <div class="article-summary" v-show="collapseState[item.id]">
                 {{ item.content }}
+              </div>
+              <div v-show="!collapseState[item.id]" v-html="articleContent[item.id]">
               </div>
               <button class="show-article-detail" @click="showArticleDetail(item.id, $event)">
                 阅读全文
@@ -80,7 +82,8 @@ export default {
   name: 'IndexPage',
   data() {
     return {
-      currentArticleContent: ''
+      articleContent: {},
+      collapseState: {}
     }
   },
   methods: {
@@ -94,11 +97,17 @@ export default {
     async showArticleDetail(articleID, $event) {
       const {data: response} = await this.$axios.get('article/' + articleID)
       if (response.code === CODE_SUCCESS) {
-        this.currentArticleContent = response.data.content
+        this.$set(this.articleContent, articleID, response.data.content)
+        this.collapseState[articleID] = false
       } else {
         this.$message.error(response.message)
       }
       console.log(articleID, $event)
+    },
+    initCollapseState() {
+      this.articleList.forEach(item => {
+        this.$set(this.collapseState, item.id, true)
+      })
     }
   },
   async asyncData({$axios}) {
@@ -112,8 +121,9 @@ export default {
       articleList: response.data.data
     }
   },
-  mounted() {
+  created() {
     this.trimArticleSummary()
+    this.initCollapseState()
   }
 }
 </script>
