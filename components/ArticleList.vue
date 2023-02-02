@@ -2,7 +2,7 @@
   <div id="article-list" class="card">
     <div class="article-item-container" v-for="item in articleList" :key="item.id">
       <div class="article-item">
-        <h2 class="article-title">{{ item.title }}</h2>
+        <nuxt-link :to="`/article/${item.id}`" target="_blank" class="article-title">{{ item.title }}</nuxt-link>
         <div class="richtext-container">
           <img src="~/static/test.jpg" class="article-cover" loading="lazy" v-show="collapseState[item.id]"/>
           <div class="article-content">
