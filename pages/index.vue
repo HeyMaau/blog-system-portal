@@ -2,9 +2,7 @@
   <div id="main-page-container">
     <ArticleList :articleList="articleList" class="article-list"/>
     <div id="website-info-column">
-      <div class="flex-column-horizontally-space-between card author-info-card">
-        <img src="~static/test.jpg" height="100" width="100" alt="author avatar" class="author-avatar">
-        <span class="author-name">HeyMaau</span>
+      <InfoCard avatarSrc="/test.jpg" title="HeyMaau">
         <div class="flex-row-center-vertically-left author-info-item">
           <span class="author-info-icon">
             <svg t="1675052094498" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +36,7 @@
           </span>
           <span>日常开发过程中遇到的坑全写在这了</span>
         </div>
-      </div>
+      </InfoCard>
     </div>
   </div>
 </template>
@@ -46,11 +44,13 @@
 <script>
 import {ARTICLE_SUMMARY_LENGTH, CODE_SUCCESS} from "../plugins/constants";
 import ArticleList from "@/components/ArticleList";
+import InfoCard from "@/components/InfoCard";
 
 export default {
   name: 'IndexPage',
   components: {
-    ArticleList
+    ArticleList,
+    InfoCard
   },
   methods: {
     trimArticleSummary() {
@@ -101,29 +101,6 @@ export default {
   width: 296px;
 }
 
-.flex-column-horizontally-space-between {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.card {
-  border-radius: 2px;
-  background: white;
-  box-shadow: 0 1px 3px hsl(0deg 0% 7% / 10%);
-}
-
-.author-info-card {
-  width: 100%;
-  padding: 0 20px;
-}
-
-.author-avatar {
-  border-radius: 100%;
-  margin: 15px 0;
-}
-
 .flex-row-center-vertically-left {
   display: flex;
   align-items: center;
@@ -138,14 +115,6 @@ export default {
   margin-right: 12px;
   display: inline-flex;
   align-items: center;
-}
-
-.author-name {
-  line-height: 30px;
-  font-size: 26px;
-  font-weight: 600;
-  font-synthesis: style;
-  margin-bottom: 20px;
 }
 
 </style>
