@@ -1,6 +1,6 @@
 <template>
   <div id="main-page-container">
-    <ArticleList :articleList="articleList" id="article-list"/>
+    <ArticleList :articleList="articleList" class="article-list"/>
     <div id="website-info-column">
       <div class="flex-column-horizontally-space-between card author-info-card">
         <img src="~static/test.jpg" height="100" width="100" alt="author avatar" class="author-avatar">
@@ -89,16 +89,12 @@ export default {
 </script>
 
 <style scoped>
+@import "~assets/article.css";
 
 #main-page-container {
   display: flex;
   justify-content: center;
   width: 1000px;
-}
-
-#article-list {
-  width: 694px;
-  margin-right: 10px;
 }
 
 #website-info-column {

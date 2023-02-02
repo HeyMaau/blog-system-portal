@@ -47,12 +47,14 @@ export default {
       console.log(articleID, $event)
     },
     initCollapseState() {
-      this.articleList.forEach(item => {
-        this.$set(this.collapseState, item.id, true)
-      })
+      if (this.articleList !== undefined) {
+        this.articleList.forEach(item => {
+          this.$set(this.collapseState, item.id, true)
+        })
+      }
     }
   },
-  created() {
+  beforeMount() {
     this.initCollapseState()
   }
 }

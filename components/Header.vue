@@ -9,7 +9,7 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item v-for="item in categories" :key="item.id">
-            <nuxt-link :to="`/article/category/${item.id}`">{{ item.name }}</nuxt-link>
+            <nuxt-link :to="`/category/${item.id}`">{{ item.name }}</nuxt-link>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
