@@ -54,7 +54,7 @@ export default {
       }
     }
   },
-  beforeMount() {
+  beforeUpdate() {
     this.initCollapseState()
   }
 }
