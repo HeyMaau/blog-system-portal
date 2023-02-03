@@ -18,23 +18,11 @@ export default {
   validate({params}) {
     return /^\d+$/.test(params.id)
   },
-  data() {
-    return {
-      article: {}
+  async asyncData({$axios, params}) {
+    const {data: response} = await $axios.get('article/' + params.id)
+    if (response.code === CODE_SUCCESS) {
+      return {article: response.data}
     }
-  },
-  methods: {
-    async getArticle() {
-      const {data: response} = await this.$axios.get('article/' + this.$route.params.id)
-      if (response.code === CODE_SUCCESS) {
-        this.article = response.data
-      } else {
-        this.$message.error(response.message)
-      }
-    }
-  },
-  created() {
-    this.getArticle()
   }
 }
 </script>
