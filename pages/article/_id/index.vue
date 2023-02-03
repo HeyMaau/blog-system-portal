@@ -3,17 +3,18 @@
     <h1 class="article-title">
       {{ article.title }}
     </h1>
-    <div v-html="article.content" class="article-content">
-
-    </div>
+    <AuthorInfoBanner avatarSrc="/test.jpg" name="HeyMaau" signature="菜鸡小码农"/>
+    <div v-html="article.content" class="article-content"></div>
   </div>
 </template>
 
 <script>
 import {CODE_SUCCESS} from "@/plugins/constants";
+import AuthorInfoBanner from "@/components/AuthorInfoBanner";
 
 export default {
   name: "index",
+  components: {AuthorInfoBanner},
   validate({params}) {
     return /^\d+$/.test(params.id)
   },
@@ -51,6 +52,10 @@ export default {
   font-synthesis: style;
   font-weight: 600;
   margin: 24px 0;
+}
+
+.article-content {
+  margin-top: 16px;
 }
 
 ::v-deep .article-content img {

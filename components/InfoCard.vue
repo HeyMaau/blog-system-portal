@@ -34,7 +34,7 @@ export default {
 }
 
 .avatar {
-  border-radius: 100%;
+  border-radius: 50%;
   margin: 15px 0;
   width: 100px;
   height: 100px;
