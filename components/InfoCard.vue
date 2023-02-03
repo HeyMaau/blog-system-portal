@@ -2,7 +2,9 @@
   <div class="flex-column-horizontally-space-between card info-card">
     <img :src="avatarSrc" alt="avatar" class="avatar">
     <span class="title">{{ title }}</span>
-    <slot></slot>
+    <div class="description-container">
+      <slot></slot>
+    </div>
   </div>
 </template>
 
@@ -28,7 +30,6 @@ export default {
 }
 
 .info-card {
-  width: 100%;
   padding: 0 20px;
 }
 
@@ -45,5 +46,11 @@ export default {
   font-weight: 600;
   font-synthesis: style;
   margin-bottom: 20px;
+}
+
+.description-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 </style>

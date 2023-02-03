@@ -1,5 +1,5 @@
 <template>
-  <div id="article-list" class="card">
+  <div class="card">
     <div class="article-item-container" v-for="item in articleList" :key="item.id">
       <div class="article-item">
         <nuxt-link :to="`/article/${item.id}`" target="_blank" class="article-title">{{ item.title }}</nuxt-link>

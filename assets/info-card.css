@@ -1,0 +1,15 @@
+.info-item {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.info-icon {
+  margin-right: 12px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.website-info-column {
+  width: 296px;
+}
