@@ -55,7 +55,7 @@ export default {
 }
 
 .article-content {
-  margin-top: 16px;
+  padding-top: 16px;
 }
 
 ::v-deep .article-content img {
