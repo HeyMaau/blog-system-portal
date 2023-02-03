@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header height="52px">
       <Header :categories="categoryList"/>
     </el-header>
     <el-main>
