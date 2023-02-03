@@ -32,7 +32,7 @@ export default {
 }
 
 .el-main {
-  padding: 10px;
+  padding: 0;
   height: 100%;
   display: flex;
   justify-content: center;
