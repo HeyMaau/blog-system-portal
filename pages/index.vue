@@ -53,13 +53,6 @@ export default {
     InfoCard
   },
   methods: {
-    trimArticleSummary() {
-      this.articleList.forEach(item => {
-        if (item.content.length > ARTICLE_SUMMARY_LENGTH) {
-          item.content = item.content.slice(0, ARTICLE_SUMMARY_LENGTH) + '...'
-        }
-      })
-    },
     async showArticleDetail(articleID, $event) {
       const {data: response} = await this.$axios.get('article/' + articleID)
       if (response.code === CODE_SUCCESS) {
@@ -81,9 +74,6 @@ export default {
     return {
       articleList: response.data.data
     }
-  },
-  created() {
-    this.trimArticleSummary()
   }
 }
 </script>

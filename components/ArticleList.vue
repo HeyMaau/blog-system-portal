@@ -25,6 +25,7 @@
 
 <script>
 import {CODE_SUCCESS} from "@/plugins/constants";
+import {ARTICLE_SUMMARY_LENGTH} from "../plugins/constants";
 
 export default {
   name: "ArticleList",
@@ -52,10 +53,22 @@ export default {
           this.$set(this.collapseState, item.id, true)
         })
       }
+    },
+    trimArticleSummary() {
+      this.articleList.forEach(item => {
+        if (item.content.length > ARTICLE_SUMMARY_LENGTH) {
+          item.content = item.content.slice(0, ARTICLE_SUMMARY_LENGTH) + '...'
+        }
+      })
     }
   },
   beforeUpdate() {
     this.initCollapseState()
+    this.trimArticleSummary()
+  },
+  created() {
+    this.initCollapseState()
+    this.trimArticleSummary()
   }
 }
 </script>

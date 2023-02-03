@@ -21,14 +21,15 @@ export default {
   },
   methods: {
     async getArticleListByCategory() {
-      const {data: response} = await this.$axios.get('article/list/' + this.$route.params.id, {
+      const {data: response} = await this.$axios.get('article/list', {
         params: {
           page: 1,
-          size: 20
+          size: 20,
+          categoryID: this.$route.params.id
         }
       })
       if (response.code === CODE_SUCCESS) {
-        this.articleList = response.data.content
+        this.articleList = response.data.data
       } else {
         this.$message.error(response.message)
       }
