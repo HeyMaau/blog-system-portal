@@ -16,7 +16,7 @@ import {mapState} from 'vuex'
 export default {
   name: "default",
   components: {Header},
-  middleware: 'get-categories',
+  middleware: ['get-categories','get-authorInfo'],
   computed: {
     ...mapState('articleCategory', ['categoryList'])
   }

@@ -3,7 +3,7 @@
     <h1 class="article-title">
       {{ article.title }}
     </h1>
-    <AuthorInfoBanner avatarSrc="/test.jpg" name="HeyMaau" signature="菜鸡小码农"/>
+    <AuthorInfoBanner :avatarSrc="authorInfo.avatar" :name="authorInfo.userName" :signature="authorInfo.sign"/>
     <div v-html="article.content" class="article-content"></div>
   </div>
 </template>
@@ -11,6 +11,7 @@
 <script>
 import {CODE_SUCCESS} from "@/plugins/constants";
 import AuthorInfoBanner from "@/components/AuthorInfoBanner";
+import {mapState} from "vuex";
 
 export default {
   name: "index",
@@ -23,6 +24,9 @@ export default {
     if (response.code === CODE_SUCCESS) {
       return {article: response.data}
     }
+  },
+  computed: {
+    ...mapState('authorInfo', ['authorInfo'])
   }
 }
 </script>
