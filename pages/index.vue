@@ -53,31 +53,76 @@ export default {
     ArticleList,
     InfoCard
   },
+  data() {
+    return {
+      currentPage: 1,
+      currentSize: 8
+    }
+  },
   methods: {
-    async showArticleDetail(articleID, $event) {
-      const {data: response} = await this.$axios.get('article/' + articleID)
-      if (response.code === CODE_SUCCESS) {
-        this.$set(this.articleContent, articleID, response.data.content)
-        this.collapseState[articleID] = false
-      } else {
-        this.$message.error(response.message)
+    async windowScroll() {
+      //如果满足公式则，确实到底了
+      if (Math.ceil(this.getScrollTop() + this.getClientHeight()) === this.getScrollHeight()) {
+        if (!this.noMore) {
+          const {data: response} = await this.$axios.get('article/list', {
+            params: {
+              page: ++this.currentPage,
+              size: this.currentSize
+            }
+          })
+          if (response.code === CODE_SUCCESS) {
+            response.data.data.forEach(item => {
+              this.articleList.push(item)
+            })
+          }
+        }
       }
-      console.log(articleID, $event)
     },
+    //获取当前可视范围的高度
+    getClientHeight() {
+      let clientHeight = 0;
+      if (document.body.clientHeight && document.documentElement.clientHeight) {
+        clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight)
+      } else {
+        clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight)
+      }
+      return clientHeight
+    },
+    //获取文档完整的高度
+    getScrollHeight() {
+      return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
+    },
+    //获取当前滚动条的位置
+    getScrollTop() {
+      let scrollTop = 0;
+      if (document.documentElement && document.documentElement.scrollTop) {
+        scrollTop = document.documentElement.scrollTop
+      } else if (document.body) {
+        scrollTop = document.body.scrollTop
+      }
+      return scrollTop
+    }
   },
   async asyncData({$axios}) {
     const {data: response} = await $axios.get('article/list', {
       params: {
         page: 1,
-        size: 30
+        size: 8
       }
     })
     return {
-      articleList: response.data.data
+      articleList: response.data.data,
+      noMore: response.data.noMore
     }
   },
   computed: {
     ...mapState('authorInfo', ['authorInfo'])
+  },
+  mounted() {
+    window.addEventListener('scroll', this.windowScroll, true)
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.windowScroll)
   }
 }
 </script>

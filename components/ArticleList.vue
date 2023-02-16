@@ -11,7 +11,7 @@
             </div>
             <div v-show="!collapseState[item.id]" v-html="articleContent[item.id]" class="article-detail">
             </div>
-            <button class="show-article-detail" @click="showArticleDetail(item.id, $event)"
+            <button class="show-article-detail" @click="showArticleDetail(item.id)"
                     v-show="collapseState[item.id]">
               阅读全文
               <i class="el-icon-arrow-down"></i>
@@ -37,15 +37,15 @@ export default {
     }
   },
   methods: {
-    async showArticleDetail(articleID, $event) {
+    async showArticleDetail(articleID) {
       const {data: response} = await this.$axios.get('article/' + articleID)
+      console.log(response)
       if (response.code === CODE_SUCCESS) {
         this.$set(this.articleContent, articleID, response.data.content)
         this.collapseState[articleID] = false
       } else {
         this.$message.error(response.message)
       }
-      console.log(articleID, $event)
     },
     initCollapseState() {
       if (this.articleList !== undefined) {
