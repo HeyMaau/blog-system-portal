@@ -50,16 +50,20 @@ export default {
     initCollapseState() {
       if (this.articleList !== undefined) {
         this.articleList.forEach(item => {
-          this.$set(this.collapseState, item.id, true)
+          if (this.collapseState[item.id] === undefined) {
+            this.$set(this.collapseState, item.id, true)
+          }
         })
       }
     },
     trimArticleSummary() {
-      this.articleList.forEach(item => {
-        if (item.content.length > ARTICLE_SUMMARY_LENGTH) {
-          item.content = item.content.slice(0, ARTICLE_SUMMARY_LENGTH) + '...'
-        }
-      })
+      if (this.articleList !== undefined) {
+        this.articleList.forEach(item => {
+          if (item.content.length > ARTICLE_SUMMARY_LENGTH) {
+            item.content = item.content.slice(0, ARTICLE_SUMMARY_LENGTH) + '...'
+          }
+        })
+      }
     }
   },
   beforeUpdate() {
