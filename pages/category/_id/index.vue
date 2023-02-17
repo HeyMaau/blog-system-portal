@@ -1,6 +1,15 @@
 <template>
   <div class="main-page-container">
-    <ArticleList class="article-list" :articleList="articleList"/>
+    <ArticleList class="article-list" :articleList="articleList">
+      <el-pagination
+        hide-on-single-page
+        @current-change="handleCurrentChange"
+        :page-size="size"
+        :pager-count="5"
+        layout="prev, pager, next"
+        :total="total">
+      </el-pagination>
+    </ArticleList>
     <div class="website-info-column">
       <InfoCard avatarSrc="/test.jpg" title="Android开发">
         <div class="info-item">
@@ -32,23 +41,32 @@ export default {
   },
   data() {
     return {
-      articleList: []
+      articleList: [],
+      page: 1,
+      size: 5,
+      total: 0,
+      categoryID: this.$route.params.id
     }
   },
   methods: {
     async getArticleListByCategory() {
       const {data: response} = await this.$axios.get('article/list', {
         params: {
-          page: 1,
-          size: 20,
-          categoryID: this.$route.params.id
+          page: this.page,
+          size: this.size,
+          categoryID: this.categoryID
         }
       })
       if (response.code === CODE_SUCCESS) {
         this.articleList = response.data.data
+        this.total = response.data.total
       } else {
         this.$message.error(response.message)
       }
+    },
+    handleCurrentChange(page) {
+      this.page = page
+      this.getArticleListByCategory()
     }
   },
   created() {
@@ -61,5 +79,15 @@ export default {
 @import "~assets/article.css";
 @import "~assets/page.css";
 @import "~assets/info-card.css";
+
+.el-pagination {
+  display: flex;
+  justify-content: center;
+  padding: 16px 20px;
+}
+
+::v-deep .el-pager li {
+  font-size: 15px;
+}
 
 </style>
