@@ -62,7 +62,7 @@ export default {
   methods: {
     async windowScroll() {
       //如果满足公式则，确实到底了
-      if (Math.ceil(this.getScrollTop() + this.getClientHeight()) === this.getScrollHeight()) {
+      if (this.getScrollTop() + this.getClientHeight() + 20 >= this.getScrollHeight()) {
         if (!this.noMore) {
           const {data: response} = await this.$axios.get('article/list', {
             params: {
