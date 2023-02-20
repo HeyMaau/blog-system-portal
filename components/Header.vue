@@ -17,6 +17,7 @@
       <nuxt-link to="/feedback">联系我</nuxt-link>
     </div>
     <el-input
+      @keyup.enter.native="doSearch"
       placeholder="请输入内容"
       prefix-icon="el-icon-search"
       v-model="input">
@@ -32,6 +33,12 @@ export default {
   data() {
     return {
       input: ''
+    }
+  },
+  methods: {
+    doSearch() {
+      const {href} = this.$router.resolve({path: '/search', query: {keyword: this.input}})
+      window.open(href, '_blank')
     }
   }
 }

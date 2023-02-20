@@ -40,7 +40,6 @@ export default {
   methods: {
     async showArticleDetail(articleID) {
       const {data: response} = await this.$axios.get('article/' + articleID)
-      console.log(response)
       if (response.code === CODE_SUCCESS) {
         this.$set(this.articleContent, articleID, response.data.content)
         this.collapseState[articleID] = false
