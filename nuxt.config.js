@@ -3,7 +3,7 @@ export default {
   head: {
     title: 'blog-system-portal',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'zh'
     },
     meta: [
       {charset: 'utf-8'},

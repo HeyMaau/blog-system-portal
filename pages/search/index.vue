@@ -1,14 +1,16 @@
 <template>
   <div class="main-page-container">
-    <ArticleList class="article-list" :articleList="searchResult"/>
+    <SearchList class="search-list" :searchList="searchResult"/>
   </div>
 </template>
 
 <script>
 import {CODE_SUCCESS} from "../../plugins/constants";
+import SearchList from "../../components/SearchList";
 
 export default {
   name: "index",
+  components: {SearchList},
   data() {
     return {
       searchResult: [],
@@ -38,5 +40,9 @@ export default {
 </script>
 
 <style scoped>
+
+.search-list {
+  width: 694px;
+}
 
 </style>
