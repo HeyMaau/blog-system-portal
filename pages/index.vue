@@ -45,6 +45,7 @@
 import {ARTICLE_SUMMARY_LENGTH, CODE_SUCCESS} from "../plugins/constants";
 import ArticleList from "@/components/ArticleList";
 import InfoCard from "@/components/InfoCard";
+import {getClientHeight, getScrollTop, getScrollHeight} from "../plugins/infinite-scroll";
 import {mapState} from "vuex";
 
 export default {
@@ -62,7 +63,7 @@ export default {
   methods: {
     async windowScroll() {
       //如果满足公式则，确实到底了
-      if (this.getScrollTop() + this.getClientHeight() + 20 >= this.getScrollHeight()) {
+      if (getScrollTop() + getClientHeight() + 20 >= getScrollHeight()) {
         if (!this.noMore) {
           const {data: response} = await this.$axios.get('article/list', {
             params: {
@@ -71,36 +72,13 @@ export default {
             }
           })
           if (response.code === CODE_SUCCESS) {
+            this.noMore = response.data.noMore
             response.data.data.forEach(item => {
               this.articleList.push(item)
             })
           }
         }
       }
-    },
-    //获取当前可视范围的高度
-    getClientHeight() {
-      let clientHeight = 0;
-      if (document.body.clientHeight && document.documentElement.clientHeight) {
-        clientHeight = Math.min(document.body.clientHeight, document.documentElement.clientHeight)
-      } else {
-        clientHeight = Math.max(document.body.clientHeight, document.documentElement.clientHeight)
-      }
-      return clientHeight
-    },
-    //获取文档完整的高度
-    getScrollHeight() {
-      return Math.max(document.body.scrollHeight, document.documentElement.scrollHeight)
-    },
-    //获取当前滚动条的位置
-    getScrollTop() {
-      let scrollTop = 0;
-      if (document.documentElement && document.documentElement.scrollTop) {
-        scrollTop = document.documentElement.scrollTop
-      } else if (document.body) {
-        scrollTop = document.body.scrollTop
-      }
-      return scrollTop
     }
   },
   async asyncData({$axios}) {
