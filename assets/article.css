@@ -2,3 +2,69 @@
   width: 694px;
   margin-right: 10px;
 }
+
+.article-title {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 18px;
+  font-weight: 600;
+  font-synthesis: style;
+  color: #121212;
+}
+
+.article-cover {
+  width: 190px;
+  height: 105px;
+  object-fit: cover;
+  flex-shrink: 0;
+  margin-right: 18px;
+  border-radius: 4px;
+}
+
+.richtext-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
+
+.article-item-container {
+  padding: 20px;
+  border-bottom: 1px solid #f0f2f7;
+  box-shadow: none;
+}
+
+.article-summary {
+  max-height: 100px;
+  line-height: 1.67;
+  overflow: hidden;
+  display: inline;
+}
+
+.card {
+  border-radius: 2px;
+  background: white;
+  box-shadow: 0 1px 3px hsl(0deg 0% 7% / 10%);
+}
+
+.show-article-detail {
+  color: #175199;
+  margin-left: 4px;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.el-icon-arrow-down {
+  font-weight: bold;
+}
+
+.article-content {
+  width: 100%;
+}
+
+::v-deep .article-detail img {
+  max-width: 100%;
+}
