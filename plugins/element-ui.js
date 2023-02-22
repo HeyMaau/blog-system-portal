@@ -1,5 +1,12 @@
 import Vue from 'vue'
-import Element from 'element-ui'
-import locale from 'element-ui/lib/locale/lang/en'
+import {Pagination, Dropdown, DropdownMenu, DropdownItem, Container, Input, Header, Main, Message} from "element-ui";
 
-Vue.use(Element, { locale })
+Vue.component(Pagination.name, Pagination)
+Vue.component(Dropdown.name, Dropdown)
+Vue.component(DropdownMenu.name, DropdownMenu)
+Vue.component(DropdownItem.name, DropdownItem)
+Vue.component(Container.name, Container)
+Vue.component(Input.name, Input)
+Vue.component(Header.name, Header)
+Vue.component(Main.name, Main)
+Vue.prototype.$message = Message
