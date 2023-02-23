@@ -56,6 +56,17 @@ export default {
           }
         ]
       ]
+    },
+    optimization: {
+      minimize: true,
+      splitChunks: {
+        chunks: 'all',
+        automaticNameDelimiter: '.',
+        minSize: 10000,
+        maxSize: 250000,
+        name: undefined,
+        cacheGroups: {}
+      }
     }
   }
 }
