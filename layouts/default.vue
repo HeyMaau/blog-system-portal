@@ -1,12 +1,10 @@
 <template>
-  <el-container>
-    <el-header height="52px">
-      <Header :categories="categoryList"/>
-    </el-header>
-    <el-main>
+  <div class="container">
+    <Header :categories="categoryList" class="header"/>
+    <div class="main">
       <nuxt/>
-    </el-main>
-  </el-container>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -16,7 +14,7 @@ import {mapState} from 'vuex'
 export default {
   name: "default",
   components: {Header},
-  middleware: ['get-categories','get-authorInfo'],
+  middleware: ['get-categories', 'get-authorInfo'],
   computed: {
     ...mapState('articleCategory', ['categoryList'])
   }
@@ -25,15 +23,16 @@ export default {
 
 <style scoped>
 
-.el-header {
-  padding: 0;
+.container {
+  height: 100%;
+}
+
+.header {
   position: sticky;
   top: 0;
 }
 
-.el-main {
-  padding: 0;
-  height: 100%;
+.main {
   display: flex;
   justify-content: center;
 }
