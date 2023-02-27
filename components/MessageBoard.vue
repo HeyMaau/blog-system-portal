@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="button-container">
-      <el-button type="info">提交反馈</el-button>
+      <el-button type="info" :disabled="disableButton">提交反馈</el-button>
     </div>
   </div>
 </template>
@@ -23,13 +23,19 @@ export default {
     return {
       title: '',
       content: '',
-      email: ''
+      email: '',
+      disableButton: true
     }
   },
   methods: {
     adjustTextareaHeight(event) {
       this.$refs.inputContentRef.style.height = 'inherit'
       this.$refs.inputContentRef.style.height = event.target.scrollHeight + 'px'
+    }
+  },
+  watch: {
+    content(newValue) {
+      this.disableButton = newValue.trim().length === 0;
     }
   },
   mounted() {
@@ -91,6 +97,11 @@ export default {
   margin-top: 10px;
   display: flex;
   justify-content: right;
+}
+
+.input-title, .input-content, .input-email {
+  font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;;
+
 }
 
 </style>
