@@ -41,7 +41,6 @@ export default {
         email: this.email
       })
       if (response.code === CODE_SUCCESS) {
-        this.$message.success("提交成功")
         this.$emit('submit-success')
       } else {
         this.$message.error(response.message)

@@ -7,6 +7,8 @@
 </template>
 
 <script>
+let timer
+
 export default {
   name: "index",
   data() {
@@ -19,6 +21,16 @@ export default {
   methods: {
     onSubmitSuccess() {
       this.submitted = true
+      this.refreshSubmitSuccessTips()
+      timer = setInterval(this.refreshSubmitSuccessTips, 1000);
+    },
+    refreshSubmitSuccessTips() {
+      this.submitSuccessTips = `将在${this.countDown}秒后跳转至首页`
+      if (this.countDown === 0) {
+        clearInterval(timer)
+        this.$router.push('/')
+      }
+      this.countDown--
     }
   }
 }
