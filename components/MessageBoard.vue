@@ -11,12 +11,14 @@
       </div>
     </div>
     <div class="button-container">
-      <el-button type="info" :disabled="disableButton">提交反馈</el-button>
+      <el-button type="info" :disabled="disableButton" @click="submitFeedback">提交反馈</el-button>
     </div>
   </div>
 </template>
 
 <script>
+import {CODE_SUCCESS} from "../plugins/constants";
+
 export default {
   name: "MessageBoard",
   data() {
@@ -31,11 +33,23 @@ export default {
     adjustTextareaHeight(event) {
       this.$refs.inputContentRef.style.height = 'inherit'
       this.$refs.inputContentRef.style.height = event.target.scrollHeight + 'px'
+    },
+    async submitFeedback() {
+      const {data: response} = await this.$axios.post('feedback', {
+        title: this.title,
+        content: this.content,
+        email: this.email
+      })
+      if (response.code === CODE_SUCCESS) {
+        this.$message.success("提交成功")
+      } else {
+        this.$message.error(response.message)
+      }
     }
   },
   watch: {
     content(newValue) {
-      this.disableButton = newValue.trim().length === 0;
+      this.disableButton = newValue.trim().length === 0
     }
   },
   mounted() {
