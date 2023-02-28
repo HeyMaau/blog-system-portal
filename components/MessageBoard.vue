@@ -1,18 +1,22 @@
 <template>
   <div>
-    <div class="message-board-container">
-      <textarea placeholder="请输入标题（选填）" class="input-area input-title" v-model="title"></textarea>
-      <div class="input-content-container">
+    <div v-show="!submitted">
+      <div class="message-board-container">
+        <textarea placeholder="请输入标题（选填）" class="input-area input-title" v-model="title"></textarea>
+        <div class="input-content-container">
       <textarea placeholder="请输入留言内容（必填）" class="input-area input-content" v-model="content"
                 ref="inputContentRef"></textarea>
+        </div>
+        <div class="input-email-container">
+          <textarea placeholder="您的邮箱（选填）" class="input-area input-email" v-model="email"></textarea>
+        </div>
       </div>
-      <div class="input-email-container">
-        <textarea placeholder="您的邮箱（选填）" class="input-area input-email" v-model="email"></textarea>
+      <div class="button-container">
+        <el-button type="info" :disabled="disableButton" @click="submitFeedback">提交反馈</el-button>
       </div>
     </div>
-    <div class="button-container">
-      <el-button type="info" :disabled="disableButton" @click="submitFeedback">提交反馈</el-button>
-    </div>
+    <el-result icon="success" title="提交成功" :subTitle="submitSuccessTips" v-show="submitted">
+    </el-result>
   </div>
 </template>
 
@@ -26,7 +30,10 @@ export default {
       title: '',
       content: '',
       email: '',
-      disableButton: true
+      disableButton: true,
+      submitted: false,
+      submitSuccessTips: '',
+      countDown: 3
     }
   },
   methods: {
@@ -42,6 +49,7 @@ export default {
       })
       if (response.code === CODE_SUCCESS) {
         this.$message.success("提交成功")
+        this.submitted = true
       } else {
         this.$message.error(response.message)
       }
