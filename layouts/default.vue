@@ -28,13 +28,15 @@ export default {
 }
 
 .header {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 }
 
 .main {
   display: flex;
   justify-content: center;
+  padding-top: 52px;
 }
 
 </style>
