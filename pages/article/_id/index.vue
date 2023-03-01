@@ -4,7 +4,10 @@
       {{ article.title }}
     </h1>
     <AuthorInfoBanner :avatarSrc="authorInfo.avatar" :name="authorInfo.userName" :signature="authorInfo.sign"/>
-    <div v-html="article.content" class="article-content" ref="articleContentRef"></div>
+    <div class="article-main-container">
+      <div v-html="article.content" class="article-content" ref="articleContentRef"></div>
+      <Catalog :headers="headers" class="article-catalog"/>
+    </div>
   </div>
 </template>
 
@@ -12,10 +15,11 @@
 import {CODE_SUCCESS} from "@/plugins/constants";
 import AuthorInfoBanner from "@/components/AuthorInfoBanner";
 import {mapState} from "vuex";
+import Catalog from "@/components/Catalog";
 
 export default {
   name: "index",
-  components: {AuthorInfoBanner},
+  components: {AuthorInfoBanner, Catalog},
   validate({params}) {
     return /^\d+$/.test(params.id)
   },
@@ -36,7 +40,6 @@ export default {
   methods: {
     extractArticleHeader() {
       let children = this.$refs.articleContentRef.children
-      console.log(children)
       for (let i = 0; i < children.length; i++) {
         switch (children[i].tagName) {
           case 'H1':
@@ -61,6 +64,18 @@ export default {
 </script>
 
 <style scoped>
+
+.article-main-container {
+  position: relative;
+}
+
+.article-catalog {
+  position: absolute;
+  width: 250px;
+  background: #175199;
+  top: 16px;
+  left: -250px;
+}
 
 .article-container {
   width: 700px;
