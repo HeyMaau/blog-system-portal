@@ -4,7 +4,7 @@
       {{ article.title }}
     </h1>
     <AuthorInfoBanner :avatarSrc="authorInfo.avatar" :name="authorInfo.userName" :signature="authorInfo.sign"/>
-    <div v-html="article.content" class="article-content"></div>
+    <div v-html="article.content" class="article-content" ref="articleContentRef"></div>
   </div>
 </template>
 
@@ -27,6 +27,35 @@ export default {
   },
   computed: {
     ...mapState('authorInfo', ['authorInfo'])
+  },
+  data() {
+    return {
+      headers: []
+    }
+  },
+  methods: {
+    extractArticleHeader() {
+      let children = this.$refs.articleContentRef.children
+      console.log(children)
+      for (let i = 0; i < children.length; i++) {
+        switch (children[i].tagName) {
+          case 'H1':
+          case 'H2':
+          case 'H3':
+            let headerID = 'header-' + i
+            let level = children[i].tagName.substring(1, 2)
+            children[i].setAttribute('id', headerID)
+            this.headers.push({
+              id: headerID,
+              text: children[i].textContent,
+              level
+            })
+        }
+      }
+    }
+  },
+  mounted() {
+    this.extractArticleHeader()
   }
 }
 </script>
