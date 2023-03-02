@@ -71,7 +71,7 @@ export default {
 
 .article-catalog {
   position: absolute;
-  width: 250px;
+  width: 230px;
   top: 16px;
   left: -250px;
 }
