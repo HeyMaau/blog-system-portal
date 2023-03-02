@@ -4,7 +4,9 @@
          class="catalog-item-container"
          :class="{'header-first-level': item.level === '1', 'header-second-level': item.level === '2',
          'header-third-level': item.level === '3'}">
-      <a :href="'#' + item.id" class="catalog-item">{{ item.text }}</a>
+      <div class="catalog-link-container" :style="{marginLeft: 5 * item.level + 'px'}">
+        <a :href="'#' + item.id" class="catalog-link">{{ item.text }}</a>
+      </div>
     </div>
   </div>
 </template>
@@ -29,20 +31,24 @@ export default {
   align-items: center;
 }
 
-.catalog-item {
+.catalog-link {
   color: #8590a6;
   font-weight: 500;
   font-size: 12px;
   line-height: 30px;
   width: 100%;
   display: inline-block;
-  padding-left: 10px;
 }
 
-.catalog-item:hover {
+.catalog-link-container:hover {
   color: #056DE8;
   background: #EBEBEB;
   border-radius: 4px;
+}
+
+.catalog-link-container {
+  width: 100%;
+  padding-left: 15px;
 }
 
 .header-first-level:before {
@@ -66,7 +72,7 @@ export default {
   background: rgba(133, 144, 166, 0.12);
   position: absolute;
   left: 0;
-  transform: translate(-50%);
+  transform: translate(-50%, 50%);
 }
 
 .header-second-level:before {
@@ -93,6 +99,10 @@ export default {
   position: absolute;
   left: 0;
   transform: translate(-50%);
+}
+
+.catalog-item-container:last-of-type:after {
+  height: 0;
 }
 
 </style>
