@@ -6,7 +6,9 @@
     <AuthorInfoBanner :avatarSrc="authorInfo.avatar" :name="authorInfo.userName" :signature="authorInfo.sign"/>
     <div class="article-main-container">
       <div v-html="article.content" class="article-content" ref="articleContentRef"></div>
-      <Catalog :headers="headers" class="article-catalog"/>
+      <div class="article-catalog-container">
+        <Catalog :headers="headers" class="article-catalog"/>
+      </div>
     </div>
   </div>
 </template>
@@ -70,10 +72,16 @@ export default {
 }
 
 .article-catalog {
+  position: sticky;
+  top: 62px;
+}
+
+.article-catalog-container {
   position: absolute;
   width: 230px;
   top: 16px;
   left: -250px;
+  min-height: 300px;
 }
 
 .article-container {
