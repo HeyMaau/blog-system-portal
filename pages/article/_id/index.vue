@@ -6,7 +6,7 @@
     <AuthorInfoBanner :avatarSrc="authorInfo.avatar" :name="authorInfo.userName" :signature="authorInfo.sign"/>
     <div class="article-main-container">
       <div v-html="article.content" class="article-content" ref="articleContentRef"></div>
-      <div class="article-catalog-container">
+      <div class="article-catalog-container" ref="catalogContainerRef">
         <Catalog :headers="headers" class="article-catalog"/>
       </div>
     </div>
@@ -57,10 +57,15 @@ export default {
             })
         }
       }
+    },
+    setCatalogHeight() {
+      let offsetHeight = this.$refs.articleContentRef.offsetHeight;
+      this.$refs.catalogContainerRef.style.minHeight = offsetHeight + 'px'
     }
   },
   mounted() {
     this.extractArticleHeader()
+    this.setCatalogHeight()
   }
 }
 </script>
@@ -81,7 +86,6 @@ export default {
   width: 230px;
   top: 16px;
   left: -250px;
-  min-height: 300px;
 }
 
 .article-container {
