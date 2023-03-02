@@ -36,7 +36,7 @@ export default {
   line-height: 30px;
   width: 100%;
   display: inline-block;
-  padding: 0 10px;
+  padding-left: 10px;
 }
 
 .catalog-item:hover {
@@ -53,6 +53,20 @@ export default {
   border-radius: 50%;
   background-color: #8590a6;
   margin-right: 12px;
+  position: absolute;
+  left: 0;
+  transform: translate(-50%);
+}
+
+.header-first-level:after, .header-second-level:after, .header-third-level:after {
+  display: inline-block;
+  content: " ";
+  width: 2px;
+  height: 30px;
+  background: rgba(133, 144, 166, 0.12);
+  position: absolute;
+  left: 0;
+  transform: translate(-50%);
 }
 
 .header-second-level:before {
@@ -62,7 +76,10 @@ export default {
   height: 4px;
   border-radius: 50%;
   background-color: #8590a6;
-  margin-right: 22px;
+  margin-right: 12px;
+  position: absolute;
+  left: 0;
+  transform: translate(-50%);
 }
 
 .header-third-level:before {
@@ -72,7 +89,10 @@ export default {
   height: 4px;
   border-radius: 50%;
   background-color: #8590a6;
-  margin-right: 32px;
+  margin-right: 12px;
+  position: absolute;
+  left: 0;
+  transform: translate(-50%);
 }
 
 </style>
