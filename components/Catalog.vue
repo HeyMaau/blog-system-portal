@@ -39,6 +39,7 @@ export default {
 <style scoped>
 
 .catalog-banner {
+  box-sizing: border-box;
   width: 100%;
   height: 40px;
   display: flex;

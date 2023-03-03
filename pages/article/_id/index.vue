@@ -99,9 +99,9 @@ export default {
 
 .article-catalog-container {
   position: absolute;
-  width: 230px;
+  width: 250px;
   top: 16px;
-  left: -250px;
+  left: -280px;
 }
 
 .article-container {
