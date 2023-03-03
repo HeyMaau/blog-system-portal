@@ -11,12 +11,15 @@
     </div>
     <div class="catalog-item-list">
       <div v-for="item in headers" :key="item.id"
-
+           :style="{'--highlightColor': item.id === activeHeader? '#056DE8': '#8590a6'}"
            class="catalog-item-container"
            :class="{'header-first-level': item.level === '1', 'header-second-level': item.level === '2',
          'header-third-level': item.level === '3'}">
         <div class="catalog-link-container" :style="{marginLeft: 5 * item.level + 'px'}">
-          <a :href="'#' + item.id" class="catalog-link">{{ item.text }}</a>
+          <a :href="'#' + item.id"
+             :class="{'catalog-link': item.id !== activeHeader, 'catalog-link-highlight': item.id === activeHeader}">
+            {{ item.text }}
+          </a>
         </div>
       </div>
     </div>
@@ -27,7 +30,8 @@
 export default {
   name: "Catalog",
   props: {
-    headers: Array
+    headers: Array,
+    activeHeader: String
   }
 }
 </script>
@@ -75,6 +79,15 @@ span {
   display: inline-block;
 }
 
+.catalog-link-highlight {
+  color: #056DE8;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 30px;
+  width: 100%;
+  display: inline-block;
+}
+
 .catalog-link-container:hover {
   color: #056DE8;
   background: #EBEBEB;
@@ -92,7 +105,7 @@ span {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: #8590a6;
+  background-color: var(--highlightColor);
   margin-right: 12px;
   position: absolute;
   left: 0;
@@ -116,7 +129,7 @@ span {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background-color: #8590a6;
+  background-color: var(--highlightColor);
   margin-right: 12px;
   position: absolute;
   left: 0;
@@ -129,7 +142,7 @@ span {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background-color: #8590a6;
+  background-color: var(--highlightColor);
   margin-right: 12px;
   position: absolute;
   left: 0;

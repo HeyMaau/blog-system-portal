@@ -7,7 +7,7 @@
     <div class="article-main-container">
       <div v-html="article.content" class="article-content" ref="articleContentRef"></div>
       <div class="article-catalog-container" ref="catalogContainerRef">
-        <Catalog :headers="headers" class="article-catalog"/>
+        <Catalog :headers="headers" activeHeader="header-4" class="article-catalog"/>
       </div>
     </div>
   </div>
