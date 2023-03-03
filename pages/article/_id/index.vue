@@ -7,7 +7,7 @@
     <div class="article-main-container">
       <div v-html="article.content" class="article-content" ref="articleContentRef"></div>
       <div class="article-catalog-container" ref="catalogContainerRef">
-        <Catalog :headers="headers" activeHeader="header-4" class="article-catalog"/>
+        <Catalog :headers="headers" :activeHeader="currentHeader" class="article-catalog"/>
       </div>
     </div>
   </div>
@@ -36,7 +36,9 @@ export default {
   },
   data() {
     return {
-      headers: []
+      headers: [],
+      headerDoms: [],
+      currentHeader: ''
     }
   },
   methods: {
@@ -55,17 +57,31 @@ export default {
               text: children[i].textContent,
               level
             })
+            this.headerDoms.push(children[i])
         }
       }
     },
     setCatalogHeight() {
       let offsetHeight = this.$refs.articleContentRef.offsetHeight;
       this.$refs.catalogContainerRef.style.minHeight = offsetHeight + 'px'
+    },
+    trackCatalog() {
+      for (let i = 0; i < this.headerDoms.length; i++) {
+        let headerDom = this.headerDoms[i]
+        if (headerDom.getBoundingClientRect().top - 52 > 10) {
+          break
+        }
+        this.currentHeader = headerDom.getAttribute('id')
+      }
     }
   },
   mounted() {
     this.extractArticleHeader()
     this.setCatalogHeight()
+    window.addEventListener("scroll", this.trackCatalog)
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.trackCatalog)
   }
 }
 </script>
