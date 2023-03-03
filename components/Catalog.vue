@@ -15,7 +15,7 @@
            class="catalog-item-container"
            :class="{'header-first-level': item.level === '1', 'header-second-level': item.level === '2',
          'header-third-level': item.level === '3'}">
-        <div class="catalog-link-container" :style="{marginLeft: 5 * item.level + 'px'}">
+        <div class="catalog-link-container" :style="{marginLeft: 10 * item.level + 'px'}">
           <a :href="'#' + item.id"
              :class="{'catalog-link': item.id !== activeHeader, 'catalog-link-highlight': item.id === activeHeader}">
             {{ item.text }}
@@ -38,15 +38,9 @@ export default {
 
 <style scoped>
 
-.container {
-  position: relative;
-}
-
 .catalog-banner {
   width: 100%;
   height: 40px;
-  position: relative;
-  left: -20px;
   display: flex;
   background: white;
   padding-left: 10px;
@@ -59,6 +53,13 @@ export default {
 
 .catalog-item-list {
   margin-top: 20px;
+  max-height: calc(((100vh - 72px) - 20px) - 80px);
+  overflow: scroll;
+  padding-left: 20px;
+}
+
+.catalog-item-list::-webkit-scrollbar {
+  width: 0 !important;
 }
 
 span {
@@ -68,6 +69,7 @@ span {
 .catalog-item-container {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .catalog-link {
@@ -109,7 +111,6 @@ span {
   margin-right: 12px;
   position: absolute;
   left: 0;
-  transform: translate(-50%);
 }
 
 .header-first-level:after, .header-second-level:after, .header-third-level:after {
@@ -119,11 +120,11 @@ span {
   height: 30px;
   background: rgba(133, 144, 166, 0.12);
   position: absolute;
-  left: 0;
-  transform: translate(-50%, 50%);
+  left: 2px;
+  transform: translate(0, 50%);
 }
 
-.header-second-level:before {
+.header-second-level:before, .header-third-level:before {
   display: inline-block;
   content: " ";
   width: 4px;
@@ -132,21 +133,7 @@ span {
   background-color: var(--highlightColor);
   margin-right: 12px;
   position: absolute;
-  left: 0;
-  transform: translate(-50%);
-}
-
-.header-third-level:before {
-  display: inline-block;
-  content: " ";
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background-color: var(--highlightColor);
-  margin-right: 12px;
-  position: absolute;
-  left: 0;
-  transform: translate(-50%);
+  left: 1px;
 }
 
 .catalog-item-container:last-of-type:after {
