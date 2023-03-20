@@ -25,6 +25,7 @@ import ArticleList from "../../../components/ArticleList";
 import {CODE_SUCCESS, URL_IMAGE} from "../../../plugins/constants";
 import InfoCard from "../../../components/InfoCard";
 import {mapState} from "vuex";
+import {trimArticleSummary} from "../../../plugins/article-api";
 
 export default {
   name: "index",
@@ -55,6 +56,7 @@ export default {
       })
       if (response.code === CODE_SUCCESS) {
         this.articleList = response.data.data
+        trimArticleSummary(this.articleList)
         this.total = response.data.total
       } else {
         this.$message.error(response.message)

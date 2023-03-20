@@ -42,11 +42,12 @@
 </template>
 
 <script>
-import {ARTICLE_SUMMARY_LENGTH, CODE_SUCCESS} from "../plugins/constants";
+import {CODE_SUCCESS} from "../plugins/constants";
 import ArticleList from "@/components/ArticleList";
 import InfoCard from "@/components/InfoCard";
 import {getClientHeight, getScrollTop, getScrollHeight} from "../plugins/infinite-scroll";
 import {mapState} from "vuex";
+import {trimArticleSummary} from "../plugins/article-api";
 
 export default {
   name: 'IndexPage',
@@ -78,6 +79,7 @@ export default {
             response.data.data.forEach(item => {
               this.articleList.push(item)
             })
+            trimArticleSummary(this.articleList)
           }
           this.isLoading = false
         }
@@ -91,8 +93,13 @@ export default {
         size: 8
       }
     })
+    let list
+    if (response.code === CODE_SUCCESS) {
+      list = response.data.data
+      trimArticleSummary(list)
+    }
     return {
-      articleList: response.data.data,
+      articleList: list,
       noMore: response.data.noMore
     }
   },
