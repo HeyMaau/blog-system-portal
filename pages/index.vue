@@ -57,14 +57,16 @@ export default {
   data() {
     return {
       currentPage: 1,
-      currentSize: 8
+      currentSize: 8,
+      isLoading: false
     }
   },
   methods: {
     async windowScroll() {
       //如果满足公式则，确实到底了
       if (getScrollTop() + getClientHeight() + 20 >= getScrollHeight()) {
-        if (!this.noMore) {
+        if (!this.noMore && !this.isLoading) {
+          this.isLoading = true
           const {data: response} = await this.$axios.get('article/list', {
             params: {
               page: ++this.currentPage,
@@ -77,6 +79,7 @@ export default {
               this.articleList.push(item)
             })
           }
+          this.isLoading = false
         }
       }
     }
