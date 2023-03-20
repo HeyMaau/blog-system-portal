@@ -6,6 +6,7 @@
     <AuthorInfoBanner :avatarSrc="authorInfo.avatar" :name="authorInfo.userName" :signature="authorInfo.sign"/>
     <div class="article-main-container">
       <div v-html="article.content" class="article-content" ref="articleContentRef"></div>
+      <div class="article-update-time">编辑于 {{ updateTime }}</div>
       <div class="article-catalog-container" ref="catalogContainerRef">
         <Catalog :headers="headers" :activeHeader="currentHeader" class="article-catalog"/>
       </div>
@@ -32,7 +33,11 @@ export default {
     }
   },
   computed: {
-    ...mapState('authorInfo', ['authorInfo'])
+    ...mapState('authorInfo', ['authorInfo']),
+    updateTime() {
+      let index = this.article.updateTime.lastIndexOf(':');
+      return this.article.updateTime.slice(0, index)
+    }
   },
   data() {
     return {
@@ -90,6 +95,7 @@ export default {
 
 .article-main-container {
   position: relative;
+  padding-bottom: 100px;
 }
 
 .article-catalog {
@@ -123,6 +129,12 @@ export default {
 
 ::v-deep .article-content img {
   max-width: 100%;
+}
+
+.article-update-time {
+  font-size: 14px;
+  color: #8590a6;
+  padding: 16px 0;
 }
 
 </style>
