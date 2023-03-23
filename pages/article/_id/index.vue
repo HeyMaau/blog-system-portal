@@ -11,6 +11,7 @@
         <Catalog :headers="headers" :activeHeader="currentHeader" class="article-catalog"/>
       </div>
     </div>
+    <ArticleComment/>
   </div>
 </template>
 
@@ -19,10 +20,11 @@ import {CODE_SUCCESS} from "@/plugins/constants";
 import AuthorInfoBanner from "@/components/AuthorInfoBanner";
 import {mapState} from "vuex";
 import Catalog from "@/components/Catalog";
+import ArticleComment from "@/components/ArticleComment";
 
 export default {
   name: "index",
-  components: {AuthorInfoBanner, Catalog},
+  components: {ArticleComment, AuthorInfoBanner, Catalog},
   validate({params}) {
     return /^\d+$/.test(params.id)
   },
@@ -95,7 +97,6 @@ export default {
 
 .article-main-container {
   position: relative;
-  padding-bottom: 100px;
 }
 
 .article-catalog {
@@ -112,6 +113,7 @@ export default {
 
 .article-container {
   width: 700px;
+  padding-bottom: 50px;
 }
 
 .article-title {
