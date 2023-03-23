@@ -23,7 +23,7 @@
                   p-id="15289"></path>
           </svg>
         </div>
-        <el-button type="primary" size="small">发表</el-button>
+        <el-button type="primary" size="small" :disabled="buttonDisabled">发表</el-button>
       </div>
     </div>
   </div>
@@ -37,7 +37,8 @@ export default {
       comment: {
         content: ''
       },
-      showFull: false
+      showFull: false,
+      buttonDisabled: true
     }
   },
   methods: {
@@ -51,6 +52,18 @@ export default {
     },
     hidePublishComment() {
       this.showFull = false
+    }
+  },
+  watch: {
+    comment: {
+      deep: true,
+      handler: function () {
+        if (this.comment.content.trim().length === 0) {
+          this.buttonDisabled = true
+        } else {
+          this.buttonDisabled = false
+        }
+      }
     }
   },
   mounted() {
