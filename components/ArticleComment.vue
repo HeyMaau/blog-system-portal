@@ -87,7 +87,9 @@ export default {
     comment: {
       deep: true,
       handler: function () {
-        if (this.comment.content.trim().length === 0) {
+        if (this.comment.content.trim().length === 0
+          || this.comment.userName.trim().length === 0
+          || this.comment.userEmail.trim().length === 0) {
           this.buttonDisabled = true
         } else {
           this.buttonDisabled = false
