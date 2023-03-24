@@ -31,6 +31,32 @@
     </div>
     <div class="comment-list-container common-round-border">
       <div class="total-comment">{{ commentList.length }}条评论</div>
+      <div class="comment-item-list-container">
+        <div class="comment-item-container" v-for="item in commentList" :key="item.id">
+          <img src="/favicon.ico" width="24" height="24">
+          <div class="comment-content-container">
+            <div class="comment-author-name">{{ item.userName }}</div>
+            <div class="comment-content">{{ item.content }}</div>
+            <div class="comment-update-time">{{ item.updateTime }}</div>
+          </div>
+        </div>
+        <div class="comment-item-container">
+          <img src="/favicon.ico" width="24" height="24">
+          <div class="comment-content-container">
+            <div class="comment-author-name">测试人员1</div>
+            <div class="comment-content">测试评论内容</div>
+            <div class="comment-update-time">1911-11-11</div>
+          </div>
+        </div>
+        <div class="comment-item-container">
+          <img src="/favicon.ico" width="24" height="24">
+          <div class="comment-content-container">
+            <div class="comment-author-name">测试人员1</div>
+            <div class="comment-content">测试评论内容</div>
+            <div class="comment-update-time">1911-11-11</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -45,7 +71,7 @@ export default {
       comment: {
         content: '',
         articleId: this.$route.params.id,
-        parentCommentId: '',
+        parentCommentId: null,
         replyCommentId: '',
         replyUserName: '',
         userAvatar: '',
@@ -110,13 +136,9 @@ export default {
     comment: {
       deep: true,
       handler: function () {
-        if (this.comment.content.trim().length === 0
+        this.buttonDisabled = this.comment.content.trim().length === 0
           || this.comment.userName.trim().length === 0
-          || this.comment.userEmail.trim().length === 0) {
-          this.buttonDisabled = true
-        } else {
-          this.buttonDisabled = false
-        }
+          || this.comment.userEmail.trim().length === 0;
       }
     }
   },
@@ -162,6 +184,37 @@ export default {
   color: #444444;
   font-weight: 600;
   border-bottom: 1px solid rgb(235, 235, 235);
+}
+
+.comment-item-container {
+  padding: 10px 20px 14px;
+  display: flex;
+}
+
+.comment-content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 10px;
+}
+
+.comment-item-list-container {
+  padding: 10px 0;
+}
+
+.comment-author-name {
+  color: #444444;
+  font-weight: bold;
+}
+
+.comment-content {
+  margin-top: 6px;
+  color: #444444;
+}
+
+.comment-update-time {
+  margin-top: 6px;
+  color: #999999;
 }
 
 .publish-comment-container {
