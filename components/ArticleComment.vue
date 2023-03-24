@@ -32,12 +32,20 @@
     <div class="comment-list-container common-round-border">
       <div class="total-comment">{{ commentList.length }}条评论</div>
       <div class="comment-item-list-container">
-        <div class="comment-item-container" v-for="item in commentList" :key="item.id">
+        <div class="comment-item-container" v-for="parentItem in commentList" :key="parentItem.id">
           <img src="/favicon.ico" width="24" height="24">
           <div class="comment-content-container">
-            <div class="comment-author-name">{{ item.userName }}</div>
-            <div class="comment-content">{{ item.content }}</div>
-            <div class="comment-update-time">{{ item.updateTime }}</div>
+            <div class="comment-author-name">{{ parentItem.userName }}</div>
+            <div class="comment-content">{{ parentItem.content }}</div>
+            <div class="comment-update-time">{{ parentItem.updateTime }}</div>
+            <div class="child-comment-item-container" v-for="childItem in parentItem.children" :key="childItem.id">
+              <img src="/favicon.ico" width="24" height="24">
+              <div class="comment-content-container">
+                <div class="comment-author-name">{{ childItem.userName }}</div>
+                <div class="comment-content">{{ childItem.content }}</div>
+                <div class="comment-update-time">{{ childItem.updateTime }}</div>
+              </div>
+            </div>
           </div>
         </div>
         <div class="comment-item-container">
@@ -188,6 +196,11 @@ export default {
 
 .comment-item-container {
   padding: 10px 20px 14px;
+  display: flex;
+}
+
+.child-comment-item-container {
+  padding: 24px 20px 0 0;
   display: flex;
 }
 
