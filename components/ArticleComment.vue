@@ -4,11 +4,12 @@
               v-model="comment.content"></textarea>
     <div v-show="showFull">
       <div class="border-top-padding">
-        <input placeholder="请输入昵称（用于显示评论）" class="nickname-email-input border-top-padding"></input>
+        <input placeholder="请输入昵称（用于显示评论）" class="nickname-email-input border-top-padding"
+               v-model="comment.userName"></input>
       </div>
       <div class="border-top-padding">
         <input placeholder="请输入邮箱（仅用于生成头像，不对外公开）"
-               class="nickname-email-input border-top-padding"></input>
+               class="nickname-email-input border-top-padding" v-model="comment.userEmail"></input>
       </div>
       <div class="publish-panel-container border-top-padding">
         <div class="emoji-container">
@@ -23,19 +24,28 @@
                   p-id="15289"></path>
           </svg>
         </div>
-        <el-button type="primary" size="small" :disabled="buttonDisabled">发表</el-button>
+        <el-button type="primary" size="small" :disabled="buttonDisabled" @click="publishComment">发表</el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {CODE_SUCCESS} from "../plugins/constants";
+
 export default {
   name: "ArticleComment",
   data() {
     return {
       comment: {
-        content: ''
+        content: '',
+        articleId: this.$route.params.id,
+        parentCommentId: '',
+        replyCommentId: '',
+        replyUserName: '',
+        userAvatar: '',
+        userEmail: '',
+        userName: ''
       },
       showFull: false,
       buttonDisabled: true
@@ -52,6 +62,25 @@ export default {
     },
     hidePublishComment() {
       this.showFull = false
+    },
+    async publishComment() {
+      const {data: response} = await this.$axios.post('comment', this.comment)
+      if (response.code === CODE_SUCCESS) {
+        this.$message.success('发表评论成功！')
+        this.resetComment()
+        this.hidePublishComment()
+      } else {
+        this.$message.error(response.message)
+      }
+    },
+    resetComment() {
+      this.comment.content = ''
+      this.comment.parentCommentId = ''
+      this.comment.replyCommentId = ''
+      this.comment.userName = ''
+      this.comment.userEmail = ''
+      this.comment.userAvatar = ''
+      this.comment.replyUserName = ''
     }
   },
   watch: {
