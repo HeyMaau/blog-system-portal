@@ -75,6 +75,7 @@ export default {
         this.$message.success('发表评论成功！')
         this.resetComment()
         this.hidePublishComment()
+        this.$emit('publishSuccess')
       } else {
         this.$message.error(response.message)
       }

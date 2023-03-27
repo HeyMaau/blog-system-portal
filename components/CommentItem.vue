@@ -20,7 +20,7 @@
         </div>
       </div>
       <PublishComment v-show="showPublishComment" class="publish-comment"
-                      :parentInfo="parentInfo"/>
+                      :parentInfo="parentInfo" @publishSuccess="onPublishCommentSuccess"/>
       <CommentItem v-for="child in comment.children" :key="child.id" :comment="child"
                    class="child-comment-item-container"
                    :parentInfo="{parentCommentId: parentInfo.parentCommentId, replyCommentId: child.id, replyUserName: child.userName}"/>
@@ -46,6 +46,10 @@ export default {
   methods: {
     replyComment() {
       this.showPublishComment = !this.showPublishComment
+    },
+    onPublishCommentSuccess() {
+      this.showPublishComment = false
+      this.$emit('replySuccess')
     }
   }
 }
