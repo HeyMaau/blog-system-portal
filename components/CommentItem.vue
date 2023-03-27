@@ -2,7 +2,17 @@
   <div class="comment-item-container">
     <img src="/favicon.ico" width="24" height="24">
     <div class="comment-content-container">
-      <div class="comment-author-name">{{ comment.userName }}</div>
+      <div class="comment-author-name">
+        {{ comment.userName }}
+        <svg v-if="comment.replyUserName" t="1679902765898" class="icon reply-to-icon" viewBox="0 0 1024 1024"
+             version="1.1" xmlns="http://www.w3.org/2000/svg"
+             p-id="4375" width="8" height="8">
+          <path
+            d="M986.451968 460.0832L86.919168 5.632C72.736768-0.768-7.288832-18.432 0.595968 75.008c30.5152 151.6544 75.4176 385.7408 75.4176 385.7408l658.432 51.2-658.432 76.8S31.111168 797.184 0.595968 948.9408c-7.936 93.3888 72.0896 75.7248 86.3232 69.3248l899.5328-454.4512c42.7008-23.552 54.5792-73.728 0-103.7312z"
+            fill="#999999" p-id="4376"></path>
+        </svg>
+        {{ comment.replyUserName }}
+      </div>
       <div class="comment-content">{{ comment.content }}</div>
       <div class="comment-update-time-and-reply-button-container">
         <div class="comment-update-time">{{ comment.updateTime }}</div>
@@ -73,6 +83,8 @@ export default {
 .comment-author-name {
   color: #444444;
   font-weight: bold;
+  display: flex;
+  align-items: center;
 }
 
 .comment-content {
@@ -109,6 +121,10 @@ export default {
 
 .publish-comment {
   margin-top: 8px;
+}
+
+.reply-to-icon {
+  margin: 0 8px;
 }
 
 </style>
