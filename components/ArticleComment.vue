@@ -1,10 +1,11 @@
 <template>
   <div>
-    <PublishComment/>
+    <PublishComment :parentInfo="parentInfo"/>
     <div class="comment-list-container common-round-border">
       <div class="total-comment">{{ commentList.length }}条评论</div>
       <div class="comment-item-list-container">
-        <CommentItem v-for="item in commentList" :key="item.id" :comment="item"/>
+        <CommentItem v-for="item in commentList" :key="item.id" :comment="item"
+                     :parentInfo="{parentCommentId: item.id, replyCommentId: null, replyUserName: null}"/>
       </div>
     </div>
   </div>
@@ -23,7 +24,12 @@ export default {
       page: 1,
       size: 10,
       commentList: [],
-      noMore: true
+      noMore: true,
+      parentInfo: {
+        parentCommentId: null,
+        replyCommentId: null,
+        replyUserName: null
+      }
     }
   },
   methods: {

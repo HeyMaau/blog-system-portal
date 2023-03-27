@@ -44,8 +44,8 @@ export default {
         content: '',
         articleId: this.$route.params.id,
         parentCommentId: null,
-        replyCommentId: '',
-        replyUserName: '',
+        replyCommentId: null,
+        replyUserName: null,
         userAvatar: '',
         userEmail: '',
         userName: ''
@@ -67,6 +67,9 @@ export default {
       this.showFull = false
     },
     async publishComment() {
+      this.comment.parentCommentId = this.parentInfo.parentCommentId
+      this.comment.replyCommentId = this.parentInfo.replyCommentId
+      this.comment.replyUserName = this.parentInfo.replyUserName
       const {data: response} = await this.$axios.post('comment', this.comment)
       if (response.code === CODE_SUCCESS) {
         this.$message.success('发表评论成功！')

@@ -6,7 +6,7 @@
       <div class="comment-content">{{ comment.content }}</div>
       <div class="comment-update-time-and-reply-button-container">
         <div class="comment-update-time">{{ comment.updateTime }}</div>
-        <div class="reply-button-container">
+        <div class="reply-button-container" @click="replyComment">
           <svg t="1679646146396" class="icon reply-icon" viewBox="0 0 1024 1024" version="1.1"
                xmlns="http://www.w3.org/2000/svg" p-id="17956" width="16" height="16">
             <path
@@ -19,16 +19,34 @@
           <span>回复</span>
         </div>
       </div>
-      <CommentItem v-for="child in comment.children" :key="child.id" :comment="child" class="child-comment-item-container"/>
+      <PublishComment v-show="showPublishComment" class="publish-comment"
+                      :parentInfo="parentInfo"/>
+      <CommentItem v-for="child in comment.children" :key="child.id" :comment="child"
+                   class="child-comment-item-container"
+                   :parentInfo="{parentCommentId: parentInfo.parentCommentId, replyCommentId: child.id, replyUserName: child.userName}"/>
     </div>
   </div>
 </template>
 
 <script>
+import PublishComment from "./PublishComment";
+
 export default {
   name: "CommentItem",
+  components: {PublishComment},
   props: {
-    comment: Object
+    comment: Object,
+    parentInfo: Object
+  },
+  data() {
+    return {
+      showPublishComment: false
+    }
+  },
+  methods: {
+    replyComment() {
+      this.showPublishComment = !this.showPublishComment
+    }
   }
 }
 </script>
@@ -73,6 +91,7 @@ export default {
   display: flex;
   align-items: center;
   color: #8590a6;
+  cursor: pointer;
 }
 
 .reply-icon {
@@ -82,6 +101,10 @@ export default {
 .child-comment-item-container {
   padding: 24px 20px 0 0;
   display: flex;
+}
+
+.publish-comment {
+  margin-top: 8px;
 }
 
 </style>
