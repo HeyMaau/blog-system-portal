@@ -48,6 +48,7 @@ li {
   display: inline-flex;
   padding: 5px;
   font-size: 18px;
+  cursor: pointer;
 }
 
 .emoji-container {
