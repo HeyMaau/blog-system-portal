@@ -13,16 +13,25 @@
       </div>
       <div class="publish-panel-container border-top-padding">
         <div class="emoji-container">
-          <svg t="1679560083856" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-               p-id="15285" width="16" height="16">
+          <svg t="1679914914094" class="icon emoji-icon" viewBox="0 0 1024 1024" version="1.1"
+               xmlns="http://www.w3.org/2000/svg"
+               p-id="7718" width="24" height="24" @click="showEmoji = !showEmoji">
+            <path d="M872.802928 755.99406 872.864326 755.99406 872.864326 755.624646Z" fill="#8590A6"
+                  p-id="7719"></path>
             <path
-              d="M512 0C229.2 0 0 229.2 0 512s229.2 512 512 512 512-229.2 512-512S794.8 0 512 0z m0 960C265 960 64 759 64 512S265 64 512 64s448 201 448 448-201 448-448 448z"
-              p-id="15286"></path>
-            <path d="M320 405.3m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="15287"></path>
-            <path d="M704 405.3m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z" p-id="15288"></path>
-            <path d="M512 810.7c117.8 0 213.3-95.5 213.3-213.3H298.7c0 117.8 95.5 213.3 213.3 213.3z"
-                  p-id="15289"></path>
+              d="M807.273469 216.727043c-162.808016-162.836669-427.736874-162.836669-590.544891 0-162.836669 162.806993-162.836669 427.736874 0 590.543867 162.808016 162.837692 427.737898 162.837692 590.544891 0C970.110137 644.462894 970.110137 379.534036 807.273469 216.727043M764.893242 764.92036c-139.444912 139.443889-366.370225 139.414213-505.798764 0-139.459239-139.473565-139.459239-366.354875 0-505.827417 139.428539-139.429563 366.354875-139.460262 505.798764 0C904.336108 398.521482 904.336108 625.476471 764.893242 764.92036"
+              fill="#8590A6" p-id="7720"></path>
+            <path
+              d="M381.724423 468.02137c24.783453 0 44.953841-20.169365 44.953841-44.967144 0-24.828478-20.170388-45.027519-44.953841-45.027519-24.842805 0-45.013193 20.199041-45.013193 45.027519C336.71123 447.852004 356.881618 468.02137 381.724423 468.02137"
+              fill="#8590A6" p-id="7721"></path>
+            <path
+              d="M640.680243 468.095048c24.812105 0 45.010123-20.213367 45.010123-45.01217 0-24.827455-20.198018-44.99682-45.010123-44.99682-24.785499 0-44.953841 20.169365-44.953841 44.99682C595.726401 447.88168 615.894743 468.095048 640.680243 468.095048"
+              fill="#8590A6" p-id="7722"></path>
+            <path
+              d="M642.245901 619.058294l-2.453888 0.798179c-40.310078 18.248619-83.548858 27.5341-128.411625 27.5341-46.343491 0-90.173742-9.375531-130.305765-27.799136l-2.425236-0.741897c-1.508353-0.413416-3.548826-1.003863-6.092765-1.003863-14.757099 0-26.734898 11.977799-26.734898 26.675546 0 6.978948 3.282766 13.988596 8.695033 19.253506l-0.325411 1.62501 6.831592 3.076058c47.911196 21.679765 100.021018 33.095769 150.681838 33.095769 51.608402 0 102.180194-11.120268 150.978597-33.361829 8.575306-4.703115 13.928221-13.721513 13.928221-23.511483C676.611593 627.458615 661.027663 613.290941 642.245901 619.058294"
+              fill="#8590A6" p-id="7723"></path>
           </svg>
+          <EmojiPanel @onClick="emojiClick" v-show="showEmoji" class="emoji-panel"/>
         </div>
         <el-button type="primary" size="small" :disabled="buttonDisabled" @click="publishComment">发表</el-button>
       </div>
@@ -32,9 +41,11 @@
 
 <script>
 import {CODE_SUCCESS} from "../plugins/constants";
+import EmojiPanel from "./EmojiPanel";
 
 export default {
   name: "PublishComment",
+  components: {EmojiPanel},
   props: {
     parentInfo: Object
   },
@@ -52,6 +63,7 @@ export default {
       },
       showFull: false,
       buttonDisabled: true,
+      showEmoji: false
     }
   },
   methods: {
@@ -65,6 +77,7 @@ export default {
     },
     hidePublishComment() {
       this.showFull = false
+      this.showEmoji = false
     },
     async publishComment() {
       this.comment.parentCommentId = this.parentInfo.parentCommentId
@@ -88,6 +101,9 @@ export default {
       this.comment.userEmail = ''
       this.comment.userAvatar = ''
       this.comment.replyUserName = ''
+    },
+    emojiClick(value) {
+      this.comment.content += value
     }
   },
   watch: {
@@ -116,7 +132,7 @@ export default {
 <style scoped>
 
 .publish-comment-container {
-  padding: 8px 12px;
+  padding: 8px 12px 0;
 }
 
 .common-round-border {
@@ -159,6 +175,18 @@ export default {
 .emoji-container {
   display: flex;
   align-items: center;
+  position: relative;
+}
+
+.emoji-icon {
+  cursor: pointer;
+}
+
+.emoji-panel {
+  position: absolute;
+  left: 12px;
+  top: 130px;
+  transform: translate(-50%, -50%);
 }
 
 </style>
