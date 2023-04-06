@@ -1,6 +1,6 @@
 <template>
   <div class="comment-item-container">
-    <img src="/favicon.ico" width="24" height="24">
+    <img :src="`https://api.multiavatar.com/${comment.userAvatar}.png?apikey=t3JID2jWxkVU5X`" width="24" height="24">
     <div class="comment-content-container">
       <div class="comment-author-name">
         {{ comment.userName }}
@@ -33,6 +33,7 @@
                       :parentInfo="parentInfo" @publishSuccess="onPublishCommentSuccess"/>
       <CommentItem v-for="child in comment.children" :key="child.id" :comment="child"
                    class="child-comment-item-container"
+                   @childrenReplySuccess="onChildrenReplySuccess"
                    :parentInfo="{parentCommentId: parentInfo.parentCommentId, replyCommentId: child.id, replyUserName: child.userName}"/>
     </div>
   </div>
@@ -59,6 +60,10 @@ export default {
     },
     onPublishCommentSuccess() {
       this.showPublishComment = false
+      this.$emit('replySuccess')
+      this.$emit('childrenReplySuccess')
+    },
+    onChildrenReplySuccess() {
       this.$emit('replySuccess')
     }
   }
