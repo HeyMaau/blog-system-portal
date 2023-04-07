@@ -52,24 +52,13 @@ export default {
           }
         })
       }
-    },
-    /*trimArticleSummary() {
-      if (this.searchList !== undefined) {
-        this.searchList.forEach(item => {
-          if (item.content.length > ARTICLE_SUMMARY_LENGTH) {
-            item.content = item.content.slice(0, ARTICLE_SUMMARY_LENGTH) + '...'
-          }
-        })
-      }
-    }*/
+    }
   },
   beforeUpdate() {
     this.initCollapseState()
-    // this.trimArticleSummary()
   },
   created() {
     this.initCollapseState()
-    // this.trimArticleSummary()
   }
 }
 </script>
