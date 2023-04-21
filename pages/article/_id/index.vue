@@ -1,5 +1,6 @@
 <template>
   <div class="article-container">
+    <img src="@/static/test.jpg" class="article-cover">
     <h1 class="article-title">
       {{ article.title }}
     </h1>
@@ -137,6 +138,11 @@ export default {
   font-size: 14px;
   color: #8590a6;
   padding: 16px 0;
+}
+
+.article-cover {
+  width: 100%;
+  object-fit: cover;
 }
 
 </style>
