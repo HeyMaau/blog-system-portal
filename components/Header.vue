@@ -1,7 +1,7 @@
 <template>
   <div id="header">
+    <nuxt-link to="/" class="website-logo-container"><img src="~static/logo.png" class="website-logo"/></nuxt-link>
     <div id="header-link-area">
-      <nuxt-link to="/" class="website-logo">manpok.top</nuxt-link>
       <nuxt-link to="/">首页</nuxt-link>
       <el-dropdown>
         <span class="el-dropdown-link">
@@ -17,6 +17,7 @@
       <nuxt-link to="/feedback">联系我</nuxt-link>
     </div>
     <el-input
+      class="search-input"
       @keyup.enter.native="doSearch"
       placeholder="请输入内容"
       prefix-icon="el-icon-search"
@@ -55,9 +56,14 @@ export default {
   box-shadow: 0 1px 3px hsl(0deg 0% 7% / 10%);
 }
 
+.website-logo-container {
+  height: 100%;
+}
+
 .website-logo {
-  font-size: 20px;
-  color: black !important;
+  height: 100%;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 .el-input {
@@ -90,6 +96,11 @@ export default {
   height: 40px;
   width: 40px;
   margin-left: 20px;
+  flex-shrink: 0;
+}
+
+.search-input {
+  flex-shrink: 0;
 }
 
 </style>
