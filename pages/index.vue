@@ -2,7 +2,7 @@
   <div class="main-page-container">
     <ArticleList :articleList="articleList" class="article-list"/>
     <div class="website-info-column">
-      <InfoCard :avatarSrc="authorInfo.avatar" :title="authorInfo.userName">
+      <InfoCard :avatarSrc="avatarUrl" :title="authorInfo.userName">
         <div class="info-item">
           <span class="info-icon">
             <svg t="1675052094498" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import {CODE_SUCCESS} from "../plugins/constants";
+import {CODE_SUCCESS, URL_IMAGE} from "../plugins/constants";
 import ArticleList from "@/components/ArticleList";
 import InfoCard from "@/components/InfoCard";
 import {getClientHeight, getScrollTop, getScrollHeight} from "../plugins/infinite-scroll";
@@ -104,10 +104,14 @@ export default {
     }
   },
   computed: {
-    ...mapState('authorInfo', ['authorInfo'])
+    ...mapState('authorInfo', ['authorInfo']),
+    avatarUrl() {
+      return URL_IMAGE + this.authorInfo.avatar
+    }
   },
   mounted() {
     window.addEventListener('scroll', this.windowScroll, true)
+    console.log(this.authorInfo.avatar)
   },
   destroyed() {
     window.removeEventListener("scroll", this.windowScroll)
