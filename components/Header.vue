@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     ...mapState('authorInfo', ['authorInfo']),
-    avatarUrl(){
+    avatarUrl() {
       return URL_IMAGE + this.authorInfo.avatar
     }
   },
@@ -95,6 +95,10 @@ export default {
   margin: 0 22px;
   color: #8590a6;
   flex-shrink: 0;
+}
+
+#header-link-area a:hover, .el-dropdown:hover {
+  color: #175199;
 }
 
 .el-dropdown {
