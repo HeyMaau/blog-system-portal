@@ -23,17 +23,26 @@
       prefix-icon="el-icon-search"
       v-model="input">
     </el-input>
-    <img src="~static/test.jpg" crossorigin="anonymous" id="avatar"/>
+    <img :src="avatarUrl" id="avatar"/>
   </div>
 </template>
 
 <script>
+import {mapState} from "vuex";
+import {URL_IMAGE} from "../plugins/constants";
+
 export default {
   name: "Header",
   props: {categories: Array},
   data() {
     return {
       input: ''
+    }
+  },
+  computed: {
+    ...mapState('authorInfo', ['authorInfo']),
+    avatarUrl(){
+      return URL_IMAGE + this.authorInfo.avatar
     }
   },
   methods: {
