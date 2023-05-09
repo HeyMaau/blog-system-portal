@@ -111,7 +111,6 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.windowScroll, true)
-    console.log(this.authorInfo.avatar)
   },
   destroyed() {
     window.removeEventListener("scroll", this.windowScroll)

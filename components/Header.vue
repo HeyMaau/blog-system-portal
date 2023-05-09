@@ -2,19 +2,20 @@
   <div id="header">
     <nuxt-link to="/" class="website-logo-container"><img src="~static/logo.png" class="website-logo"/></nuxt-link>
     <div id="header-link-area">
-      <nuxt-link to="/">首页</nuxt-link>
-      <el-dropdown>
+      <nuxt-link to="/" :class="{'active-path': activePath === '/'}">首页</nuxt-link>
+      <el-dropdown :class="{'active-path': activePath.startsWith('/category')}">
         <span class="el-dropdown-link">
           文章<i class="el-icon-arrow-down el-icon--right"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-for="item in categories" :key="item.id">
+          <el-dropdown-item v-for="item in categories" :key="item.id"
+                            :class="{'active-category': activePath.endsWith(item.id)}">
             <nuxt-link :to="`/category/${item.id}`">{{ item.name }}</nuxt-link>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-      <nuxt-link to="/thinking">想法</nuxt-link>
-      <nuxt-link to="/feedback">联系我</nuxt-link>
+      <nuxt-link to="/thinking" :class="{'active-path': activePath === '/thinking'}">想法</nuxt-link>
+      <nuxt-link to="/feedback" :class="{'active-path': activePath === '/feedback'}">联系我</nuxt-link>
     </div>
     <el-input
       class="search-input"
@@ -33,7 +34,7 @@ import {URL_IMAGE} from "../plugins/constants";
 
 export default {
   name: "Header",
-  props: {categories: Array},
+  props: {categories: Array, activePath: String},
   data() {
     return {
       input: ''
@@ -95,10 +96,32 @@ export default {
   margin: 0 22px;
   color: #8590a6;
   flex-shrink: 0;
+  position: relative;
 }
 
 #header-link-area a:hover, .el-dropdown:hover {
   color: #175199;
+}
+
+.active-path {
+  color: #121212 !important;
+  font-weight: 600;
+  font-synthesis: style;
+}
+
+.active-category a {
+  color: #056DE8;
+}
+
+.active-path::after {
+  background: #056DE8;
+  content: "";
+  height: 4px;
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -16px;
 }
 
 .el-dropdown {

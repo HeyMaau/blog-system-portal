@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <Header :categories="categoryList" class="header"/>
+    <Header :categories="categoryList" class="header" :activePath="routerPath"/>
     <div class="main">
       <nuxt/>
     </div>
@@ -17,7 +17,8 @@ export default {
   components: {Header},
   middleware: ['get-categories', 'get-authorInfo'],
   computed: {
-    ...mapState('articleCategory', ['categoryList'])
+    ...mapState('articleCategory', ['categoryList']),
+    ...mapState('routerPath', ["routerPath"])
   }
 }
 </script>

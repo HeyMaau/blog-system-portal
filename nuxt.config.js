@@ -24,7 +24,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
+    '@/plugins/router'
+
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -39,8 +41,13 @@ export default {
   ],
 
   axios: {
-    baseURL: 'http://localhost:8080/portal/',
-    timeout: 1000
+    baseURL: 'http://192.168.137.48:8080/portal/',
+    timeout: 5000
+  },
+
+  server: {
+    port: 3000,
+    host: '0.0.0.0'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
