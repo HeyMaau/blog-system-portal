@@ -86,7 +86,7 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
-  top: -50px;
+  top: -100px;
 }
 
 #building-board {

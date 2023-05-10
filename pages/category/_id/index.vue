@@ -1,5 +1,5 @@
 <template>
-  <div class="main-page-container">
+  <div class="main-page-container" v-if="articleList.length > 0">
     <ArticleList class="article-list" :articleList="articleList">
       <el-pagination
         hide-on-single-page
@@ -18,6 +18,7 @@
       </InfoCard>
     </div>
   </div>
+  <EmptyView class="empty-view" v-else/>
 </template>
 
 <script>
@@ -26,10 +27,11 @@ import {CODE_SUCCESS, URL_IMAGE} from "../../../plugins/constants";
 import InfoCard from "../../../components/InfoCard";
 import {mapState} from "vuex";
 import {trimArticleSummary} from "../../../plugins/article-api";
+import EmptyView from "../../../components/EmptyView";
 
 export default {
   name: "index",
-  components: {InfoCard, ArticleList},
+  components: {EmptyView, InfoCard, ArticleList},
   validate({params}) {
     return /^\d+$/.test(params.id)
   },
@@ -102,6 +104,10 @@ export default {
 
 ::v-deep .el-pager li {
   font-size: 15px;
+}
+
+.empty-view {
+  margin-top: 50px;
 }
 
 </style>
