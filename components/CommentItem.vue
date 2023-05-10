@@ -1,6 +1,6 @@
 <template>
   <div class="comment-item-container">
-    <img :src="`https://api.multiavatar.com/${comment.userAvatar}.png?apikey=t3JID2jWxkVU5X`" width="24" height="24">
+    <img :src="avatarUrl" width="24" height="24">
     <div class="comment-content-container">
       <div class="comment-author-name">
         {{ comment.userName }}
@@ -41,6 +41,7 @@
 
 <script>
 import PublishComment from "./PublishComment";
+import {URL_IMAGE} from "../plugins/constants";
 
 export default {
   name: "CommentItem",
@@ -51,7 +52,8 @@ export default {
   },
   data() {
     return {
-      showPublishComment: false
+      showPublishComment: false,
+      avatarUrl: `${URL_IMAGE}comment/${this.comment.userAvatar}`
     }
   },
   methods: {
