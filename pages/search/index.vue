@@ -60,6 +60,9 @@ export default {
   created() {
     this.doSearch()
   },
+  beforeMount() {
+    document.title = `${this.$route.query.keyword} | 搜索结果 - 卧卷`
+  },
   mounted() {
     window.addEventListener('scroll', this.windowScroll, true)
   },
