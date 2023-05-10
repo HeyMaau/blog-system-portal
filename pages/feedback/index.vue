@@ -32,6 +32,9 @@ export default {
       }
       this.countDown--
     }
+  },
+  beforeMount() {
+    document.title = '联系我 - 卧卷'
   }
 }
 </script>

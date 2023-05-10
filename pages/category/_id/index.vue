@@ -82,6 +82,9 @@ export default {
   created() {
     this.getArticleListByCategory()
     this.getCategoryInfo()
+  },
+  beforeMount() {
+    document.title = `${this.categoryName} | 分类 - 卧卷`
   }
 }
 </script>

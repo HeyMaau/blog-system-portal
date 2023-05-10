@@ -71,7 +71,10 @@
 
 <script>
 export default {
-  name: "index"
+  name: "index",
+  beforeMount() {
+    document.title = '想法 - 卧卷'
+  }
 }
 </script>
 

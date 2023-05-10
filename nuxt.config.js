@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'blog-system-portal',
+    title: '首页 - 卧卷',
     htmlAttrs: {
       lang: 'zh'
     },

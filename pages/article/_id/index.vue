@@ -90,6 +90,9 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.trackCatalog)
+  },
+  beforeMount() {
+    document.title = `${this.article.title} - 卧卷`
   }
 }
 </script>

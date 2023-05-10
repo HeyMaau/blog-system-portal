@@ -114,6 +114,9 @@ export default {
   },
   destroyed() {
     window.removeEventListener("scroll", this.windowScroll)
+  },
+  beforeMount() {
+    document.title = '首页 - 卧卷'
   }
 }
 </script>
