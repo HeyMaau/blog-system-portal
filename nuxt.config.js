@@ -1,3 +1,5 @@
+const URL_SERVER = "http://manpok.top"
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -41,7 +43,7 @@ export default {
   ],
 
   axios: {
-    baseURL: 'http://192.168.137.48:8080/portal/',
+    baseURL: URL_SERVER + '/portal/',
     timeout: 5000
   },
 
