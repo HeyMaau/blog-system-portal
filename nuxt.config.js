@@ -1,4 +1,4 @@
-const URL_SERVER = "http://192.168.137.48:8080"
+import env from './env'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -43,7 +43,7 @@ export default {
   ],
 
   axios: {
-    baseURL: URL_SERVER + '/portal/',
+    baseURL: env[process.env.NODE_ENV].URL_SERVER + '/portal/',
     timeout: 5000
   },
 
