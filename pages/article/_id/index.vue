@@ -25,6 +25,7 @@ import ArticleComment from "@/components/ArticleComment";
 
 export default {
   name: "index",
+  middleware: ['get-categories', 'get-authorInfo'],
   components: {ArticleComment, AuthorInfoBanner, Catalog},
   validate({params}) {
     return /^\d+$/.test(params.id)

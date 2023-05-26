@@ -1,4 +1,4 @@
-const URL_SERVER = "http://manpok.top"
+const URL_SERVER = "http://192.168.137.48:8080"
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -27,8 +27,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '@/plugins/element-ui',
-    '@/plugins/router'
-
+    '@/plugins/router',
+    '@/plugins/axios'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
