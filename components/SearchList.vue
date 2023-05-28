@@ -4,7 +4,7 @@
       <div class="article-item">
         <nuxt-link :to="`/article/${item.id}`" target="_blank" class="article-title" v-html="item.title"/>
         <div class="richtext-container">
-          <img src="~/static/test.jpg" class="article-cover" loading="lazy" v-show="collapseState[item.id]"/>
+          <img :src="baseCoverUrl + item.cover" class="article-cover" loading="lazy" v-show="collapseState[item.id]"/>
           <div class="article-content">
             <div class="article-summary" v-show="collapseState[item.id]" v-html="item.content"></div>
             <div v-show="!collapseState[item.id]" v-html="articleContent[item.id]" class="article-detail"></div>
@@ -22,8 +22,7 @@
 </template>
 
 <script>
-import {CODE_SUCCESS} from "@/plugins/constants";
-import {ARTICLE_SUMMARY_LENGTH} from "../plugins/constants";
+import {CODE_SUCCESS, URL_IMAGE} from "@/plugins/constants";
 
 export default {
   name: "SearchList",
@@ -31,7 +30,8 @@ export default {
   data() {
     return {
       articleContent: {},
-      collapseState: {}
+      collapseState: {},
+      baseCoverUrl: URL_IMAGE
     }
   },
   methods: {

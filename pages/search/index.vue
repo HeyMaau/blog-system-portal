@@ -5,13 +5,14 @@
 </template>
 
 <script>
-import {CODE_SUCCESS} from "../../plugins/constants";
+import {CODE_SUCCESS} from "@/plugins/constants";
 import SearchList from "../../components/SearchList";
-import {getClientHeight, getScrollHeight, getScrollTop} from "../../plugins/infinite-scroll";
+import {getClientHeight, getScrollHeight, getScrollTop} from "@/plugins/infinite-scroll";
 
 export default {
   name: "index",
   components: {SearchList},
+  middleware: ['get-categories', 'get-authorInfo'],
   data() {
     return {
       searchResult: [],

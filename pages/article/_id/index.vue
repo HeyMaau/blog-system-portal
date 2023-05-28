@@ -1,10 +1,10 @@
 <template>
   <div class="article-container">
-    <img src="@/static/test.jpg" class="article-cover">
+    <img :src="coverUrl" class="article-cover">
     <h1 class="article-title">
       {{ article.title }}
     </h1>
-    <AuthorInfoBanner :avatarSrc="authorInfo.avatar" :name="authorInfo.userName" :signature="authorInfo.sign"/>
+    <AuthorInfoBanner :avatarSrc="avatarUrl" :name="authorInfo.userName" :signature="authorInfo.sign"/>
     <div class="article-main-container">
       <div v-html="article.content" class="article-content" ref="articleContentRef"></div>
       <div class="article-update-time">编辑于 {{ updateTime }}</div>
@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import {CODE_SUCCESS} from "@/plugins/constants";
+import {CODE_SUCCESS, URL_IMAGE} from "@/plugins/constants";
 import AuthorInfoBanner from "@/components/AuthorInfoBanner";
 import {mapState} from "vuex";
 import Catalog from "@/components/Catalog";
@@ -41,6 +41,12 @@ export default {
     updateTime() {
       let index = this.article.updateTime.lastIndexOf(':');
       return this.article.updateTime.slice(0, index)
+    },
+    avatarUrl() {
+      return URL_IMAGE + this.authorInfo.avatar
+    },
+    coverUrl() {
+      return URL_IMAGE + this.article.cover
     }
   },
   data() {

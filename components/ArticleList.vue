@@ -4,7 +4,7 @@
       <div class="article-item">
         <nuxt-link :to="`/article/${item.id}`" target="_blank" class="article-title">{{ item.title }}</nuxt-link>
         <div class="richtext-container">
-          <img src="~/static/test.jpg" class="article-cover" loading="lazy" v-show="collapseState[item.id]"/>
+          <img :src="baseCoverUrl + item.cover" class="article-cover" loading="lazy" v-show="collapseState[item.id]"/>
           <div class="article-content">
             <div class="article-summary" v-show="collapseState[item.id]">
               {{ item.content }}
@@ -25,8 +25,7 @@
 </template>
 
 <script>
-import {CODE_SUCCESS} from "@/plugins/constants";
-import {ARTICLE_SUMMARY_LENGTH} from "../plugins/constants";
+import {CODE_SUCCESS, URL_IMAGE} from "@/plugins/constants";
 
 export default {
   name: "ArticleList",
@@ -34,7 +33,8 @@ export default {
   data() {
     return {
       articleContent: {},
-      collapseState: {}
+      collapseState: {},
+      baseCoverUrl: URL_IMAGE
     }
   },
   methods: {
