@@ -66,7 +66,7 @@ export default {
 }
 </script>
 
+<style src="@/assets/article.css" scoped/>
 <style scoped>
-@import "~assets/article.css";
 
 </style>

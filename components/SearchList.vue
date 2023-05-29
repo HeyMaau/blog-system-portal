@@ -63,8 +63,8 @@ export default {
 }
 </script>
 
+<style src="@/assets/article.css" scoped/>
 <style scoped>
-@import "~assets/article.css";
 
 ::v-deep em {
   color: #f1043c;

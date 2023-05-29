@@ -1,6 +1,6 @@
 import env from '../env'
 
-export const ARTICLE_SUMMARY_LENGTH = 120
+export const ARTICLE_SUMMARY_LENGTH = 200
 export const CODE_SUCCESS = 20000
 export const CODE_IP_BLOCKED = 40016
 export const URL_IMAGE = `${env[process.env.NODE_ENV].URL_SERVER}/image/`
