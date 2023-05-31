@@ -1,24 +1,28 @@
 <template>
-  <div class="main-page-container" v-if="articleList.length > 0">
-    <ArticleList class="article-list" :articleList="articleList">
-      <el-pagination
-        hide-on-single-page
-        @current-change="handleCurrentChange"
-        :page-size="size"
-        :pager-count="5"
-        layout="prev, pager, next"
-        :total="total">
-      </el-pagination>
-    </ArticleList>
-    <div class="website-info-column">
-      <InfoCard :avatarSrc="categoryCover" :title="categoryName">
-        <div class="info-item">
-          <span>{{ categoryDescription }}</span>
-        </div>
-      </InfoCard>
+  <div>
+    <div class="main-page-container" v-if="!loading && articleList.length > 0">
+      <ArticleList class="article-list" :articleList="articleList">
+        <el-pagination
+          hide-on-single-page
+          @current-change="handleCurrentChange"
+          :page-size="size"
+          :pager-count="5"
+          :current-page="page"
+          layout="prev, pager, next"
+          :total="total">
+        </el-pagination>
+      </ArticleList>
+      <div class="website-info-column">
+        <InfoCard :avatarSrc="categoryCover" :title="categoryName">
+          <div class="info-item">
+            <span>{{ categoryDescription }}</span>
+          </div>
+        </InfoCard>
+      </div>
     </div>
+    <SkeletonView :count="5" :loading="loading" v-if="loading"/>
+    <EmptyView class="empty-view" v-if="!loading && articleList.length === 0"/>
   </div>
-  <EmptyView class="empty-view" v-else/>
 </template>
 
 <script>
@@ -28,10 +32,11 @@ import InfoCard from "../../../components/InfoCard";
 import {mapState} from "vuex";
 import {trimArticleSummary} from "../../../plugins/article-api";
 import EmptyView from "../../../components/EmptyView";
+import SkeletonView from "../../../components/SkeletonView";
 
 export default {
   name: "index",
-  components: {EmptyView, InfoCard, ArticleList},
+  components: {SkeletonView, EmptyView, InfoCard, ArticleList},
   validate({params}) {
     return /^\d+$/.test(params.id)
   },
@@ -44,11 +49,17 @@ export default {
       categoryID: this.$route.params.id,
       categoryCover: '',
       categoryDescription: '',
-      categoryName: ''
+      categoryName: '',
+      loadingTimeout: false,
+      loading: true,
+      hasData: false
     }
   },
   methods: {
     async getArticleListByCategory() {
+      this.loading = true
+      this.loadingTimeout = false
+      this.hasData = false
       const {data: response} = await this.$axios.get('article/list', {
         params: {
           page: this.page,
@@ -60,6 +71,10 @@ export default {
         this.articleList = response.data.data
         trimArticleSummary(this.articleList)
         this.total = response.data.total
+        this.hasData = true
+        if (this.loadingTimeout) {
+          this.loading = false
+        }
       } else {
         this.$message.error(response.message)
       }
@@ -67,6 +82,8 @@ export default {
     handleCurrentChange(page) {
       this.page = page
       this.getArticleListByCategory()
+      this.setLoadingTimeout()
+      scrollTo(0, 0)
     },
     getCategoryInfo() {
       this.categoryList.forEach(item => {
@@ -76,6 +93,14 @@ export default {
           this.categoryName = item.name
         }
       })
+    },
+    setLoadingTimeout() {
+      setTimeout(() => {
+        this.loadingTimeout = true
+        if (this.hasData) {
+          this.loading = false
+        }
+      }, 500)
     }
   },
   computed: {
@@ -87,14 +112,17 @@ export default {
   },
   beforeMount() {
     document.title = `${this.categoryName} | 分类 - 卧卷`
+  },
+  mounted() {
+    this.setLoadingTimeout()
   }
 }
 </script>
 
+<style src="@/assets/article.css" scoped/>
+<style src="@/assets/page.css" scoped/>
+<style src="@/assets/info-card.css" scoped/>
 <style scoped>
-@import "~assets/article.css";
-@import "~assets/page.css";
-@import "~assets/info-card.css";
 
 .el-pagination {
   display: flex;

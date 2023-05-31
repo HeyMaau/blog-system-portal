@@ -9,7 +9,9 @@ import {
   Button,
   Result,
   Backtop,
-  Icon
+  Icon,
+  Skeleton,
+  SkeletonItem
 } from "element-ui";
 
 Vue.component(Pagination.name, Pagination)
@@ -21,4 +23,6 @@ Vue.component(Button.name, Button)
 Vue.component(Result.name, Result)
 Vue.component(Backtop.name, Backtop)
 Vue.component(Icon.name, Icon)
+Vue.component(Skeleton.name, Skeleton)
+Vue.component(SkeletonItem.name, SkeletonItem)
 Vue.prototype.$message = Message
