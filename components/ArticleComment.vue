@@ -1,7 +1,7 @@
 <template>
   <div>
     <PublishComment :parentInfo="parentInfo" @publishSuccess="getComments(page, size)"/>
-    <div class="comment-list-container common-round-border">
+    <div class="comment-list-container common-round-border" v-if="commentList.length > 0">
       <div class="total-comment">{{ commentList.length }}条评论</div>
       <div class="comment-item-list-container">
         <CommentItem v-for="item in commentList" :key="item.id" :comment="item"
