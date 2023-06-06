@@ -6,7 +6,7 @@
     </h1>
     <AuthorInfoBanner :avatarSrc="avatarUrl" :name="authorInfo.userName" :signature="authorInfo.sign"/>
     <div class="article-main-container">
-      <div v-html="article.content" class="article-content" ref="articleContentRef"></div>
+      <div v-html="article.content" class="article-content" ref="articleContentRef" id="articleContent"></div>
       <div class="article-update-time">编辑于 {{ updateTime }}</div>
       <div class="article-catalog-container" ref="catalogContainerRef">
         <Catalog :headers="headers" :activeHeader="currentHeader" class="article-catalog"/>
@@ -22,6 +22,8 @@ import AuthorInfoBanner from "@/components/AuthorInfoBanner";
 import {mapState} from "vuex";
 import Catalog from "@/components/Catalog";
 import ArticleComment from "@/components/ArticleComment";
+import Viewer from "viewerjs"
+import 'viewerjs/dist/viewer.min.css'
 
 export default {
   name: "index",
@@ -94,6 +96,13 @@ export default {
     this.extractArticleHeader()
     this.setCatalogHeight()
     window.addEventListener("scroll", this.trackCatalog)
+    const picViewer = new Viewer(document.getElementById('articleContent'), {
+      inline: false,
+      title: false,
+      toolbar: false,
+      transition: false,
+      navbar: false
+    })
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.trackCatalog)
