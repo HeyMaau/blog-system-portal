@@ -155,4 +155,15 @@ export default {
   object-fit: cover;
 }
 
+::v-deep blockquote {
+  border-left: 3px solid #D3D3D3;
+  color: #646464;
+  padding-left: 1em;
+  margin: 1.4em 0;
+}
+
+::v-deep .article-content a {
+  border-bottom: 1px solid #808080;
+}
+
 </style>
