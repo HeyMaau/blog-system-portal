@@ -1,6 +1,6 @@
 <template>
   <div id="header">
-    <nuxt-link to="/" class="website-logo-container"><img src="~static/logo.png" class="website-logo"/></nuxt-link>
+    <a href="//manpok.top" class="website-logo-container"><img src="~static/logo.png" class="website-logo"/></a>
     <div id="header-link-area">
       <nuxt-link to="/" :class="{'active-path': activePath === '/'}">首页</nuxt-link>
       <el-dropdown :class="{'active-path': activePath.startsWith('/category')}">
