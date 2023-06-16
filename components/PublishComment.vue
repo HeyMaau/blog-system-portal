@@ -183,7 +183,7 @@ export default {
 }
 
 .emoji-panel {
-  position: absolute;
+  position: absolute !important;
   left: 12px;
   top: 135px;
   transform: translate(-50%, -50%);
