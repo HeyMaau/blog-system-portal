@@ -21,7 +21,7 @@
       </div>
     </div>
     <SkeletonView :count="5" :loading="loading" v-if="loading"/>
-    <EmptyView class="empty-view" v-if="!loading && articleList.length === 0"/>
+    <EmptyView class="empty-view" v-if="!loading && articleList.length === 0" message="在写了在写了！！！"/>
   </div>
 </template>
 
@@ -67,14 +67,14 @@ export default {
           categoryID: this.categoryID
         }
       })
+      this.hasData = true
+      if (this.loadingTimeout) {
+        this.loading = false
+      }
       if (response.code === CODE_SUCCESS) {
         this.articleList = response.data.data
         trimArticleSummary(this.articleList)
         this.total = response.data.total
-        this.hasData = true
-        if (this.loadingTimeout) {
-          this.loading = false
-        }
       } else {
         this.$message.error(response.message)
       }
