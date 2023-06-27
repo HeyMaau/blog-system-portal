@@ -49,7 +49,7 @@ export default {
       }
     }
   },
-  created() {
+  beforeMount() {
     this.getComments(this.page, this.size)
   }
 }
