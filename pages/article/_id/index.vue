@@ -24,18 +24,32 @@ import Catalog from "@/components/Catalog";
 import ArticleComment from "@/components/ArticleComment";
 import Viewer from "viewerjs"
 import 'viewerjs/dist/viewer.min.css'
+import {trimArticleContent4Description} from "../../../plugins/article-api";
 
 export default {
   name: "index",
   middleware: ['get-categories', 'get-authorInfo'],
   components: {ArticleComment, AuthorInfoBanner, Catalog},
+  head() {
+    return {
+      title: `${this.article.title} - 卧卷`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.description
+        }
+      ]
+    }
+  },
   validate({params}) {
     return /^\d+$/.test(params.id)
   },
   async asyncData({$axios, params}) {
     const {data: response} = await $axios.get('article/' + params.id)
     if (response.code === CODE_SUCCESS) {
-      return {article: response.data}
+      let description = trimArticleContent4Description(response.data.content)
+      return {article: response.data, description}
     }
   },
   computed: {
@@ -106,9 +120,6 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.trackCatalog)
-  },
-  beforeMount() {
-    document.title = `${this.article.title} - 卧卷`
   }
 }
 </script>

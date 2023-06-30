@@ -3,14 +3,18 @@ import env from './env'
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: '首页 - 卧卷',
+    title: '卧卷',
     htmlAttrs: {
       lang: 'zh'
     },
     meta: [
       {charset: 'utf-8'},
       {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-      {hid: 'description', name: 'description', content: ''},
+      {
+        hid: 'description',
+        name: 'description',
+        content: '三分开发，七分填坑，卧卷主要分享个人日常开发中遇到的坑。技术学习上可以多卷卷，工作上就不要卷了吧，躺一躺多舒服＠(￣-￣)＠'
+      },
       {name: 'format-detection', content: 'telephone=no'}
     ],
     link: [
