@@ -24,7 +24,7 @@ import Catalog from "@/components/Catalog";
 import ArticleComment from "@/components/ArticleComment";
 import Viewer from "viewerjs"
 import 'viewerjs/dist/viewer.min.css'
-import {trimArticleContent4Description} from "../../../plugins/article-api";
+import {createMetaKeywords, trimArticleContent4Description} from "../../../plugins/article-api";
 
 export default {
   name: "index",
@@ -38,6 +38,11 @@ export default {
           hid: 'description',
           name: 'description',
           content: this.description
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.keywords
         }
       ]
     }
@@ -49,7 +54,8 @@ export default {
     const {data: response} = await $axios.get('article/' + params.id)
     if (response.code === CODE_SUCCESS) {
       let description = trimArticleContent4Description(response.data.content)
-      return {article: response.data, description}
+      let keywords = createMetaKeywords(response.data.labels);
+      return {article: response.data, description, keywords}
     }
   },
   computed: {

@@ -27,3 +27,7 @@ function removeHTMLTag(str) {
   })
   return str
 }
+
+export function createMetaKeywords(labels) {
+  return labels.split('-').join(',')
+}

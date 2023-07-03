@@ -15,7 +15,24 @@ export default {
         name: 'description',
         content: '三分开发，七分填坑，卧卷主要分享个人日常开发中遇到的坑。技术学习上可以多卷卷，工作上就不要卷了吧，躺一躺多舒服＠(￣-￣)＠'
       },
-      {name: 'format-detection', content: 'telephone=no'}
+      {
+        'http-equiv': 'X-UA-Compatible',
+        content: 'ie=edge,chrome=1'
+      },
+      {
+        hid: 'keywords',
+        name: 'keywords',
+        content: '卧卷,Android,前端,后端'
+      },
+      {
+        name: 'renderer',
+        content: 'webkit'
+      },
+      {
+        name: 'force-rendering',
+        content: 'webkit'
+      },
+      {name: 'format-detection', content: 'telephone=no,email=no,adress=no'}
     ],
     link: [
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'}
