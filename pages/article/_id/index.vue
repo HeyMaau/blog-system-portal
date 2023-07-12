@@ -24,6 +24,7 @@ import Catalog from "@/components/Catalog";
 import ArticleComment from "@/components/ArticleComment";
 import Viewer from "viewerjs"
 import {createMetaKeywords, trimArticleContent4Description} from "../../../plugins/article-api";
+import hljs from 'highlight.js'
 
 export default {
   name: "index",
@@ -122,6 +123,7 @@ export default {
       transition: false,
       navbar: false
     })
+    hljs.highlightAll()
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.trackCatalog)
@@ -189,6 +191,10 @@ export default {
 
 ::v-deep .article-content a {
   border-bottom: 1px solid #808080;
+}
+
+::v-deep .hljs {
+  padding: 10px;
 }
 
 </style>

@@ -42,6 +42,10 @@ export default {
         integrity: 'sha512-zdX1vpRJc7+VHCUJcExqoI7yuYbSFAbSWxscAoLF0KoUPvMSAK09BaOZ47UFdP4ABSXpevKfcD0MTVxvh0jLHQ==',
         crossorigin: 'anonymous',
         referrerpolicy: 'no-referrer'
+      },
+      {
+        rel: 'stylesheet',
+        href: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/androidstudio.min.css'
       }
     ],
     script: [
@@ -53,6 +57,9 @@ export default {
         integrity: 'sha512-f8kZwYACKF8unHuRV7j/5ILZfflRncxHp1f6y/PKuuRpCVgpORNZMne1jrghNzTVlXabUXIg1iJ5PvhuAaau6Q==',
         crossorigin: 'anonymous',
         referrerpolicy: 'no-referrer'
+      },
+      {
+        src: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js'
       }
     ]
   },
@@ -108,7 +115,8 @@ export default {
       if (isClient) {
         config.externals = {
           'viewerjs': 'Viewer',
-          'vue': 'Vue'
+          'vue': 'Vue',
+          'highlight.js': 'hljs'
         }
       }
     }

@@ -28,6 +28,7 @@
 <script>
 import {CODE_SUCCESS, URL_IMAGE} from "@/plugins/constants";
 import Viewer from "viewerjs"
+import hljs from 'highlight.js'
 
 export default {
   name: "ArticleList",
@@ -53,6 +54,7 @@ export default {
             transition: false,
             navbar: false
           })
+          hljs.highlightAll()
         })
       } else {
         this.$message.error(response.message)
@@ -89,6 +91,10 @@ export default {
 
 ::v-deep .article-detail a {
   border-bottom: 1px solid #808080;
+}
+
+::v-deep .hljs {
+  padding: 10px;
 }
 
 </style>
