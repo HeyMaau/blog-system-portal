@@ -35,7 +35,19 @@ export default {
       {name: 'format-detection', content: 'telephone=no,email=no,adress=no'}
     ],
     link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'}
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'},
+      {
+        rel: 'stylesheet',
+        href: 'https://unpkg.com/element-ui@2.15.10/lib/theme-chalk/index.css'
+      }
+    ],
+    script: [
+      {
+        src: 'https://cdn.jsdelivr.net/npm/vue@2.7.10'
+      },
+      {
+        src: 'https://unpkg.com/element-ui@2.15.10/lib/index.js'
+      }
     ]
   },
 
@@ -86,15 +98,12 @@ export default {
         ]
       ]
     },
-    optimization: {
-      minimize: true,
-      splitChunks: {
-        chunks: 'all',
-        automaticNameDelimiter: '.',
-        minSize: 10000,
-        maxSize: 250000,
-        name: undefined,
-        cacheGroups: {}
+    extend(config, {isClient}) {
+      if (isClient) {
+        config.externals = {
+          'viewerjs': 'Viewer',
+          'vue': 'Vue'
+        }
       }
     }
   }
