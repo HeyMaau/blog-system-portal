@@ -10,7 +10,7 @@
               {{ item.content }}
             </div>
             <div v-show="!collapseState[item.id]" v-html="articleContent[item.id]" class="article-detail"
-                 id="articleDetail">
+                 :id="`articleDetail_${item.id}`">
             </div>
             <button class="show-article-detail" @click="showArticleDetail(item.id)"
                     v-show="collapseState[item.id]">
@@ -47,7 +47,7 @@ export default {
         this.$set(this.articleContent, articleID, response.data.content)
         this.collapseState[articleID] = false
         this.$nextTick(() => {
-          const picViewer = new Viewer(document.getElementById('articleDetail'), {
+          const picViewer = new Viewer(document.getElementById(`articleDetail_${articleID}`), {
             inline: false,
             title: false,
             toolbar: false,
