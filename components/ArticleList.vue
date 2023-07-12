@@ -9,7 +9,8 @@
             <div class="article-summary" v-show="collapseState[item.id]">
               {{ item.content }}
             </div>
-            <div v-show="!collapseState[item.id]" v-html="articleContent[item.id]" class="article-detail">
+            <div v-show="!collapseState[item.id]" v-html="articleContent[item.id]" class="article-detail"
+                 id="articleDetail">
             </div>
             <button class="show-article-detail" @click="showArticleDetail(item.id)"
                     v-show="collapseState[item.id]">
@@ -26,6 +27,7 @@
 
 <script>
 import {CODE_SUCCESS, URL_IMAGE} from "@/plugins/constants";
+import Viewer from "viewerjs"
 
 export default {
   name: "ArticleList",
@@ -43,6 +45,15 @@ export default {
       if (response.code === CODE_SUCCESS) {
         this.$set(this.articleContent, articleID, response.data.content)
         this.collapseState[articleID] = false
+        this.$nextTick(() => {
+          const picViewer = new Viewer(document.getElementById('articleDetail'), {
+            inline: false,
+            title: false,
+            toolbar: false,
+            transition: false,
+            navbar: false
+          })
+        })
       } else {
         this.$message.error(response.message)
       }

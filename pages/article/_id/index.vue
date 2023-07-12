@@ -43,23 +43,6 @@ export default {
           name: 'keywords',
           content: this.keywords
         }
-      ],
-      script: [
-        {
-          src: 'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js',
-          integrity: 'sha512-f8kZwYACKF8unHuRV7j/5ILZfflRncxHp1f6y/PKuuRpCVgpORNZMne1jrghNzTVlXabUXIg1iJ5PvhuAaau6Q==',
-          crossorigin: 'anonymous',
-          referrerpolicy: 'no-referrer'
-        }
-      ],
-      link: [
-        {
-          rel: 'stylesheet',
-          href: 'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.css',
-          integrity: 'sha512-zdX1vpRJc7+VHCUJcExqoI7yuYbSFAbSWxscAoLF0KoUPvMSAK09BaOZ47UFdP4ABSXpevKfcD0MTVxvh0jLHQ==',
-          crossorigin: 'anonymous',
-          referrerpolicy: 'no-referrer'
-        }
       ]
     }
   },

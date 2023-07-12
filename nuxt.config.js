@@ -38,15 +38,21 @@ export default {
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'},
       {
         rel: 'stylesheet',
-        href: 'https://unpkg.com/element-ui@2.15.10/lib/theme-chalk/index.css'
+        href: 'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.css',
+        integrity: 'sha512-zdX1vpRJc7+VHCUJcExqoI7yuYbSFAbSWxscAoLF0KoUPvMSAK09BaOZ47UFdP4ABSXpevKfcD0MTVxvh0jLHQ==',
+        crossorigin: 'anonymous',
+        referrerpolicy: 'no-referrer'
       }
     ],
     script: [
       {
-        src: 'https://cdn.jsdelivr.net/npm/vue@2.7.10'
+        src: 'https://unpkg.com/vue@2.7.10/dist/vue.min.js'
       },
       {
-        src: 'https://unpkg.com/element-ui@2.15.10/lib/index.js'
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js',
+        integrity: 'sha512-f8kZwYACKF8unHuRV7j/5ILZfflRncxHp1f6y/PKuuRpCVgpORNZMne1jrghNzTVlXabUXIg1iJ5PvhuAaau6Q==',
+        crossorigin: 'anonymous',
+        referrerpolicy: 'no-referrer'
       }
     ]
   },
