@@ -9,8 +9,11 @@
             <div class="article-summary" v-show="collapseState[item.id]">
               {{ item.content }}
             </div>
-            <div v-show="!collapseState[item.id]" v-html="articleContent[item.id]" class="article-detail"
-                 :id="`articleDetail_${item.id}`">
+            <div class="article-detail-container" v-show="!collapseState[item.id]">
+              <img :src="baseCoverUrl + item.cover" class="article-detail-cover" loading="lazy"/>
+              <div v-html="articleContent[item.id]" class="article-detail"
+                   :id="`articleDetail_${item.id}`">
+              </div>
             </div>
             <button class="show-article-detail" @click="showArticleDetail(item.id)"
                     v-show="collapseState[item.id]">
