@@ -38,14 +38,11 @@ export default {
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'},
       {
         rel: 'stylesheet',
-        href: 'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.css',
-        integrity: 'sha512-zdX1vpRJc7+VHCUJcExqoI7yuYbSFAbSWxscAoLF0KoUPvMSAK09BaOZ47UFdP4ABSXpevKfcD0MTVxvh0jLHQ==',
-        crossorigin: 'anonymous',
-        referrerpolicy: 'no-referrer'
+        href: 'https://unpkg.com/viewerjs@1.11.3/dist/viewer.min.css'
       },
       {
         rel: 'stylesheet',
-        href: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/androidstudio.min.css'
+        href: 'https://unpkg.com/@highlightjs/cdn-assets@11.8.0/styles/androidstudio.min.css'
       }
     ],
     script: [
@@ -53,13 +50,10 @@ export default {
         src: 'https://unpkg.com/vue@2.7.10/dist/vue.min.js'
       },
       {
-        src: 'https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js',
-        integrity: 'sha512-f8kZwYACKF8unHuRV7j/5ILZfflRncxHp1f6y/PKuuRpCVgpORNZMne1jrghNzTVlXabUXIg1iJ5PvhuAaau6Q==',
-        crossorigin: 'anonymous',
-        referrerpolicy: 'no-referrer'
+        src: 'https://unpkg.com/viewerjs@1.11.3/dist/viewer.min.js'
       },
       {
-        src: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js'
+        src: 'https://unpkg.com/@highlightjs/cdn-assets@11.8.0/highlight.min.js'
       }
     ]
   },
