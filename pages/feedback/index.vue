@@ -11,6 +11,7 @@ let timer
 
 export default {
   name: "index",
+  middleware: ['get-categories', 'get-authorInfo'],
   data() {
     return {
       submitted: false,

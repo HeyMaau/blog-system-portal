@@ -20,6 +20,7 @@ import ThinkingList from "../../components/ThinkingList";
 export default {
   name: "index",
   components: {ThinkingList},
+  middleware: ['get-categories', 'get-authorInfo'],
   data() {
     return {
       thinkingList: [],
