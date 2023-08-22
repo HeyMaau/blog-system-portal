@@ -31,7 +31,8 @@
               d="M642.245901 619.058294l-2.453888 0.798179c-40.310078 18.248619-83.548858 27.5341-128.411625 27.5341-46.343491 0-90.173742-9.375531-130.305765-27.799136l-2.425236-0.741897c-1.508353-0.413416-3.548826-1.003863-6.092765-1.003863-14.757099 0-26.734898 11.977799-26.734898 26.675546 0 6.978948 3.282766 13.988596 8.695033 19.253506l-0.325411 1.62501 6.831592 3.076058c47.911196 21.679765 100.021018 33.095769 150.681838 33.095769 51.608402 0 102.180194-11.120268 150.978597-33.361829 8.575306-4.703115 13.928221-13.721513 13.928221-23.511483C676.611593 627.458615 661.027663 613.290941 642.245901 619.058294"
               fill="#8590A6" p-id="7723"></path>
           </svg>
-          <EmojiPanel @onClick="emojiClick" v-show="showEmoji" class="emoji-panel"/>
+          <EmojiPanelUpward @onClick="emojiClick" v-show="showEmoji" class="emoji-panel-upward" v-if="emojiPosition === 'up'"/>
+          <EmojiPanel @onClick="emojiClick" v-show="showEmoji" class="emoji-panel" v-else/>
         </div>
         <el-button type="primary" size="small" :disabled="buttonDisabled" @click="publishComment">发表</el-button>
       </div>
@@ -42,24 +43,29 @@
 <script>
 import {CODE_SUCCESS} from "../plugins/constants";
 import EmojiPanel from "./EmojiPanel";
+import EmojiPanelUpward from "./EmojiPanelUpward";
 
 export default {
   name: "PublishComment",
-  components: {EmojiPanel},
+  components: {EmojiPanelUpward, EmojiPanel},
   props: {
-    parentInfo: Object
+    parentInfo: Object,
+    type: String,
+    articleID: String,
+    emojiPosition: String
   },
   data() {
     return {
       comment: {
         content: '',
-        articleId: this.$route.params.id,
+        articleId: this.$route.params.id === undefined ? this.articleID : this.$route.params.id,
         parentCommentId: null,
         replyCommentId: null,
         replyUserName: null,
         userAvatar: '',
         userEmail: '',
-        userName: ''
+        userName: '',
+        type: this.type
       },
       showFull: false,
       buttonDisabled: true,
@@ -186,6 +192,13 @@ export default {
   position: absolute !important;
   left: 12px;
   top: 135px;
+  transform: translate(-50%, -50%);
+}
+
+.emoji-panel-upward {
+  position: absolute !important;
+  left: 12px;
+  top: -106px;
   transform: translate(-50%, -50%);
 }
 

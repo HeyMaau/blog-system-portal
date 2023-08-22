@@ -30,8 +30,13 @@
         </div>
       </div>
       <PublishComment v-show="showPublishComment" class="publish-comment"
+                      :type="type"
+                      :articleID="articleID"
+                      :emojiPosition="type === '1'? 'up': 'down'"
                       :parentInfo="parentInfo" @publishSuccess="onPublishCommentSuccess"/>
       <CommentItem v-for="child in comment.children" :key="child.id" :comment="child"
+                   :type="type"
+                   :articleID="articleID"
                    class="child-comment-item-container"
                    @childrenReplySuccess="onChildrenReplySuccess"
                    :parentInfo="{parentCommentId: parentInfo.parentCommentId, replyCommentId: child.id, replyUserName: child.userName}"/>
@@ -48,7 +53,9 @@ export default {
   components: {PublishComment},
   props: {
     comment: Object,
-    parentInfo: Object
+    parentInfo: Object,
+    type: String,
+    articleID: String
   },
   data() {
     return {

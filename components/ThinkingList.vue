@@ -20,7 +20,7 @@
       </div>
       <div class="update-time">发布于 {{ item.updateTime }}</div>
       <div class="operating-area">
-        <button class="add-comment-button">
+        <button class="add-comment-button" @click="handleClickComment(item.id)">
           <span class="button-icon">
             <svg t="1692067380859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
                  p-id="4629" width="16" height="16"><path
@@ -30,6 +30,7 @@
           添加评论
         </button>
       </div>
+      <ThinkingComment :id="item.id" v-show="commentListState[item.id]" class="thinking-comment"/>
     </div>
     <slot></slot>
   </div>
@@ -38,16 +39,24 @@
 <script>
 import {URL_IMAGE} from "../plugins/constants";
 import Viewer from "viewerjs";
+import ThinkingComment from "./ThinkingComment";
 
 export default {
   name: "ThinkingList",
+  components: {ThinkingComment},
   props: {
     thinkingList: Array
   },
   data() {
     return {
       imageBaseUrl: URL_IMAGE,
-      picViewer: null
+      picViewer: null,
+      commentListState: {}
+    }
+  },
+  watch: {
+    thinkingList() {
+      this.initCommentListState()
     }
   },
   methods: {
@@ -68,6 +77,17 @@ export default {
           this.picViewer.update()
         })
       }
+    },
+    handleClickComment(id) {
+      console.log(this.commentListState)
+      console.log(this.commentListState[id])
+      this.commentListState[id] = !this.commentListState[id]
+    },
+    initCommentListState() {
+      this.commentListState = {}
+      this.thinkingList.forEach(value => {
+        this.$set(this.commentListState, value.id, false)
+      })
     }
   },
   beforeUpdate() {
@@ -87,7 +107,6 @@ export default {
 .thinking-list-item {
   padding: 16px 20px;
   position: relative;
-  width: 100%;
 }
 
 .thinking-list-item::after {
@@ -179,6 +198,11 @@ export default {
   background-color: transparent;
   line-height: 32px;
   padding: 0;
+  cursor: pointer;
+}
+
+.thinking-comment {
+  width: 100%;
 }
 
 </style>

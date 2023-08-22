@@ -1,11 +1,13 @@
 <template>
   <div>
-    <PublishComment :parentInfo="parentInfo" :type="'0'" @publishSuccess="getComments(page, size)"/>
+    <PublishComment :parentInfo="parentInfo" type="1" :articleID="id" @publishSuccess="getComments(page, size)"
+                    emojiPosition="up"/>
     <div class="comment-list-container common-round-border" v-if="commentList.length > 0">
       <div class="total-comment">{{ commentList.length }}条评论</div>
       <div class="comment-item-list-container">
         <CommentItem v-for="item in commentList" :key="item.id" :comment="item"
-                     type="0"
+                     type="1"
+                     :articleID="id"
                      @replySuccess="getComments(page, size)"
                      :parentInfo="{parentCommentId: item.id, replyCommentId: null, replyUserName: null}"/>
       </div>
@@ -14,13 +16,16 @@
 </template>
 
 <script>
-import {CODE_SUCCESS, COMMENT_TYPE_ARTICLE} from "../plugins/constants";
+import {CODE_SUCCESS, COMMENT_TYPE_THINKING} from "../plugins/constants";
 import PublishComment from "./PublishComment";
 import CommentItem from "./CommentItem";
 
 export default {
-  name: "ArticleComment",
+  name: "ThinkingComment",
   components: {CommentItem, PublishComment},
+  props: {
+    id: String,
+  },
   data() {
     return {
       page: 1,
@@ -31,12 +36,13 @@ export default {
         parentCommentId: null,
         replyCommentId: null,
         replyUserName: null
-      }
+      },
+      thinkingID: this.id
     }
   },
   methods: {
     async getComments(page, size) {
-      const {data: response} = await this.$axios.get(`/comment/list/${COMMENT_TYPE_ARTICLE}/${this.$route.params.id}`, {
+      const {data: response} = await this.$axios.get(`/comment/list/${COMMENT_TYPE_THINKING}/${this.thinkingID}`, {
         params: {
           page,
           size
