@@ -12,12 +12,8 @@
         <div>{{ item.title }}</div>
         <div>{{ item.content }}</div>
       </div>
-      <div class="picture-area" v-if="item.sliceImages !== undefined">
-        <img
-          v-for="image in item.sliceImages"
-          class="picture-item"
-          :src="imageBaseUrl + image"/>
-      </div>
+      <ThinkingPictureList class="picture-area" :images="item.images" :limit="4"
+                           v-if="item.images !== null && item.images.length !== 0"/>
       <div class="update-time">发布于 {{ item.updateTime }}</div>
       <div class="operating-area">
         <button class="add-comment-button" @click="handleClickComment(item.id)">
@@ -40,10 +36,11 @@
 import {URL_IMAGE} from "../plugins/constants";
 import Viewer from "viewerjs";
 import ThinkingComment from "./ThinkingComment";
+import ThinkingPictureList from "./ThinkingPictureList";
 
 export default {
   name: "ThinkingList",
-  components: {ThinkingComment},
+  components: {ThinkingPictureList, ThinkingComment},
   props: {
     thinkingList: Array
   },
@@ -60,27 +57,7 @@ export default {
     }
   },
   methods: {
-    initPicViewer() {
-      this.$nextTick(() => {
-        this.picViewer = new Viewer(document.getElementById(`thinking-list-container`), {
-          inline: false,
-          title: false,
-          toolbar: true,
-          transition: false,
-          navbar: false
-        })
-      })
-    },
-    updatePicViewer() {
-      if (this.picViewer !== null) {
-        this.$nextTick(() => {
-          this.picViewer.update()
-        })
-      }
-    },
     handleClickComment(id) {
-      console.log(this.commentListState)
-      console.log(this.commentListState[id])
       this.commentListState[id] = !this.commentListState[id]
     },
     initCommentListState() {
@@ -88,11 +65,6 @@ export default {
       this.thinkingList.forEach(value => {
         this.$set(this.commentListState, value.id, false)
       })
-    }
-  },
-  beforeUpdate() {
-    if (this.picViewer === null) {
-      this.initPicViewer()
     }
   }
 }
@@ -158,19 +130,8 @@ export default {
 }
 
 .picture-area {
-  display: flex;
-  justify-content: left;
   margin-top: 10px;
   width: 100%;
-  overflow: hidden;
-}
-
-.picture-item {
-  width: 163px;
-  height: 163px;
-  box-sizing: border-box;
-  object-fit: cover;
-  margin-right: 3px;
 }
 
 .update-time {
@@ -181,6 +142,7 @@ export default {
 
 .operating-area {
   padding: 5px 0;
+  margin-bottom: -10px;
 }
 
 .button-icon {

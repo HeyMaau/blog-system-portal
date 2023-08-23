@@ -58,11 +58,9 @@ export default {
         this.thinkingList.forEach(value => {
           if (value.images !== null && value.images.length !== 0) {
             value.images = this.splitThinkingImages(value.images)
-            this.$set(value, 'sliceImages', value.images.slice(0, 4))
           }
         })
         this.total = response.data.total
-        this.$refs.thinkingListRef.updatePicViewer()
       }
     },
     splitThinkingImages(imageStr) {
