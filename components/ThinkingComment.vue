@@ -51,6 +51,7 @@ export default {
       if (response.code === CODE_SUCCESS) {
         this.commentList = response.data.data
         this.noMore = response.data.noMore
+        this.$emit('onCommentUpdate', this.thinkingID, this.commentList)
       } else {
         this.$message.error(response.message)
       }
