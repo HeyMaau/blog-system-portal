@@ -169,6 +169,7 @@ export default {
 }
 
 .thinking-comment {
+  margin-top: 10px;
   width: 100%;
 }
 
