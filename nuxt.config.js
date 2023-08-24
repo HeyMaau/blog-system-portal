@@ -38,22 +38,22 @@ export default {
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'},
       {
         rel: 'stylesheet',
-        href: 'https://unpkg.com/viewerjs@1.11.3/dist/viewer.min.css'
+        href: 'https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.css'
       },
       {
         rel: 'stylesheet',
-        href: 'https://unpkg.com/@highlightjs/cdn-assets@11.8.0/styles/androidstudio.min.css'
+        href: 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.8.0/styles/androidstudio.min.css'
       }
     ],
     script: [
       {
-        src: 'https://unpkg.com/vue@2.7.10/dist/vue.min.js'
+        src: 'https://cdn.jsdelivr.net/npm/vue@2.7.10/dist/vue.min.js'
       },
       {
-        src: 'https://unpkg.com/viewerjs@1.11.3/dist/viewer.min.js'
+        src: 'https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.js'
       },
       {
-        src: 'https://unpkg.com/@highlightjs/cdn-assets@11.8.0/highlight.min.js'
+        src: 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.8.0/highlight.min.js'
       }
     ]
   },
