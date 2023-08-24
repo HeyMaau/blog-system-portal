@@ -9,8 +9,8 @@
         </div>
       </div>
       <div class="content-area">
-        <div>{{ item.title }}</div>
-        <div>{{ item.content }}</div>
+        <div class="thinking-title">{{ item.title }}</div>
+        <div class="thinking-content">{{ item.content }}</div>
       </div>
       <ThinkingPictureList class="picture-area" :images="item.images" :limit="4"
                            v-if="item.images !== null && item.images.length !== 0"/>
@@ -132,6 +132,15 @@ export default {
 .content-area {
   margin-top: 9px;
   line-height: 1.67;
+}
+
+.thinking-title {
+  color: #056DE8;
+  font-weight: bold;
+}
+
+.thinking-content {
+  white-space: pre-wrap;
 }
 
 .picture-area {
