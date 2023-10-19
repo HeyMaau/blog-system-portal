@@ -45,6 +45,7 @@
 import {CODE_SUCCESS} from "../plugins/constants";
 import EmojiPanel from "./EmojiPanel";
 import EmojiPanelUpward from "./EmojiPanelUpward";
+import {stopClickPropagation} from "../plugins/common-util";
 
 export default {
   name: "PublishComment",
@@ -114,9 +115,6 @@ export default {
     },
     hideEmojiPanel() {
       this.showEmoji = false
-    },
-    stopEmojiIconPropagation(event) {
-      event.stopPropagation()
     }
   },
   watch: {
@@ -134,14 +132,14 @@ export default {
     document.addEventListener('click', this.hidePublishComment)
     this.$refs.publishCommentRef.addEventListener('click', this.showPublishComment)
     this.$refs.publishCommentRef.addEventListener('click', this.hideEmojiPanel)
-    this.$refs.emojiIconRef.addEventListener('click', this.stopEmojiIconPropagation)
+    this.$refs.emojiIconRef.addEventListener('click', stopClickPropagation)
   },
   beforeDestroy() {
     this.$refs.inputContentRef.removeEventListener('input', this.adjustTextareaHeight)
     document.removeEventListener('click', this.hidePublishComment)
     this.$refs.publishCommentRef.removeEventListener('click', this.showPublishComment)
     this.$refs.publishCommentRef.removeEventListener('click', this.hideEmojiPanel)
-    this.$refs.emojiIconRef.removeEventListener('click', this.stopEmojiIconPropagation)
+    this.$refs.emojiIconRef.removeEventListener('click', stopClickPropagation)
   }
 }
 </script>

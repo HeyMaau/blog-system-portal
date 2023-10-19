@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" ref="emojiPanelUpwardRef">
     <div class="emoji-container">
       <ul>
         <li v-for="(item, index) in emojiList[currentPage]" :key="index" @click="onEmojiClick(item)">{{ item }}</li>
@@ -22,6 +22,7 @@
 <script>
 import {emoji} from "../plugins/emoji";
 import {EMOJI_NUM_PER_PAGE} from "../plugins/constants";
+import {stopClickPropagation} from "../plugins/common-util";
 
 export default {
   name: "EmojiPanelUpward",
@@ -51,6 +52,12 @@ export default {
   created() {
     this.initIndex()
     this.sliceEmojis()
+  },
+  mounted() {
+    this.$refs.emojiPanelUpwardRef.addEventListener('click', stopClickPropagation)
+  },
+  beforeDestroy() {
+    this.$refs.emojiPanelUpwardRef.removeEventListener('click', stopClickPropagation)
   }
 }
 </script>
@@ -103,6 +110,7 @@ li {
   background: #808080;
   margin: 0 4px;
   cursor: pointer;
+  z-index: 10;
 }
 
 .pagination-dot-active-hover:hover {
@@ -112,6 +120,7 @@ li {
   background: #808080;
   margin: 0 4px;
   cursor: pointer;
+  z-index: 10;
 }
 
 .pagination-dot-inactive {
@@ -121,6 +130,7 @@ li {
   background: #D3D3D3;
   margin: 0 4px;
   cursor: pointer;
+  z-index: 10;
 }
 
 </style>

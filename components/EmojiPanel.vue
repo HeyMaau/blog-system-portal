@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" ref="emojiPanelRef">
     <svg t="1679912844085" class="icon arrow-icon" viewBox="0 0 1024 1024" version="1.1"
          xmlns="http://www.w3.org/2000/svg"
          p-id="6619" width="32" height="32">
@@ -22,6 +22,7 @@
 <script>
 import {emoji} from "../plugins/emoji";
 import {EMOJI_NUM_PER_PAGE} from "../plugins/constants";
+import {stopClickPropagation} from "../plugins/common-util";
 
 export default {
   name: "EmojiPanel",
@@ -51,6 +52,12 @@ export default {
   created() {
     this.initIndex()
     this.sliceEmojis()
+  },
+  mounted() {
+    this.$refs.emojiPanelRef.addEventListener('click', stopClickPropagation)
+  },
+  beforeDestroy() {
+    this.$refs.emojiPanelRef.removeEventListener('click', stopClickPropagation)
   }
 }
 </script>
