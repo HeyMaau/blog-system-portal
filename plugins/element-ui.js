@@ -11,7 +11,8 @@ import {
   Backtop,
   Icon,
   Skeleton,
-  SkeletonItem
+  SkeletonItem,
+  Tag
 } from "element-ui";
 
 Vue.component(Pagination.name, Pagination)
@@ -25,4 +26,5 @@ Vue.component(Backtop.name, Backtop)
 Vue.component(Icon.name, Icon)
 Vue.component(Skeleton.name, Skeleton)
 Vue.component(SkeletonItem.name, SkeletonItem)
+Vue.component(Tag.name, Tag)
 Vue.prototype.$message = Message

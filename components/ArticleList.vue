@@ -2,7 +2,11 @@
   <div class="card">
     <div class="article-item-container" v-for="item in articleList" :key="item.id">
       <div class="article-item">
-        <nuxt-link :to="`/article/${item.id}`" target="_blank" class="article-title">{{ item.title }}</nuxt-link>
+        <div class="article-title-tag-container">
+          <el-tag :type="getTagType(item.category.name)" size="small" class="article-tag">{{ item.category.name }}
+          </el-tag>
+          <nuxt-link :to="`/article/${item.id}`" target="_blank" class="article-title">{{ item.title }}</nuxt-link>
+        </div>
         <div class="richtext-container">
           <img :src="baseCoverUrl + item.cover" class="article-cover" loading="lazy" v-show="collapseState[item.id]"/>
           <div class="article-content">
@@ -71,6 +75,20 @@ export default {
           }
         })
       }
+    },
+    getTagType(name) {
+      let type = 'success'
+      switch (name) {
+        case 'Android':
+          type = 'success'
+          break
+        case 'Java':
+          type = 'warning'
+          break
+        default:
+          type = ''
+      }
+      return type
     }
   },
   beforeUpdate() {
@@ -98,6 +116,11 @@ export default {
 
 ::v-deep .hljs {
   padding: 10px;
+}
+
+.article-tag {
+  margin-right: 4px;
+  transform: translate(0, -10%);
 }
 
 </style>
