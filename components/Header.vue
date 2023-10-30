@@ -1,5 +1,5 @@
 <template>
-  <div id="header">
+  <div :class="isCategoryPage">
     <a href="//manpok.top" class="website-logo-container"><img src="~static/logo.png" class="website-logo"/></a>
     <div id="header-link-area">
       <nuxt-link to="/" :class="{'active-path': activePath === '/'}">首页</nuxt-link>
@@ -44,6 +44,12 @@ export default {
     ...mapState('authorInfo', ['authorInfo']),
     avatarUrl() {
       return URL_IMAGE + this.authorInfo.avatar
+    },
+    isCategoryPage() {
+      if (this.$route.path.startsWith('/category')) {
+        return 'header-for-category-page'
+      }
+      return 'header'
     }
   },
   methods: {
@@ -57,13 +63,22 @@ export default {
 
 <style scoped>
 
-#header {
+.header {
   height: 52px;
   background-color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 1px 3px hsl(0deg 0% 7% / 10%);
+}
+
+.header-for-category-page {
+  height: 52px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.04);
 }
 
 .website-logo-container {

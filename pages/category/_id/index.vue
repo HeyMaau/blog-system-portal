@@ -1,7 +1,20 @@
 <template>
-  <div>
+  <div class="category-page-container">
+    <div class="category-header-container">
+      <div class="category-header-info">
+        <span class="category-header-title">{{ categoryName }}</span>
+        <span class="category-header-desc">{{ categoryDescription }}</span>
+        <div class="category-header-article-count">
+          <span class="category-header-total">{{ total }}</span>
+          <span>篇文章</span>
+        </div>
+        <div class="category-header-cover">
+          <img :src="categoryCover">
+        </div>
+      </div>
+    </div>
     <div class="main-page-container" v-if="!loading && articleList.length > 0">
-      <ArticleList class="article-list" :articleList="articleList">
+      <ArticleList class="category-article-list" :articleList="articleList">
         <el-pagination
           hide-on-single-page
           @current-change="handleCurrentChange"
@@ -12,15 +25,8 @@
           :total="total">
         </el-pagination>
       </ArticleList>
-      <div class="website-info-column">
-        <InfoCard :avatarSrc="categoryCover" :title="categoryName">
-          <div class="info-item">
-            <span>{{ categoryDescription }}</span>
-          </div>
-        </InfoCard>
-      </div>
     </div>
-    <SkeletonView :count="5" :loading="loading" v-if="loading"/>
+    <SkeletonView :count="5" :loading="loading" v-if="loading" class="category-skeleton"/>
     <EmptyView class="empty-view" v-if="!loading && articleList.length === 0" message="在写了在写了！！！"/>
   </div>
 </template>
@@ -125,6 +131,13 @@ export default {
 <style src="@/assets/info-card.css" scoped/>
 <style scoped>
 
+.category-page-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .el-pagination {
   display: flex;
   justify-content: center;
@@ -135,8 +148,72 @@ export default {
   font-size: 15px;
 }
 
+.category-skeleton {
+  margin-top: 10px;
+  width: 700px;
+}
+
 .empty-view {
   margin-top: 50px;
+}
+
+.category-article-list {
+  width: 700px;
+}
+
+.category-header-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: white;
+  box-shadow: 0 1px 3px hsla(0, 0%, 7%, .1);
+}
+
+.category-header-info {
+  position: relative;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  max-width: 700px;
+  width: 100%;
+  margin: 24px 0;
+  padding-left: 20px;
+  color: #8493a5;
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.category-header-title {
+  color: #121212;
+  font-size: 26px;
+  line-height: 36px;
+  font-weight: 600;
+}
+
+.category-header-desc {
+  color: #454545;
+  font-size: 18px;
+  line-height: 22px;
+  margin-top: 8px;
+}
+
+.category-header-article-count {
+  margin-top: 12px;
+}
+
+.category-header-total {
+  color: #454545;
+}
+
+.category-header-cover {
+  display: flex;
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 8px;
+  border: 2px solid white;
+  right: 0;
+  top: 0;
 }
 
 </style>

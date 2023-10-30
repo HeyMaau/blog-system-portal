@@ -31,6 +31,7 @@ export default {
 .skeleton-container {
   width: 694px;
   padding: 0 20px 20px;
+  box-sizing: border-box;
 }
 
 .title {
