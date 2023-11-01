@@ -51,7 +51,6 @@ import {trimArticleSummary} from "../plugins/article-api";
 
 export default {
   name: 'IndexPage',
-  middleware: ['get-categories', 'get-authorInfo'],
   components: {
     ArticleList,
     InfoCard

@@ -28,7 +28,6 @@ import hljs from 'highlight.js'
 
 export default {
   name: "index",
-  middleware: ['get-categories', 'get-authorInfo'],
   components: {ArticleComment, AuthorInfoBanner, Catalog},
   head() {
     return {

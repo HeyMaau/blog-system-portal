@@ -26,7 +26,6 @@ import SkeletonView4Thinking from "../../components/SkeletonView4Thinking";
 export default {
   name: "index",
   components: {ThinkingList, SkeletonView4Thinking},
-  middleware: ['get-categories', 'get-authorInfo'],
   data() {
     return {
       thinkingList: [],

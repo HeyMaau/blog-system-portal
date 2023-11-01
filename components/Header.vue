@@ -30,21 +30,18 @@
 
 <script>
 import {mapState} from "vuex";
-import {URL_IMAGE} from "../plugins/constants";
+import {CODE_SUCCESS, URL_IMAGE} from "../plugins/constants";
 
 export default {
   name: "Header",
   props: {categories: Array, activePath: String},
   data() {
     return {
-      input: ''
+      input: '',
+      avatarUrl: ''
     }
   },
   computed: {
-    ...mapState('authorInfo', ['authorInfo']),
-    avatarUrl() {
-      return URL_IMAGE + this.authorInfo.avatar
-    },
     isCategoryPage() {
       if (this.$route.path.startsWith('/category')) {
         return 'header-for-category-page'
@@ -56,7 +53,24 @@ export default {
     doSearch() {
       const {href} = this.$router.resolve({path: '/search', query: {keyword: this.input}})
       window.open(href, '_blank')
+    },
+    async getAuthorInfo() {
+      const {data: response} = await this.$axios.get('user/admin')
+      if (response.code === CODE_SUCCESS) {
+        this.$store.commit('authorInfo/setAuthorInfo', response.data)
+        this.avatarUrl = URL_IMAGE + response.data.avatar
+      }
+    },
+    async getCategories() {
+      const {data: response} = await this.$axios.get('website_info/categories')
+      if (response.code === CODE_SUCCESS) {
+        this.$store.commit('articleCategory/addCategoryList', response.data)
+      }
     }
+  },
+  created() {
+    this.getAuthorInfo()
+    this.getCategories()
   }
 }
 </script>

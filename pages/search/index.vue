@@ -16,7 +16,6 @@ import {getClientHeight, getScrollHeight, getScrollTop} from "@/plugins/infinite
 export default {
   name: "index",
   components: {SearchList},
-  middleware: ['get-categories', 'get-authorInfo'],
   data() {
     return {
       searchResult: [],

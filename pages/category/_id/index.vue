@@ -43,7 +43,6 @@ import SkeletonView from "../../../components/SkeletonView";
 export default {
   name: "index",
   components: {SkeletonView, EmptyView, InfoCard, ArticleList},
-  middleware: ['get-categories', 'get-authorInfo'],
   validate({params}) {
     return /^\d+$/.test(params.id)
   },
