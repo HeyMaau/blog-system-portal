@@ -63,6 +63,7 @@ export default {
   box-sizing: border-box;
   object-fit: cover;
   margin-right: 3px;
+  cursor: zoom-in;
 }
 
 .more-pictures-mask {
