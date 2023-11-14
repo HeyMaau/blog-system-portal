@@ -12,8 +12,10 @@
         <div class="thinking-title">{{ item.title }}</div>
         <div class="thinking-content">{{ item.content }}</div>
       </div>
-      <ThinkingPictureList class="picture-area" :images="item.images" :limit="4"
-                           v-if="item.images !== null && item.images.length !== 0"/>
+      <ThinkingPictureList :id="`thinking-picture-list-${item.id}`" class="picture-area" :images="item.images"
+                           :limit="4"
+                           v-if="item.images !== null && item.images.length !== 0"
+                           @click.native.capture="initPicViewer(item.id)"/>
       <div class="update-time">发布于 {{ item.updateTime }}</div>
       <div class="operating-area">
         <button class="add-comment-button" @click="handleClickComment(item.id)">
@@ -50,7 +52,8 @@ export default {
       imageBaseUrl: URL_IMAGE,
       picViewer: null,
       commentListState: {},
-      commentNumList: {}
+      commentNumList: {},
+      lastInitPicViewerID: ''
     }
   },
   watch: {
@@ -70,6 +73,25 @@ export default {
     },
     updateAddCommentButton(id, data) {
       this.$set(this.commentNumList, id, data.length)
+    },
+    initPicViewer(id) {
+      if (id === this.lastInitPicViewerID) {
+        return
+      }
+      if (this.picViewer !== null) {
+        this.picViewer.destroy()
+      }
+      this.$nextTick(() => {
+        this.picViewer = new Viewer(document.getElementById(`thinking-picture-list-${id}`), {
+          inline: false,
+          title: false,
+          toolbar: true,
+          transition: false,
+          navbar: false,
+          loop: false
+        })
+        this.lastInitPicViewerID = id
+      })
     }
   }
 }

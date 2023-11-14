@@ -25,25 +25,8 @@ export default {
   },
   data() {
     return {
-      imageBaseUrl: URL_IMAGE,
+      imageBaseUrl: URL_IMAGE
     }
-  },
-  methods: {
-    initPicViewer() {
-      this.$nextTick(() => {
-        let picViewer = new Viewer(document.getElementById('container'), {
-          inline: false,
-          title: false,
-          toolbar: true,
-          transition: false,
-          navbar: false,
-          loop: false
-        })
-      })
-    }
-  },
-  mounted() {
-    this.initPicViewer()
   }
 }
 </script>
