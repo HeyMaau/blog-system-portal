@@ -3,7 +3,7 @@
     <div class="article-item-container" v-for="item in articleList" :key="item.id">
       <div class="article-item">
         <div class="article-title-tag-container">
-          <el-tag :type="getTagType(item.category.name)" size="small" class="article-tag">{{ item.category.name }}
+          <el-tag size="small" :color="item.category.tagColor" class="article-tag">{{ item.category.name }}
           </el-tag>
           <nuxt-link :to="`/article/${item.id}`" target="_blank" class="article-title">{{ item.title }}</nuxt-link>
         </div>
@@ -76,20 +76,6 @@ export default {
         })
       }
     },
-    getTagType(name) {
-      let type = 'success'
-      switch (name) {
-        case 'Android':
-          type = 'success'
-          break
-        case 'Java':
-          type = 'warning'
-          break
-        default:
-          type = ''
-      }
-      return type
-    }
   },
   beforeUpdate() {
     this.initCollapseState()
@@ -121,6 +107,9 @@ export default {
 .article-tag {
   margin-right: 4px;
   transform: translate(0, -10%);
+  border: none;
+  color: white;
+  font-weight: bold;
 }
 
 </style>
