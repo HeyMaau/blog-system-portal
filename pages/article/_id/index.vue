@@ -168,6 +168,7 @@ export default {
 
 ::v-deep .article-content img {
   max-width: 100%;
+  cursor: zoom-in;
 }
 
 .article-update-time {
