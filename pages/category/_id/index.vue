@@ -39,6 +39,8 @@ import {mapState} from "vuex";
 import {trimArticleSummary} from "../../../plugins/article-api";
 import EmptyView from "../../../components/EmptyView";
 import SkeletonView from "../../../components/SkeletonView";
+import {RecordEvent, RecordPage} from "../../../plugins/StatisticsConstants";
+import {useCommitVisitRecord} from "../../../plugins/statistics-api";
 
 export default {
   name: "index",
@@ -121,6 +123,11 @@ export default {
   },
   mounted() {
     this.setLoadingTimeout()
+    useCommitVisitRecord(this.$axios, RecordPage.PAGE_NAME_CATEGORY_PAGE + this.$route.params.id, RecordEvent.EVENT_NAME_VISIT)
+  },
+  beforeRouteUpdate(to, from, next) {
+    useCommitVisitRecord(this.$axios, RecordPage.PAGE_NAME_CATEGORY_PAGE + to.params.id, RecordEvent.EVENT_NAME_VISIT);
+    next()
   }
 }
 </script>

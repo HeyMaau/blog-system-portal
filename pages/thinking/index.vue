@@ -22,6 +22,8 @@
 import {CODE_SUCCESS} from "../../plugins/constants";
 import ThinkingList from "../../components/ThinkingList";
 import SkeletonView4Thinking from "../../components/SkeletonView4Thinking";
+import {RecordEvent, RecordPage} from "../../plugins/StatisticsConstants";
+import {useCommitVisitRecord} from "../../plugins/statistics-api";
 
 export default {
   name: "index",
@@ -88,6 +90,7 @@ export default {
   },
   mounted() {
     this.setLoadingTimeout()
+    useCommitVisitRecord(this.$axios, RecordPage.PAGE_NAME_THINKING_PAGE, RecordEvent.EVENT_NAME_VISIT)
   }
 }
 </script>

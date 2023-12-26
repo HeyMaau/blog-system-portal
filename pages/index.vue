@@ -48,6 +48,8 @@ import InfoCard from "@/components/InfoCard";
 import {getClientHeight, getScrollTop, getScrollHeight} from "../plugins/infinite-scroll";
 import {mapState} from "vuex";
 import {trimArticleSummary} from "../plugins/article-api";
+import {RecordEvent, RecordPage} from "../plugins/StatisticsConstants";
+import {useCommitVisitRecord} from "../plugins/statistics-api";
 
 export default {
   name: 'IndexPage',
@@ -111,6 +113,7 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.windowScroll, true)
+    useCommitVisitRecord(this.$axios, RecordPage.PAGE_NAME_MAIN_PAGE, RecordEvent.EVENT_NAME_VISIT)
   },
   destroyed() {
     window.removeEventListener("scroll", this.windowScroll)

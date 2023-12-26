@@ -12,6 +12,8 @@
 import {CODE_SUCCESS} from "@/plugins/constants";
 import SearchList from "../../components/SearchList";
 import {getClientHeight, getScrollHeight, getScrollTop} from "@/plugins/infinite-scroll";
+import {RecordEvent, RecordPage} from "../../plugins/StatisticsConstants";
+import {useCommitVisitRecord} from "../../plugins/statistics-api";
 
 export default {
   name: "index",
@@ -90,6 +92,7 @@ export default {
   mounted() {
     window.addEventListener('scroll', this.windowScroll, true)
     this.setLoadingTimeout()
+    useCommitVisitRecord(this.$axios, RecordPage.PAGE_NAME_SEARCH_PAGE, RecordEvent.EVENT_NAME_VISIT)
   },
   destroyed() {
     window.removeEventListener("scroll", this.windowScroll)

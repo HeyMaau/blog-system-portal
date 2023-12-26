@@ -25,6 +25,8 @@ import ArticleComment from "@/components/ArticleComment";
 import Viewer from "viewerjs"
 import {createMetaKeywords, trimArticleContent4Description} from "../../../plugins/article-api";
 import hljs from 'highlight.js'
+import {RecordEvent, RecordPage} from "../../../plugins/StatisticsConstants";
+import {useCommitVisitRecord} from "../../../plugins/statistics-api";
 
 export default {
   name: "index",
@@ -123,6 +125,7 @@ export default {
       navbar: false
     })
     hljs.highlightAll()
+    useCommitVisitRecord(this.$axios, RecordPage.PAGE_NAME_ARTICLE_PAGE + this.$route.params.id, RecordEvent.EVENT_NAME_VISIT)
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.trackCatalog)
