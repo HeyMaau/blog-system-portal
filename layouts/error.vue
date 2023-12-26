@@ -14,9 +14,15 @@
 </template>
 
 <script>
+import {useCommitVisitRecord} from "../plugins/statistics-api";
+import {RecordEvent, RecordPage} from "../plugins/StatisticsConstants";
+
 export default {
   props: ['error'],
-  name: "error"
+  name: "error",
+  mounted() {
+    useCommitVisitRecord(this.$axios, RecordPage.PAGE_NAME_ERROR_PAGE, RecordEvent.EVENT_NAME_VISIT)
+  }
 }
 </script>
 
