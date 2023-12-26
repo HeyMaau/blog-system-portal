@@ -24,10 +24,11 @@ import ThinkingList from "../../components/ThinkingList";
 import SkeletonView4Thinking from "../../components/SkeletonView4Thinking";
 import {RecordEvent, RecordPage} from "../../plugins/StatisticsConstants";
 import {useCommitVisitRecord} from "../../plugins/statistics-api";
+import EmptyView from "../../components/EmptyView.vue";
 
 export default {
   name: "index",
-  components: {ThinkingList, SkeletonView4Thinking},
+  components: {EmptyView, ThinkingList, SkeletonView4Thinking},
   data() {
     return {
       thinkingList: [],

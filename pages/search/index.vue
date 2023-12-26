@@ -14,10 +14,12 @@ import SearchList from "../../components/SearchList";
 import {getClientHeight, getScrollHeight, getScrollTop} from "@/plugins/infinite-scroll";
 import {RecordEvent, RecordPage} from "../../plugins/StatisticsConstants";
 import {useCommitVisitRecord} from "../../plugins/statistics-api";
+import SkeletonView from "../../components/SkeletonView.vue";
+import EmptyView from "../../components/EmptyView.vue";
 
 export default {
   name: "index",
-  components: {SearchList},
+  components: {EmptyView, SkeletonView, SearchList},
   data() {
     return {
       searchResult: [],

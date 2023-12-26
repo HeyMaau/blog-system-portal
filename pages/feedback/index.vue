@@ -9,11 +9,13 @@
 <script>
 import {useCommitVisitRecord} from "../../plugins/statistics-api";
 import {RecordEvent, RecordPage} from "../../plugins/StatisticsConstants";
+import MessageBoard from "../../components/MessageBoard.vue";
 
 let timer
 
 export default {
   name: "index",
+  components: {MessageBoard},
   data() {
     return {
       submitted: false,
