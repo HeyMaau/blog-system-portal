@@ -45,8 +45,8 @@
 </template>
 
 <script>
-import PublishComment from "./PublishComment";
-import {URL_IMAGE} from "../plugins/constants";
+import PublishComment from "./PublishComment.vue";
+import {URL_IMAGE} from "~/utils/constants";
 
 export default {
   name: "CommentItem",
@@ -60,7 +60,7 @@ export default {
   data() {
     return {
       showPublishComment: false,
-      avatarUrl: `${URL_IMAGE}comment/${this.comment.userAvatar}`
+      avatarUrl: `${URL_IMAGE.value}comment/${this.comment.userAvatar}`
     }
   },
   methods: {

@@ -1,25 +1,23 @@
 <template>
   <div class="container">
-    <Header :categories="categoryList" class="header" :activePath="routerPath"/>
+    <ClientOnly>
+      <Header :categories="articleCategoryStore.categoryList" class="header" :activePath="routerPath"/>
+    </ClientOnly>
     <div class="main">
-      <nuxt/>
+      <NuxtPage/>
     </div>
     <el-backtop></el-backtop>
   </div>
 </template>
 
-<script>
-import Header from "../components/Header";
-import {mapState} from 'vuex'
+<script setup lang="ts">
+import Header from "../components/Header.vue";
+import {useCurrentRouterPath} from "~/composables/useCurrentRouterPath";
+import {useArticleCategoryStore} from "~/store/useArticleCategoryStore";
 
-export default {
-  name: "default",
-  components: {Header},
-  computed: {
-    ...mapState('articleCategory', ['categoryList']),
-    ...mapState('routerPath', ["routerPath"])
-  }
-}
+const routerPath = useCurrentRouterPath()
+const articleCategoryStore = useArticleCategoryStore()
+
 </script>
 
 <style scoped>

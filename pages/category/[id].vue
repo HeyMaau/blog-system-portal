@@ -32,15 +32,18 @@
 </template>
 
 <script>
-import ArticleList from "../../../components/ArticleList";
-import {CODE_SUCCESS, URL_IMAGE} from "../../../plugins/constants";
-import InfoCard from "../../../components/InfoCard";
-import {mapState} from "vuex";
-import {trimArticleSummary} from "../../../plugins/article-api";
-import EmptyView from "../../../components/EmptyView";
-import SkeletonView from "../../../components/SkeletonView";
-import {RecordEvent, RecordPage} from "../../../plugins/StatisticsConstants";
-import {useCommitVisitRecord} from "../../../plugins/statistics-api";
+import ArticleList from "../../components/ArticleList.vue";
+import {CODE_SUCCESS, URL_IMAGE} from "~/utils/constants.js";
+import InfoCard from "../../components/InfoCard.vue";
+import {trimArticleSummary} from "~/utils/article-util.js";
+import EmptyView from "../../components/EmptyView.vue";
+import SkeletonView from "../../components/SkeletonView.vue";
+import {RecordEvent, RecordPage} from "~/utils/StatisticsConstants.js";
+import {useCommitVisitRecord} from "~/apis/statistics-api.ts";
+import {getArticleListApi} from "~/apis/article-api.ts";
+import {mapState} from "pinia";
+import {ElMessage} from "element-plus";
+import {useArticleCategoryStore} from "~/store/useArticleCategoryStore.ts";
 
 export default {
   name: "index",
@@ -68,12 +71,10 @@ export default {
       this.loading = true
       this.loadingTimeout = false
       this.hasData = false
-      const {data: response} = await this.$axios.get('article/list', {
-        params: {
-          page: this.page,
-          size: this.size,
-          categoryID: this.categoryID
-        }
+      const response = await getArticleListApi({
+        page: this.page,
+        size: this.size,
+        categoryID: this.categoryID
       })
       this.hasData = true
       if (this.loadingTimeout) {
@@ -84,7 +85,7 @@ export default {
         trimArticleSummary(this.articleList)
         this.total = response.data.total
       } else {
-        this.$message.error(response.message)
+        ElMessage.error(response.message)
       }
     },
     handleCurrentChange(page) {
@@ -96,7 +97,7 @@ export default {
     getCategoryInfo() {
       this.categoryList.forEach(item => {
         if (item.id === this.categoryID) {
-          this.categoryCover = URL_IMAGE + item.cover
+          this.categoryCover = URL_IMAGE.value + item.cover
           this.categoryDescription = item.description
           this.categoryName = item.name
         }
@@ -112,7 +113,7 @@ export default {
     }
   },
   computed: {
-    ...mapState('articleCategory', ['categoryList'])
+    ...mapState(useArticleCategoryStore, ['categoryList'])
   },
   created() {
     this.getArticleListByCategory()
@@ -123,18 +124,18 @@ export default {
   },
   mounted() {
     this.setLoadingTimeout()
-    useCommitVisitRecord(this.$axios, RecordPage.PAGE_NAME_CATEGORY_PAGE + this.$route.params.id, RecordEvent.EVENT_NAME_VISIT)
+    useCommitVisitRecord(RecordPage.PAGE_NAME_CATEGORY_PAGE + this.$route.params.id, RecordEvent.EVENT_NAME_VISIT)
   },
   beforeRouteUpdate(to, from, next) {
-    useCommitVisitRecord(this.$axios, RecordPage.PAGE_NAME_CATEGORY_PAGE + to.params.id, RecordEvent.EVENT_NAME_VISIT);
+    useCommitVisitRecord(RecordPage.PAGE_NAME_CATEGORY_PAGE + to.params.id, RecordEvent.EVENT_NAME_VISIT);
     next()
   }
 }
 </script>
 
-<style src="@/assets/article.css" scoped/>
-<style src="@/assets/page.css" scoped/>
-<style src="@/assets/info-card.css" scoped/>
+<style src="assets/article.css" scoped/>
+<style src="assets/page.css" scoped/>
+<style src="assets/info-card.css" scoped/>
 <style scoped>
 
 .category-page-container {
@@ -150,7 +151,7 @@ export default {
   padding: 16px 20px;
 }
 
-::v-deep .el-pager li {
+:deep(.el-pager li) {
   font-size: 15px;
 }
 

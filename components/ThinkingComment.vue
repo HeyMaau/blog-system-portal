@@ -16,9 +16,10 @@
 </template>
 
 <script>
-import {CODE_SUCCESS, COMMENT_TYPE_THINKING} from "../plugins/constants";
-import PublishComment from "./PublishComment";
-import CommentItem from "./CommentItem";
+import {CODE_SUCCESS, COMMENT_TYPE_THINKING} from "~/utils/constants";
+import PublishComment from "./PublishComment.vue";
+import CommentItem from "./CommentItem.vue";
+import {getCommentListApi} from "~/apis/comment-api.ts";
 
 export default {
   name: "ThinkingComment",
@@ -42,18 +43,16 @@ export default {
   },
   methods: {
     async getComments(page, size) {
-      const {data: response} = await this.$axios.get(`/comment/list/${COMMENT_TYPE_THINKING}/${this.thinkingID}`, {
-        params: {
-          page,
-          size
-        }
+      const response = await getCommentListApi(this.thinkingID, COMMENT_TYPE_THINKING, {
+        page,
+        size
       })
       if (response.code === CODE_SUCCESS) {
         this.commentList = response.data.data
         this.noMore = response.data.noMore
         this.$emit('onCommentUpdate', this.thinkingID, this.commentList)
       } else {
-        this.$message.error(response.message)
+        ElMessage.error(response.message)
       }
     }
   },

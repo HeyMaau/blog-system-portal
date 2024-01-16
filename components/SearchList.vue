@@ -11,7 +11,9 @@
             <button class="show-article-detail" @click="showArticleDetail(item.id)"
                     v-show="collapseState[item.id]">
               阅读全文
-              <i class="el-icon-arrow-down"></i>
+              <el-icon class="arrow-down-icon">
+                <ArrowDown/>
+              </el-icon>
             </button>
           </div>
         </div>
@@ -21,52 +23,53 @@
   </div>
 </template>
 
-<script>
-import {CODE_SUCCESS, URL_IMAGE} from "@/plugins/constants";
+<script setup>
+import {CODE_SUCCESS, URL_IMAGE} from "~/utils/constants";
+import {getFullArticleApi} from "~/apis/article-api.ts";
+import {onBeforeUpdate, reactive} from "vue";
+import {ElMessage} from "element-plus";
+import {ArrowDown} from "@element-plus/icons-vue";
 
-export default {
-  name: "SearchList",
-  props: {searchList: Array},
-  data() {
-    return {
-      articleContent: {},
-      collapseState: {},
-      baseCoverUrl: URL_IMAGE
-    }
-  },
-  methods: {
-    async showArticleDetail(articleID) {
-      const {data: response} = await this.$axios.get('article/' + articleID)
-      if (response.code === CODE_SUCCESS) {
-        this.$set(this.articleContent, articleID, response.data.content)
-        this.collapseState[articleID] = false
-      } else {
-        this.$message.error(response.message)
-      }
-    },
-    initCollapseState() {
-      if (this.searchList !== undefined) {
-        this.searchList.forEach(item => {
-          if (this.collapseState[item.id] === undefined) {
-            this.$set(this.collapseState, item.id, true)
-          }
-        })
-      }
-    }
-  },
-  beforeUpdate() {
-    this.initCollapseState()
-  },
-  created() {
-    this.initCollapseState()
+const props = defineProps({
+  searchList: Array
+})
+
+const articleContent = reactive({})
+const collapseState = reactive({})
+const baseCoverUrl = URL_IMAGE
+
+async function showArticleDetail(articleID) {
+  const response = await getFullArticleApi(articleID)
+  if (response.code === CODE_SUCCESS) {
+    articleContent[articleID] = response.data.content
+    collapseState[articleID] = false
+  } else {
+    ElMessage.error(response.message)
   }
 }
+
+function initCollapseState() {
+  if (props.searchList !== undefined) {
+    props.searchList.forEach(item => {
+      if (collapseState[item.id] === undefined) {
+        collapseState[item.id] = true
+      }
+    })
+  }
+}
+
+onBeforeUpdate(() => {
+  initCollapseState()
+})
+
+initCollapseState()
+
 </script>
 
 <style src="@/assets/article.css" scoped/>
 <style scoped>
 
-::v-deep em {
+:deep(em) {
   color: #f1043c;
   font-style: normal;
 }

@@ -42,10 +42,12 @@
 </template>
 
 <script>
-import {CODE_SUCCESS} from "../plugins/constants";
-import EmojiPanel from "./EmojiPanel";
-import EmojiPanelUpward from "./EmojiPanelUpward";
-import {stopClickPropagation} from "../plugins/common-util";
+import {CODE_SUCCESS} from "~/utils/constants";
+import EmojiPanel from "./EmojiPanel.vue";
+import EmojiPanelUpward from "./EmojiPanelUpward.vue";
+import {stopClickPropagation} from "~/utils/common-util";
+import {publishCommentApi} from "~/apis/comment-api.ts";
+import {ElMessage} from "element-plus";
 
 export default {
   name: "PublishComment",
@@ -91,14 +93,14 @@ export default {
       this.comment.parentCommentId = this.parentInfo.parentCommentId
       this.comment.replyCommentId = this.parentInfo.replyCommentId
       this.comment.replyUserName = this.parentInfo.replyUserName
-      const {data: response} = await this.$axios.post('comment', this.comment)
+      const response = await publishCommentApi(this.comment)
       if (response.code === CODE_SUCCESS) {
-        this.$message.success('发表评论成功！')
+        ElMessage.success('发表评论成功！')
         this.resetComment()
         this.hidePublishComment()
         this.$emit('publishSuccess')
       } else {
-        this.$message.error(response.message)
+        ElMessage.error(response.message)
       }
     },
     resetComment() {
@@ -155,7 +157,7 @@ export default {
   border-radius: 4px;
 }
 
-::v-deep .comment-input-area {
+:deep(.comment-input-area) {
   width: 100%;
   outline: none;
   resize: none;

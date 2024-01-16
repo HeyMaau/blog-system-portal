@@ -14,9 +14,11 @@
 </template>
 
 <script>
-import {CODE_SUCCESS, COMMENT_TYPE_ARTICLE} from "../plugins/constants";
-import PublishComment from "./PublishComment";
-import CommentItem from "./CommentItem";
+import {CODE_SUCCESS, COMMENT_TYPE_ARTICLE} from "~/utils/constants";
+import PublishComment from "./PublishComment.vue";
+import CommentItem from "./CommentItem.vue";
+import {getCommentListApi} from "~/apis/comment-api.ts";
+import {ElMessage} from "element-plus";
 
 export default {
   name: "ArticleComment",
@@ -36,17 +38,15 @@ export default {
   },
   methods: {
     async getComments(page, size) {
-      const {data: response} = await this.$axios.get(`/comment/list/${COMMENT_TYPE_ARTICLE}/${this.$route.params.id}`, {
-        params: {
-          page,
-          size
-        }
+      const response = await getCommentListApi(this.$route.params.id, COMMENT_TYPE_ARTICLE, {
+        page,
+        size
       })
       if (response.code === CODE_SUCCESS) {
         this.commentList = response.data.data
         this.noMore = response.data.noMore
       } else {
-        this.$message.error(response.message)
+        ElMessage.error(response.message)
       }
     }
   },

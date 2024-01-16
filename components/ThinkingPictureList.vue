@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {URL_IMAGE} from "../plugins/constants";
+import {URL_IMAGE} from "~/utils/constants";
 import Viewer from "viewerjs";
 
 export default {
@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      imageBaseUrl: URL_IMAGE
+      imageBaseUrl: URL_IMAGE.value
     }
   }
 }

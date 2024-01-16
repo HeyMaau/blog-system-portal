@@ -41,92 +41,87 @@
   </div>
 </template>
 
-<script>
-import {CODE_SUCCESS, URL_IMAGE} from "../plugins/constants";
-import ArticleList from "@/components/ArticleList";
-import InfoCard from "@/components/InfoCard";
-import {getClientHeight, getScrollTop, getScrollHeight} from "../plugins/infinite-scroll";
-import {mapState} from "vuex";
-import {trimArticleSummary} from "../plugins/article-api";
-import {RecordEvent, RecordPage} from "../plugins/StatisticsConstants";
-import {useCommitVisitRecord} from "../plugins/statistics-api";
+<script setup>
+import {CODE_SUCCESS} from "~/utils/constants";
+import ArticleList from "@/components/ArticleList.vue";
+import InfoCard from "@/components/InfoCard.vue";
+import {getClientHeight, getScrollHeight, getScrollTop} from "~/utils/infinite-scroll";
+import {trimArticleSummary} from "~/utils/article-util.js";
+import {RecordEvent, RecordPage} from "~/utils/StatisticsConstants";
+import {useCommitVisitRecord} from "~/apis/statistics-api.ts";
+import {useAuthorInfoStore} from "~/store/useAuthorInfoStore.ts";
+import {getArticleListApi} from "~/apis/article-api.ts";
+import {useAsyncData} from "#app";
+import {onBeforeMount, onMounted, onUnmounted, ref, shallowRef} from "vue";
 
-export default {
-  name: 'IndexPage',
-  components: {
-    ArticleList,
-    InfoCard
-  },
-  data() {
-    return {
-      currentPage: 1,
-      currentSize: 8,
-      isLoading: false
-    }
-  },
-  methods: {
-    async windowScroll() {
-      //如果满足公式则，确实到底了
-      if (getScrollTop() + getClientHeight() + 20 >= getScrollHeight()) {
-        if (!this.noMore && !this.isLoading) {
-          this.isLoading = true
-          const {data: response} = await this.$axios.get('article/list', {
-            params: {
-              page: ++this.currentPage,
-              size: this.currentSize
-            }
-          })
-          if (response.code === CODE_SUCCESS) {
-            this.noMore = response.data.noMore
-            response.data.data.forEach(item => {
-              this.articleList.push(item)
-            })
-            trimArticleSummary(this.articleList)
-          }
-          this.isLoading = false
-        }
+let currentPage = 1
+let currentSize = 8
+let isLoading = ref(false)
+let articleList = shallowRef([])
+let noMore = ref(true)
+
+
+async function windowScroll() {
+  //如果满足公式则，确实到底了
+  if (getScrollTop() + getClientHeight() + 20 >= getScrollHeight()) {
+    if (!noMore.value && !isLoading.value) {
+      isLoading.value = true
+      const response = await getArticleListApi({
+        page: ++currentPage,
+        size: currentSize
+      })
+      if (response.code === CODE_SUCCESS) {
+        noMore.value = response.data.noMore
+        response.data.data.forEach(item => {
+          articleList.value.push(item)
+        })
+        trimArticleSummary(articleList.value)
       }
+      isLoading.value = false
     }
-  },
-  async asyncData({$axios}) {
-    const {data: response} = await $axios.get('article/list', {
-      params: {
-        page: 1,
-        size: 8
-      }
-    })
-    let list
-    if (response.code === CODE_SUCCESS) {
-      list = response.data.data
-      trimArticleSummary(list)
-    }
-    return {
-      articleList: list,
-      noMore: response.data.noMore
-    }
-  },
-  computed: {
-    ...mapState('authorInfo', ['authorInfo']),
-    avatarUrl() {
-      return URL_IMAGE + this.authorInfo.avatar
-    }
-  },
-  mounted() {
-    window.addEventListener('scroll', this.windowScroll, true)
-    useCommitVisitRecord(this.$axios, RecordPage.PAGE_NAME_MAIN_PAGE, RecordEvent.EVENT_NAME_VISIT)
-  },
-  destroyed() {
-    window.removeEventListener("scroll", this.windowScroll)
-  },
-  beforeMount() {
-    document.title = '首页 - 卧卷'
   }
 }
+
+const {data} = await useAsyncData('articleList', () =>
+  $fetch(import.meta.env.VITE_PUBLIC_SERVER_BASE_URL + '/article/list', {
+    method: 'get',
+    params: {
+      page: 1,
+      size: 8
+    }
+  })
+)
+let list
+if (data.value.code === CODE_SUCCESS) {
+  list = data.value.data.data
+  trimArticleSummary(list)
+}
+articleList.value = list
+noMore.value = data.value.data.noMore
+
+let authorInfoStore = useAuthorInfoStore();
+let authorInfo = shallowRef(authorInfoStore.authorInfo)
+
+let avatarUrl = import.meta.env.VITE_PUBLIC_IMAGE_BASE_URL + authorInfo.value.avatar
+
+onMounted(() => {
+  window.addEventListener('scroll', windowScroll, true)
+  useCommitVisitRecord(RecordPage.PAGE_NAME_MAIN_PAGE, RecordEvent.EVENT_NAME_VISIT)
+})
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", windowScroll)
+})
+
+onBeforeMount(() => {
+  document.title = '首页 - 卧卷'
+})
+
 </script>
 
+<style src="~/assets/article.css" scoped/>
+<style src="~/assets/page.css" scoped/>
+<style src="~/assets/info-card.css" scoped/>
 <style scoped>
-@import "~assets/article.css";
-@import "~assets/page.css";
-@import "~assets/info-card.css";
 
 </style>

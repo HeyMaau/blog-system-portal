@@ -35,66 +35,63 @@
   </div>
 </template>
 
-<script>
-import {URL_IMAGE} from "../plugins/constants";
+<script setup>
+import {URL_IMAGE} from "~/utils/constants";
 import Viewer from "viewerjs";
-import ThinkingComment from "./ThinkingComment";
-import ThinkingPictureList from "./ThinkingPictureList";
+import ThinkingComment from "./ThinkingComment.vue";
+import ThinkingPictureList from "./ThinkingPictureList.vue";
+import {nextTick, shallowReactive, watch} from "vue";
 
-export default {
-  name: "ThinkingList",
-  components: {ThinkingPictureList, ThinkingComment},
-  props: {
-    thinkingList: Array
-  },
-  data() {
-    return {
-      imageBaseUrl: URL_IMAGE,
-      picViewer: null,
-      commentListState: {},
-      commentNumList: {},
-      lastInitPicViewerID: ''
-    }
-  },
-  watch: {
-    thinkingList() {
-      this.initCommentListState()
-    }
-  },
-  methods: {
-    handleClickComment(id) {
-      this.commentListState[id] = !this.commentListState[id]
-    },
-    initCommentListState() {
-      this.commentListState = {}
-      this.thinkingList.forEach(value => {
-        this.$set(this.commentListState, value.id, false)
-      })
-    },
-    updateAddCommentButton(id, data) {
-      this.$set(this.commentNumList, id, data.length)
-    },
-    initPicViewer(id) {
-      if (id === this.lastInitPicViewerID) {
-        return
-      }
-      if (this.picViewer !== null) {
-        this.picViewer.destroy()
-      }
-      this.$nextTick(() => {
-        this.picViewer = new Viewer(document.getElementById(`thinking-picture-list-${id}`), {
-          inline: false,
-          title: false,
-          toolbar: true,
-          transition: false,
-          navbar: false,
-          loop: false
-        })
-        this.lastInitPicViewerID = id
-      })
-    }
-  }
+const props = defineProps({
+  thinkingList: Array
+})
+
+const imageBaseUrl = URL_IMAGE
+let picViewer = null
+let commentListState = shallowReactive({})
+const commentNumList = shallowReactive({})
+let lastInitPicViewerID = ''
+
+watch(props.thinkingList, () => {
+  initCommentListState()
+})
+
+function handleClickComment(id) {
+  commentListState[id] = !commentListState[id]
 }
+
+function initCommentListState() {
+  commentListState = shallowReactive({})
+  props.thinkingList.forEach(value => {
+    commentListState[value.id] = false
+  })
+}
+
+function updateAddCommentButton(id, data) {
+  commentNumList[id] = data.length
+}
+
+function initPicViewer(id) {
+  if (id === lastInitPicViewerID) {
+    return
+  }
+  if (picViewer !== null) {
+    picViewer.destroy()
+  }
+  nextTick(() => {
+    picViewer = new Viewer(document.getElementById(`thinking-picture-list-${id}`), {
+      inline: false,
+      title: false,
+      toolbar: true,
+      transition: false,
+      navbar: false,
+      loop: false
+    })
+    lastInitPicViewerID = id
+  })
+}
+
+
 </script>
 
 <style scoped>

@@ -1,6 +1,6 @@
 <template>
   <el-skeleton class="skeleton-container card" animated :count="count" :loading="loading">
-    <template slot="template">
+    <template #template>
       <el-skeleton-item variant="h1" class="title"/>
       <div class="cover-summary-container">
         <el-skeleton-item

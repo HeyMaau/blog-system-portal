@@ -1,27 +1,32 @@
 <template>
   <div :class="isCategoryPage">
-    <a href="//manpok.top" class="website-logo-container"><img src="~static/logo.png" class="website-logo"/></a>
+    <a href="//manpok.top" class="website-logo-container"><img src="/logo.png" class="website-logo"/></a>
     <div id="header-link-area">
-      <nuxt-link to="/" :class="{'active-path': activePath === '/'}">首页</nuxt-link>
+      <NuxtLink to="/" :class="{'active-path': activePath === '/'}">首页</NuxtLink>
       <el-dropdown :class="{'active-path': activePath.startsWith('/category')}">
-        <span class="el-dropdown-link">
-          文章<i class="el-icon-arrow-down el-icon--right"></i>
+        <span class="el-dropdown-link no-outline dropdown-link-align-center">
+          文章
+          <el-icon class="el-icon--right">
+            <ArrowDown/>
+          </el-icon>
         </span>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item v-for="item in categories" :key="item.id"
-                            :class="{'active-category': activePath.endsWith(item.id)}">
-            <nuxt-link :to="`/category/${item.id}`">{{ item.name }}</nuxt-link>
-          </el-dropdown-item>
-        </el-dropdown-menu>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item v-for="item in categories" :key="item.id"
+                              :class="{'active-category': activePath.endsWith(item.id)}">
+              <NuxtLink :to="`/category/${item.id}`">{{ item.name }}</NuxtLink>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
       </el-dropdown>
-      <nuxt-link to="/thinking" :class="{'active-path': activePath === '/thinking'}">想法</nuxt-link>
-      <nuxt-link to="/feedback" :class="{'active-path': activePath === '/feedback'}">联系我</nuxt-link>
+      <NuxtLink to="/thinking" :class="{'active-path': activePath === '/thinking'}">想法</NuxtLink>
+      <NuxtLink to="/feedback" :class="{'active-path': activePath === '/feedback'}">联系我</NuxtLink>
     </div>
     <el-input
       class="search-input"
       @keyup.enter.native="doSearch"
       placeholder="请输入内容"
-      prefix-icon="el-icon-search"
+      :prefix-icon="Search"
       v-model="input">
     </el-input>
     <img :src="avatarUrl" id="avatar"/>
@@ -29,11 +34,17 @@
 </template>
 
 <script>
-import {mapState} from "vuex";
-import {CODE_SUCCESS, URL_IMAGE} from "../plugins/constants";
+import {CODE_SUCCESS, URL_IMAGE} from "~/utils/constants";
+import {useAuthorInfoStore} from "~/store/useAuthorInfoStore.ts";
+import {mapStores} from "pinia";
+import {useArticleCategoryStore} from "~/store/useArticleCategoryStore.ts";
+import {getCategoryListApi} from "~/apis/category-api.ts";
+import {getAdminInfoApi} from "~/apis/user-api.ts";
+import {ArrowDown, Search} from "@element-plus/icons-vue";
 
 export default {
   name: "Header",
+  components: {ArrowDown},
   props: {categories: Array, activePath: String},
   data() {
     return {
@@ -42,12 +53,16 @@ export default {
     }
   },
   computed: {
+    Search() {
+      return Search
+    },
     isCategoryPage() {
       if (this.$route.path.startsWith('/category')) {
         return 'header-for-category-page'
       }
       return 'header'
-    }
+    },
+    ...mapStores(useAuthorInfoStore, useArticleCategoryStore)
   },
   methods: {
     doSearch() {
@@ -55,16 +70,16 @@ export default {
       window.open(href, '_blank')
     },
     async getAuthorInfo() {
-      const {data: response} = await this.$axios.get('user/admin')
+      const response = await getAdminInfoApi()
       if (response.code === CODE_SUCCESS) {
-        this.$store.commit('authorInfo/setAuthorInfo', response.data)
-        this.avatarUrl = URL_IMAGE + response.data.avatar
+        this.authorInfoStore.setAuthorInfo(response.data)
+        this.avatarUrl = URL_IMAGE.value + response.data.avatar
       }
     },
     async getCategories() {
-      const {data: response} = await this.$axios.get('website_info/categories')
+      const response = await getCategoryListApi()
       if (response.code === CODE_SUCCESS) {
-        this.$store.commit('articleCategory/addCategoryList', response.data)
+        this.articleCategoryStore.addCategoryList(response.data)
       }
     }
   },
@@ -110,10 +125,6 @@ export default {
   width: 296px;
 }
 
-::v-deep .el-input__inner {
-  border-radius: 999px;
-}
-
 #header-link-area {
   display: flex;
   justify-content: space-between;
@@ -130,6 +141,7 @@ export default {
 
 #header-link-area a:hover, .el-dropdown:hover {
   color: #175199;
+  cursor: pointer;
 }
 
 .active-path {
@@ -166,6 +178,17 @@ export default {
 
 .search-input {
   flex-shrink: 0;
+}
+
+.no-outline {
+  outline: none;
+}
+
+.dropdown-link-align-center {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  top: 2px;
 }
 
 </style>

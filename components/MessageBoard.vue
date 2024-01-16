@@ -17,7 +17,9 @@
 </template>
 
 <script>
-import {CODE_SUCCESS} from "../plugins/constants";
+import {CODE_SUCCESS} from "~/utils/constants";
+import {submitFeedbackApi} from "~/apis/feedback-api.ts";
+import {ElMessage} from "element-plus";
 
 export default {
   name: "MessageBoard",
@@ -35,7 +37,7 @@ export default {
       this.$refs.inputContentRef.style.height = event.target.scrollHeight + 'px'
     },
     async submitFeedback() {
-      const {data: response} = await this.$axios.post('feedback', {
+      const response = await submitFeedbackApi({
         title: this.title,
         content: this.content,
         email: this.email
@@ -43,7 +45,7 @@ export default {
       if (response.code === CODE_SUCCESS) {
         this.$emit('submit-success')
       } else {
-        this.$message.error(response.message)
+        ElMessage.error(response.message)
       }
     }
   },

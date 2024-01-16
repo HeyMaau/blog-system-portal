@@ -1,6 +1,6 @@
 <template>
   <el-skeleton class="skeleton-container" animated :count="count" :loading="loading">
-    <template slot="template">
+    <template #template>
       <div class="skeleton-author-info">
         <el-skeleton-item class="skeleton-author-avatar" variant="image"/>
         <div class="skeleton-author-name-sign">

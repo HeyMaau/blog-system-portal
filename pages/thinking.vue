@@ -19,12 +19,13 @@
 </template>
 
 <script>
-import {CODE_SUCCESS} from "../../plugins/constants";
-import ThinkingList from "../../components/ThinkingList";
-import SkeletonView4Thinking from "../../components/SkeletonView4Thinking";
-import {RecordEvent, RecordPage} from "../../plugins/StatisticsConstants";
-import {useCommitVisitRecord} from "../../plugins/statistics-api";
-import EmptyView from "../../components/EmptyView.vue";
+import {CODE_SUCCESS} from "~/utils/constants.js";
+import ThinkingList from "../components/ThinkingList.vue";
+import SkeletonView4Thinking from "../components/SkeletonView4Thinking.vue";
+import {RecordEvent, RecordPage} from "~/utils/StatisticsConstants.js";
+import {useCommitVisitRecord} from "~/apis/statistics-api.ts";
+import EmptyView from "../components/EmptyView.vue";
+import {getThinkingListApi} from "~/apis/thinking-api.ts";
 
 export default {
   name: "index",
@@ -45,11 +46,9 @@ export default {
       this.loading = true
       this.loadingTimeout = false
       this.hasData = false
-      const {data: response} = await this.$axios.get('thinking/list', {
-        params: {
-          page: this.currentPage,
-          size: this.currentSize
-        }
+      const response = await getThinkingListApi({
+        page: this.currentPage,
+        size: this.currentSize
       })
       this.hasData = true
       if (this.loadingTimeout) {
@@ -91,7 +90,7 @@ export default {
   },
   mounted() {
     this.setLoadingTimeout()
-    useCommitVisitRecord(this.$axios, RecordPage.PAGE_NAME_THINKING_PAGE, RecordEvent.EVENT_NAME_VISIT)
+    useCommitVisitRecord(RecordPage.PAGE_NAME_THINKING_PAGE, RecordEvent.EVENT_NAME_VISIT)
   }
 }
 </script>

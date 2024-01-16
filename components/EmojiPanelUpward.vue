@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import {emoji} from "../plugins/emoji";
-import {EMOJI_NUM_PER_PAGE} from "../plugins/constants";
-import {stopClickPropagation} from "../plugins/common-util";
+import {emoji} from "~/utils/emoji";
+import {EMOJI_NUM_PER_PAGE} from "~/utils/constants";
+import {stopClickPropagation} from "~/utils/common-util";
 
 export default {
   name: "EmojiPanelUpward",

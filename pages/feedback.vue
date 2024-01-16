@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import {useCommitVisitRecord} from "../../plugins/statistics-api";
-import {RecordEvent, RecordPage} from "../../plugins/StatisticsConstants";
-import MessageBoard from "../../components/MessageBoard.vue";
+import {useCommitVisitRecord} from "~/apis/statistics-api.ts";
+import {RecordEvent, RecordPage} from "~/utils/StatisticsConstants.js";
+import MessageBoard from "../components/MessageBoard.vue";
 
 let timer
 
@@ -42,7 +42,7 @@ export default {
     document.title = '联系我 - 卧卷'
   },
   mounted() {
-    useCommitVisitRecord(this.$axios, RecordPage.PAGE_NAME_FEEDBACK_PAGE, RecordEvent.EVENT_NAME_VISIT)
+    useCommitVisitRecord(RecordPage.PAGE_NAME_FEEDBACK_PAGE, RecordEvent.EVENT_NAME_VISIT)
   }
 }
 </script>
