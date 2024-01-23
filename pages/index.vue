@@ -37,6 +37,9 @@
           <span>{{ authorInfo.sign }}</span>
         </div>
       </InfoCard>
+      <ClientOnly>
+        <AudioPlayer class="audio-player"/>
+      </ClientOnly>
     </div>
   </div>
 </template>
@@ -123,5 +126,9 @@ onBeforeMount(() => {
 <style src="~/assets/page.css" scoped/>
 <style src="~/assets/info-card.css" scoped/>
 <style scoped>
+
+.audio-player {
+  margin-top: 10px;
+}
 
 </style>
