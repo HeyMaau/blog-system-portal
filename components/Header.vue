@@ -35,7 +35,6 @@
 
 <script>
 import {CODE_SUCCESS, URL_IMAGE} from "~/utils/constants";
-import {useAuthorInfoStore} from "~/store/useAuthorInfoStore.ts";
 import {mapStores} from "pinia";
 import {useArticleCategoryStore} from "~/store/useArticleCategoryStore.ts";
 import {getCategoryListApi} from "~/apis/category-api.ts";
@@ -45,11 +44,12 @@ import {ArrowDown, Search} from "@element-plus/icons-vue";
 export default {
   name: "Header",
   components: {ArrowDown},
-  props: {categories: Array, activePath: String},
+  props: {activePath: String},
   data() {
     return {
       input: '',
-      avatarUrl: ''
+      avatarUrl: '',
+      categories: []
     }
   },
   computed: {
@@ -62,7 +62,7 @@ export default {
       }
       return 'header'
     },
-    ...mapStores(useAuthorInfoStore, useArticleCategoryStore)
+    ...mapStores(useArticleCategoryStore)
   },
   methods: {
     doSearch() {
@@ -72,7 +72,6 @@ export default {
     async getAuthorInfo() {
       const response = await getAdminInfoApi()
       if (response.code === CODE_SUCCESS) {
-        this.authorInfoStore.setAuthorInfo(response.data)
         this.avatarUrl = URL_IMAGE.value + response.data.avatar
       }
     },
@@ -80,6 +79,7 @@ export default {
       const response = await getCategoryListApi()
       if (response.code === CODE_SUCCESS) {
         this.articleCategoryStore.addCategoryList(response.data)
+        this.categories = response.data
       }
     }
   },

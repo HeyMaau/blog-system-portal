@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ClientOnly>
-      <Header :categories="articleCategoryStore.categoryList" class="header" :activePath="routerPath"/>
+      <Header class="header" :activePath="routerPath"/>
     </ClientOnly>
     <div class="main">
       <NuxtPage/>
@@ -13,10 +13,8 @@
 <script setup lang="ts">
 import Header from "../components/Header.vue";
 import {useCurrentRouterPath} from "~/composables/useCurrentRouterPath";
-import {useArticleCategoryStore} from "~/store/useArticleCategoryStore";
 
 const routerPath = useCurrentRouterPath()
-const articleCategoryStore = useArticleCategoryStore()
 
 </script>
 

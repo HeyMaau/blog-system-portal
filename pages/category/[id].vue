@@ -44,6 +44,7 @@ import {getArticleListApi} from "~/apis/article-api.ts";
 import {mapState} from "pinia";
 import {ElMessage} from "element-plus";
 import {useArticleCategoryStore} from "~/store/useArticleCategoryStore.ts";
+import {getCategoryListApi} from "~/apis/category-api.ts";
 
 export default {
   name: "index",
@@ -94,8 +95,18 @@ export default {
       this.setLoadingTimeout()
       scrollTo(0, 0)
     },
-    getCategoryInfo() {
-      this.categoryList.forEach(item => {
+    async getCategoryInfo() {
+      if (this.categoryList.length === 0) {
+        const response = await getCategoryListApi()
+        if (response.code === CODE_SUCCESS) {
+          this.getCurrentCategoryInfo(response.data)
+        }
+      } else {
+        this.getCurrentCategoryInfo(this.categoryList)
+      }
+    },
+    getCurrentCategoryInfo(list) {
+      list.forEach(item => {
         if (item.id === this.categoryID) {
           this.categoryCover = URL_IMAGE.value + item.cover
           this.categoryDescription = item.description

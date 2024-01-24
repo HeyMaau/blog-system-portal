@@ -4,8 +4,8 @@
     <h1 class="article-title">
       {{ article.title }}
     </h1>
-    <AuthorInfoBanner :avatarSrc="avatarUrl" :name="authorInfoStore.authorInfo.userName"
-                      :signature="authorInfoStore.authorInfo.sign"/>
+    <AuthorInfoBanner :avatarSrc="avatarUrl" :name="authorInfoData.data.userName"
+                      :signature="authorInfoData.data.sign"/>
     <div class="article-main-container">
       <div v-html="article.content" class="article-content" ref="articleContentRef" id="articleContent"></div>
       <div class="article-update-time">编辑于 {{ updateTime }}</div>
@@ -27,10 +27,11 @@ import {createMetaKeywords, trimArticleContent4Description} from "~/utils/articl
 import hljs from 'highlight.js'
 import {RecordEvent, RecordPage} from "~/utils/StatisticsConstants.js";
 import {useCommitVisitRecord} from "~/apis/statistics-api.ts";
-import {useAuthorInfoStore} from "~/store/useAuthorInfoStore.ts";
 import {useHead} from "unhead";
 import {useAsyncData, useRoute} from "#app";
 import {computed, onBeforeUnmount, onMounted, ref, shallowRef} from "vue";
+import {getFullArticleApi} from "~/apis/article-api.ts";
+import {getAdminInfoApi} from "~/apis/user-api.ts";
 
 const article = shallowRef({})
 const description = shallowRef('')
@@ -58,11 +59,8 @@ definePageMeta({
 
 let route = useRoute();
 
-const {data: response} = await useAsyncData(`fullArticle_${route.params.id}`, () => {
-    return $fetch(import.meta.env.VITE_PUBLIC_SERVER_BASE_URL + '/article/' + route.params.id, {
-      method: 'get'
-    })
-  },
+const {data: response} = await useAsyncData(`fullArticle_${route.params.id}`, () =>
+  getFullArticleApi(route.params.id)
 )
 if (response.value.code === CODE_SUCCESS) {
   description.value = trimArticleContent4Description(response.value.data.content)
@@ -70,7 +68,9 @@ if (response.value.code === CODE_SUCCESS) {
   article.value = response.value.data
 }
 
-let authorInfoStore = useAuthorInfoStore();
+const {data: authorInfoData} = await useAsyncData('authorInfo', () =>
+  getAdminInfoApi()
+)
 
 let updateTime = computed(() => {
   if (article.value.updateTime !== null && article.value.updateTime !== undefined) {
@@ -80,7 +80,7 @@ let updateTime = computed(() => {
 })
 
 let avatarUrl = computed(() => {
-  return URL_IMAGE.value + authorInfoStore.authorInfo.avatar
+  return URL_IMAGE.value + authorInfoData.value.data.avatar
 })
 
 let coverUrl = computed(() => {
