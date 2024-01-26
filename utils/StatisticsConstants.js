@@ -9,8 +9,16 @@ export const RecordPage = {
   PAGE_NAME_ERROR_PAGE: 'ErrorPage'
 }
 
+export const RecordComponent = {
+  COMPONENT_NAME_AUDIO_PLAYER: 'AudioPlayer'
+}
+
 export const RecordEvent = {
-  EVENT_NAME_VISIT: 'Visit'
+  EVENT_NAME_VISIT: 'Visit',
+  EVENT_NAME_CLICK_PLAY: 'ClickPlay',
+  EVENT_NAME_CLICK_PAUSE: 'ClickPause',
+  EVENT_NAME_CLICK_NEXT: 'ClickNext',
+  EVENT_NAME_CLICK_PRE: 'ClickPre'
 }
 
 export const RecordClient = {

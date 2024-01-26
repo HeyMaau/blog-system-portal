@@ -4,6 +4,8 @@ import {getAudioListApi} from "~/apis/audio-api";
 import type {BlogAudio} from "~/pojo/BlogAudio";
 import {Howl} from 'howler'
 import {onBeforeUnmount} from "vue";
+import {useCommitVisitRecord} from "~/apis/statistics-api";
+import {RecordComponent, RecordEvent} from "~/utils/StatisticsConstants";
 
 const currentTime = ref('00:00')
 const totalTime = ref('00:00')
@@ -131,18 +133,22 @@ function playOrPause() {
   const howl = howlInsList[currentAudioIndex.value]
   if (howl === undefined || howl === null) {
     initHowl()
+    useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
     return
   }
   switch (howl.state()) {
     case "unloaded":
       howl.load()
       loadingTipsVisibility.value = true
+      useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
       break
     case "loaded":
       if (howl.playing()) {
         howl.pause()
+        useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PAUSE)
       } else {
         howl.play()
+        useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
       }
       break
   }
@@ -157,6 +163,7 @@ function sliderSeekChange(value: any): void {
 }
 
 function playNext(): void {
+  useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_NEXT)
   if (currentAudioIndex.value + 1 === audioList.value.length) {
     showNoMoreOrPreVideoTips('没有下一首了', true)
     return
@@ -176,6 +183,7 @@ function playNext(): void {
 }
 
 function playPre(): void {
+  useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PRE)
   if (currentAudioIndex.value === 0) {
     showNoMoreOrPreVideoTips('没有上一首了', false)
     return
