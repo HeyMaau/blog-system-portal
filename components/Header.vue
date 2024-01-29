@@ -21,6 +21,21 @@
       </el-dropdown>
       <NuxtLink to="/thinking" :class="{'active-path': activePath === '/thinking'}">想法</NuxtLink>
       <NuxtLink to="/feedback" :class="{'active-path': activePath === '/feedback'}">联系我</NuxtLink>
+      <el-dropdown>
+        <span class="el-dropdown-link no-outline dropdown-link-align-center">
+          工具
+          <el-icon class="el-icon--right">
+            <ArrowDown/>
+          </el-icon>
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item v-for="item in friendLinkList" :key="item.id">
+              <a :href="item.url" target="_blank">{{ item.name }}</a>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
     <el-input
       class="search-input"
@@ -40,6 +55,7 @@ import {useArticleCategoryStore} from "~/store/useArticleCategoryStore.ts";
 import {getCategoryListApi} from "~/apis/category-api.ts";
 import {getAdminInfoApi} from "~/apis/user-api.ts";
 import {ArrowDown, Search} from "@element-plus/icons-vue";
+import {getFriendLinkListApi} from "~/apis/friend-link-api";
 
 export default {
   name: "Header",
@@ -49,7 +65,8 @@ export default {
     return {
       input: '',
       avatarUrl: '',
-      categories: []
+      categories: [],
+      friendLinkList: []
     }
   },
   computed: {
@@ -81,11 +98,21 @@ export default {
         this.articleCategoryStore.addCategoryList(response.data)
         this.categories = response.data
       }
+    },
+    async getFriendLinkList() {
+      const response = await getFriendLinkListApi({
+        page: 1,
+        size: 10
+      })
+      if (response.code === CODE_SUCCESS) {
+        this.friendLinkList = response.data.data
+      }
     }
   },
   created() {
     this.getAuthorInfo()
     this.getCategories()
+    this.getFriendLinkList()
   }
 }
 </script>
@@ -121,7 +148,7 @@ export default {
 }
 
 .el-input {
-  margin-left: 320px;
+  margin-left: 225px;
   width: 296px;
 }
 
