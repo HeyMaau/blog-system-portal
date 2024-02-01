@@ -12,6 +12,7 @@ const totalTime = ref('00:00')
 const audioList = ref<BlogAudio[]>([])
 const currentAudioIndex = ref(0)
 const howlInsList: Howl[] = []
+const loadErrorList: number[] = []
 const currentCoverUrl = ref('')
 const currentAudioName = ref('加载中...')
 const currentAudioArtist = ref('')
@@ -46,7 +47,7 @@ let timerID: any
 const loadingTipsVisibility = ref(false)
 const loadingTipsText = ref('加载中')
 
-function initHowl(): void {
+function initHowl(index: number): void {
   loadingTipsVisibility.value = true
   loadingTipsText.value = '加载中'
   handleHowlStopOrEnd()
@@ -77,10 +78,10 @@ function initHowl(): void {
     handleHowlStopOrEnd()
   })
   howl.on('loaderror', () => {
-    howlLoadError()
+    howlLoadError(index)
   })
   howl.on('playerror', () => {
-    howlLoadError()
+    howlLoadError(index)
   })
   howlInsList[currentAudioIndex.value] = howl
   howl.load()
@@ -99,9 +100,12 @@ function setSliderInfo(howl: Howl): void {
   totalTime.value = convertTime(duration)
 }
 
-function howlLoadError(): void {
-  loadingTipsVisibility.value = true
-  loadingTipsText.value = '播放失败'
+function howlLoadError(index: number): void {
+  if (index === currentAudioIndex.value) {
+    loadingTipsVisibility.value = true
+    loadingTipsText.value = '播放失败'
+  }
+  loadErrorList.push(index)
 }
 
 function seekTimerRunner(): void {
@@ -132,23 +136,49 @@ function convertTime(time: number): string {
 function playOrPause() {
   const howl = howlInsList[currentAudioIndex.value]
   if (howl === undefined || howl === null) {
-    initHowl()
+    initHowl(currentAudioIndex.value)
     useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
     return
   }
+  handleHowlState(howl, true)
+}
+
+function handleHowlState(howl: Howl, isPlayButton: boolean) {
   switch (howl.state()) {
     case "unloaded":
       howl.load()
+      loadingTipsText.value = '加载中'
       loadingTipsVisibility.value = true
-      useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
+      if (isPlayButton) {
+        useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
+      }
       break
     case "loaded":
       if (howl.playing()) {
         howl.pause()
-        useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PAUSE)
+        if (isPlayButton) {
+          useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PAUSE)
+        }
       } else {
         howl.play()
-        useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
+        if (isPlayButton) {
+          useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
+        }
+      }
+      break
+    case "loading":
+      if (loadErrorList.some(value => {
+        return value === currentAudioIndex.value
+      })) {
+        howl.unload()
+        howl.load()
+        currentCoverUrl.value += `?${new Date().getTime()}`
+        loadingTipsText.value = '加载中'
+        loadingTipsVisibility.value = true
+        loadErrorList.splice(loadErrorList.indexOf(currentAudioIndex.value), 1);
+        if (isPlayButton) {
+          useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_RETRY)
+        }
       }
       break
   }
@@ -168,16 +198,13 @@ function playNext(): void {
     showNoMoreOrPreVideoTips('没有下一首了', true)
     return
   }
-  const currentHowl = howlInsList[currentAudioIndex.value]
-  if (currentHowl !== undefined && currentHowl !== null) {
-    currentHowl.stop()
-  }
+  stopCurrentHowlBeforePlayNextOrPre()
   const nextHowl = howlInsList[++currentAudioIndex.value]
   if (nextHowl === undefined || nextHowl === null) {
-    initHowl()
+    initHowl(currentAudioIndex.value)
   } else {
     setSliderInfo(nextHowl)
-    nextHowl.play()
+    handleHowlState(nextHowl, false)
   }
   setCurrentHeaderInfo()
 }
@@ -188,18 +215,30 @@ function playPre(): void {
     showNoMoreOrPreVideoTips('没有上一首了', false)
     return
   }
-  const currentHowl = howlInsList[currentAudioIndex.value]
-  if (currentHowl !== undefined && currentHowl !== null) {
-    currentHowl.stop()
-  }
+  stopCurrentHowlBeforePlayNextOrPre()
   const preHowl = howlInsList[--currentAudioIndex.value]
   if (preHowl === undefined || preHowl === null) {
-    initHowl()
+    initHowl(currentAudioIndex.value)
   } else {
     setSliderInfo(preHowl)
-    preHowl.play()
+    handleHowlState(preHowl, false)
   }
   setCurrentHeaderInfo()
+}
+
+function stopCurrentHowlBeforePlayNextOrPre(): void {
+  const howl = howlInsList[currentAudioIndex.value]
+  if (howl === undefined || howl === null) {
+    return
+  }
+  switch (howl.state()) {
+    case "loading":
+      howl.unload()
+      break
+    case "loaded":
+      howl.stop()
+      break
+  }
 }
 
 const noMoreVideoTipsVisibility = ref(false)

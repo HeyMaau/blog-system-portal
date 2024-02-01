@@ -18,7 +18,8 @@ export const RecordEvent = {
   EVENT_NAME_CLICK_PLAY: 'ClickPlay',
   EVENT_NAME_CLICK_PAUSE: 'ClickPause',
   EVENT_NAME_CLICK_NEXT: 'ClickNext',
-  EVENT_NAME_CLICK_PRE: 'ClickPre'
+  EVENT_NAME_CLICK_PRE: 'ClickPre',
+  EVENT_NAME_CLICK_RETRY: 'ClickRetry'
 }
 
 export const RecordClient = {
