@@ -42,43 +42,43 @@ export default defineNuxtConfig({
         {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'},
         {
           rel: 'stylesheet',
-          href: 'https://cdn.jsdelivr.net/npm/element-plus@2.4.4/dist/index.min.css'
+          href: 'https://cdn.staticfile.net/element-plus/2.4.4/index.min.css'
         },
         {
           rel: 'stylesheet',
-          href: 'https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.css'
+          href: 'https://cdn.staticfile.net/viewerjs/1.11.3/viewer.min.css'
         },
         {
           rel: 'stylesheet',
-          href: 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.8.0/styles/androidstudio.min.css'
+          href: 'https://cdn.staticfile.net/highlight.js/11.8.0/styles/androidstudio.min.css'
         }
       ],
       script: [
         {
-          src: 'https://cdn.jsdelivr.net/npm/vue@3.3.13/dist/vue.global.prod.js'
+          src: 'https://cdn.staticfile.net/vue/3.3.13/vue.global.prod.min.js'
         },
         {
-          src: 'https://cdn.jsdelivr.net/npm/vue-router@4.2.5/dist/vue-router.global.prod.js'
+          src: 'https://cdn.staticfile.net/vue-router/4.2.5/vue-router.global.prod.min.js'
         },
         {
-          src: 'https://cdn.jsdelivr.net/npm/element-plus@2.4.4/dist/index.full.min.js'
+          src: 'https://cdn.staticfile.net/element-plus/2.4.4/index.full.min.js'
         },
         {
-          src: 'https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2.3.1/dist/index.iife.min.js'
+          src: 'https://cdn.staticfile.net/element-plus-icons-vue/2.3.1/index.iife.min.js'
         },
         {
           type: 'importmap',
           innerHTML: {
             "imports": {
-              "howler": "https://cdn.jsdelivr.net/npm/howler@2.2.4/+esm"
+              "howler": "https://jsd.onmicrosoft.cn/npm/howler@2.2.4/+esm"
             }
           }
         },
         {
-          src: 'https://cdn.jsdelivr.net/npm/viewerjs@1.11.3/dist/viewer.min.js'
+          src: 'https://cdn.staticfile.net/viewerjs/1.11.3/viewer.min.js'
         },
         {
-          src: 'https://cdn.jsdelivr.net/npm/@highlightjs/cdn-assets@11.8.0/highlight.min.js'
+          src: 'https://cdn.staticfile.net/highlight.js/11.8.0/highlight.min.js'
         }
       ]
     }
