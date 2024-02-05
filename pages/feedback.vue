@@ -42,7 +42,7 @@ export default {
     document.title = '联系我 - 卧卷'
   },
   mounted() {
-    useCommitVisitRecord(RecordPage.PAGE_NAME_FEEDBACK_PAGE, RecordEvent.EVENT_NAME_VISIT)
+    useCommitVisitRecord(RecordPage.PAGE_NAME_FEEDBACK_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
   }
 }
 </script>

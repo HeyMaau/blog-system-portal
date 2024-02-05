@@ -21,7 +21,7 @@ export default {
   props: ['error'],
   name: "error",
   mounted() {
-    useCommitVisitRecord(RecordPage.PAGE_NAME_ERROR_PAGE, RecordEvent.EVENT_NAME_VISIT)
+    useCommitVisitRecord(RecordPage.PAGE_NAME_ERROR_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
   }
 }
 </script>

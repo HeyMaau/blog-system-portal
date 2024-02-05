@@ -90,7 +90,7 @@ export default {
   },
   mounted() {
     this.setLoadingTimeout()
-    useCommitVisitRecord(RecordPage.PAGE_NAME_THINKING_PAGE, RecordEvent.EVENT_NAME_VISIT)
+    useCommitVisitRecord(RecordPage.PAGE_NAME_THINKING_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
   }
 }
 </script>

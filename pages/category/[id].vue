@@ -135,10 +135,10 @@ export default {
   },
   mounted() {
     this.setLoadingTimeout()
-    useCommitVisitRecord(RecordPage.PAGE_NAME_CATEGORY_PAGE + this.$route.params.id, RecordEvent.EVENT_NAME_VISIT)
+    useCommitVisitRecord(RecordPage.PAGE_NAME_CATEGORY_PAGE + this.$route.params.id, null, RecordEvent.EVENT_NAME_VISIT)
   },
   beforeRouteUpdate(to, from, next) {
-    useCommitVisitRecord(RecordPage.PAGE_NAME_CATEGORY_PAGE + to.params.id, RecordEvent.EVENT_NAME_VISIT);
+    useCommitVisitRecord(RecordPage.PAGE_NAME_CATEGORY_PAGE + to.params.id, null, RecordEvent.EVENT_NAME_VISIT);
     next()
   }
 }

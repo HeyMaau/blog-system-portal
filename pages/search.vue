@@ -91,7 +91,7 @@ onBeforeMount(() => {
 onMounted(() => {
   window.addEventListener('scroll', windowScroll, true)
   setLoadingTimeout()
-  useCommitVisitRecord(RecordPage.PAGE_NAME_SEARCH_PAGE, RecordEvent.EVENT_NAME_VISIT)
+  useCommitVisitRecord(RecordPage.PAGE_NAME_SEARCH_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
 })
 
 onUnmounted(() => {

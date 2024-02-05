@@ -137,7 +137,7 @@ function playOrPause() {
   const howl = howlInsList[currentAudioIndex.value]
   if (howl === undefined || howl === null) {
     initHowl(currentAudioIndex.value)
-    useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
+    useCommitVisitRecord(null, RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
     return
   }
   handleHowlState(howl, true)
@@ -150,19 +150,19 @@ function handleHowlState(howl: Howl, isPlayButton: boolean) {
       loadingTipsText.value = '加载中'
       loadingTipsVisibility.value = true
       if (isPlayButton) {
-        useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
+        useCommitVisitRecord(null, RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
       }
       break
     case "loaded":
       if (howl.playing()) {
         howl.pause()
         if (isPlayButton) {
-          useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PAUSE)
+          useCommitVisitRecord(null, RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PAUSE)
         }
       } else {
         howl.play()
         if (isPlayButton) {
-          useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
+          useCommitVisitRecord(null, RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PLAY)
         }
       }
       break
@@ -177,7 +177,7 @@ function handleHowlState(howl: Howl, isPlayButton: boolean) {
         loadingTipsVisibility.value = true
         loadErrorList.splice(loadErrorList.indexOf(currentAudioIndex.value), 1);
         if (isPlayButton) {
-          useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_RETRY)
+          useCommitVisitRecord(null, RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_RETRY)
         }
       }
       break
@@ -193,7 +193,7 @@ function sliderSeekChange(value: any): void {
 }
 
 function playNext(): void {
-  useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_NEXT)
+  useCommitVisitRecord(null, RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_NEXT)
   if (currentAudioIndex.value + 1 === audioList.value.length) {
     showNoMoreOrPreVideoTips('没有下一首了', true)
     return
@@ -210,7 +210,7 @@ function playNext(): void {
 }
 
 function playPre(): void {
-  useCommitVisitRecord(RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PRE)
+  useCommitVisitRecord(null, RecordComponent.COMPONENT_NAME_AUDIO_PLAYER, RecordEvent.EVENT_NAME_CLICK_PRE)
   if (currentAudioIndex.value === 0) {
     showNoMoreOrPreVideoTips('没有上一首了', false)
     return

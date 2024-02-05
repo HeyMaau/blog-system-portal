@@ -106,7 +106,7 @@ const avatarUrl = ref(import.meta.env.VITE_PUBLIC_IMAGE_BASE_URL + authorInfoDat
 
 onMounted(() => {
   window.addEventListener('scroll', windowScroll, true)
-  useCommitVisitRecord(RecordPage.PAGE_NAME_MAIN_PAGE, RecordEvent.EVENT_NAME_VISIT)
+  useCommitVisitRecord(RecordPage.PAGE_NAME_MAIN_PAGE, null, RecordEvent.EVENT_NAME_VISIT)
 })
 
 onUnmounted(() => {

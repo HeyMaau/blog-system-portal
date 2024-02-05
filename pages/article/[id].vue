@@ -143,7 +143,7 @@ onMounted(() => {
     navbar: false
   })
   hljs.highlightAll()
-  useCommitVisitRecord(RecordPage.PAGE_NAME_ARTICLE_PAGE + route.params.id, RecordEvent.EVENT_NAME_VISIT)
+  useCommitVisitRecord(RecordPage.PAGE_NAME_ARTICLE_PAGE + route.params.id, null, RecordEvent.EVENT_NAME_VISIT)
 })
 
 onBeforeUnmount(() => {
