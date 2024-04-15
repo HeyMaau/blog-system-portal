@@ -152,6 +152,7 @@ onBeforeUnmount(() => {
 
 </script>
 
+<style src="@/assets/article.css" scoped/>
 <style scoped>
 
 .article-main-container {
@@ -191,12 +192,6 @@ onBeforeUnmount(() => {
 :deep(.article-content img) {
   max-width: 100%;
   cursor: zoom-in;
-}
-
-.article-update-time {
-  font-size: 14px;
-  color: #8590a6;
-  padding: 16px 0;
 }
 
 .article-cover {

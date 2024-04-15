@@ -18,6 +18,7 @@
               <div v-html="articleContent[item.id]" class="article-detail"
                    :id="`articleDetail_${item.id}`">
               </div>
+              <div class="article-update-time">编辑于 {{ item.updateTime }}</div>
             </div>
             <button class="show-article-detail" @click="showArticleDetail(item.id)"
                     v-show="collapseState[item.id]">
@@ -115,6 +116,10 @@ initCollapseState()
   border: none;
   color: white;
   font-weight: bold;
+}
+
+.article-update-time {
+  padding-bottom: 0 !important;
 }
 
 </style>
