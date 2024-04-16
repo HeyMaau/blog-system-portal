@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <div class="article-item-container" v-for="item in articleList" :key="item.id">
+    <div class="article-item-container" :id="`article_${item.id}`" v-for="item in articleList" :key="item.id">
       <div class="article-item">
         <div class="article-title-tag-container">
           <el-tag size="small" :color="item.category.tagColor" class="article-tag">{{ item.category.name }}
@@ -19,6 +19,11 @@
                    :id="`articleDetail_${item.id}`">
               </div>
               <div class="article-update-time">编辑于 {{ item.updateTime }}</div>
+              <button class="hide-article-detail" @click="hideArticleDetail(item.id)">收起
+                <el-icon>
+                  <ArrowUp/>
+                </el-icon>
+              </button>
             </div>
             <button class="show-article-detail" @click="showArticleDetail(item.id)"
                     v-show="collapseState[item.id]">
@@ -42,7 +47,7 @@ import hljs from 'highlight.js'
 import {getFullArticleApi} from "~/apis/article-api.ts";
 import {nextTick, onBeforeUpdate, reactive, shallowRef} from "vue";
 import {ElMessage} from "element-plus";
-import {ArrowDown} from "@element-plus/icons-vue";
+import {ArrowDown, ArrowUp} from "@element-plus/icons-vue";
 
 const props = defineProps({
   articleList: Array
@@ -72,6 +77,14 @@ async function showArticleDetail(articleID) {
   } else {
     ElMessage.error(response.message)
   }
+}
+
+function hideArticleDetail(articleID) {
+  collapseState[articleID] = true
+  document.getElementById(`article_${articleID}`).scrollIntoView({
+    behavior: "instant",
+    block: "start"
+  })
 }
 
 function initCollapseState() {
@@ -120,6 +133,26 @@ initCollapseState()
 
 .article-update-time {
   padding-bottom: 0 !important;
+  display: inline-block;
+}
+
+.hide-article-detail {
+  display: inline-block;
+  background: none rgb(248, 248, 250);
+  border: unset;
+  padding: 0 6px 0 12px;
+  font-size: 14px;
+  line-height: 32px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 3px;
+  height: 32px;
+  color: rgb(132, 145, 165);
+  font-weight: 500;
+  position: sticky;
+  bottom: 20px;
+  float: right;
+  margin-right: 10px;
 }
 
 </style>
