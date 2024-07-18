@@ -79,6 +79,9 @@ export default defineNuxtConfig({
         },
         {
           src: 'https://cdn.staticfile.net/highlight.js/11.8.0/highlight.min.js'
+        },
+        {
+          src: 'https://cdn.staticfile.net/highlight.js/11.8.0/languages/groovy.min.js'
         }
       ]
     }
