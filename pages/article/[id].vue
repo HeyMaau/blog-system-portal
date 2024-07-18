@@ -1,6 +1,6 @@
 <template>
   <div class="article-container">
-    <img :src="coverUrl" class="article-cover">
+    <img :src="coverUrl" class="article-detail-cover">
     <h1 class="article-title">
       {{ article.title }}
     </h1>
@@ -194,7 +194,7 @@ onBeforeUnmount(() => {
   cursor: zoom-in;
 }
 
-.article-cover {
+.article-detail-cover {
   width: 100%;
   object-fit: cover;
 }
