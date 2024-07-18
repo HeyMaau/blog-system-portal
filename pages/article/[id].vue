@@ -214,4 +214,16 @@ onBeforeUnmount(() => {
   padding: 10px;
 }
 
+:deep(table tr:not(:last-child)) {
+  border-bottom: 1px solid silver;
+}
+
+:deep(table tr:first-child td) {
+  font-weight: 600;
+}
+
+:deep(td) {
+  padding: 0.6em;
+}
+
 </style>
