@@ -55,10 +55,7 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          src: 'https://cdn.staticfile.net/vue/3.3.13/vue.global.prod.min.js'
-        },
-        {
-          src: 'https://cdn.staticfile.net/vue-router/4.2.5/vue-router.global.prod.min.js'
+          src: 'https://cdn.staticfile.net/vue/3.4.38/vue.global.prod.min.js'
         },
         {
           src: 'https://cdn.staticfile.net/element-plus/2.4.4/index.full.min.js'

@@ -12,7 +12,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@pinia/nuxt": "^0.5.1",
+    "@pinia/nuxt": "^0.5.3",
     "highlight.js": "^11.8.0",
     "howler": "^2.2.4",
     "pinia": "^2.1.7",
@@ -23,9 +23,8 @@
     "@element-plus/nuxt": "^1.0.7",
     "@types/howler": "^2.2.11",
     "element-plus": "^2.4.4",
-    "nuxt": "^3.9.0",
+    "nuxt": "^3.12.4",
     "rollup-plugin-external-globals": "^0.9.1",
-    "vue": "^3.3.13",
-    "vue-router": "^4.2.5"
+    "vue": "^3.4.38"
   }
 }
