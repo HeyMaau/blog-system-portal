@@ -65,14 +65,6 @@ export default defineNuxtConfig({
           src: 'https://cdn.staticfile.net/element-plus-icons-vue/2.3.1/index.iife.min.js'
         },
         {
-          type: 'importmap',
-          innerHTML: {
-            "imports": {
-              "howler": "https://jsd.onmicrosoft.cn/npm/howler@2.2.4/+esm"
-            }
-          }
-        },
-        {
           src: 'https://cdn.staticfile.net/viewerjs/1.11.3/viewer.min.js'
         },
         {
@@ -107,7 +99,7 @@ function setViteConfig(viteInlineConfig: ViteConfig, env: {
   isServer: boolean;
 }) {
   if (env.isClient) {
-    viteInlineConfig.build!.rollupOptions!.external = ['highlight.js', 'viewerjs', 'howler']
+    viteInlineConfig.build!.rollupOptions!.external = ['highlight.js', 'viewerjs']
     viteInlineConfig.build!.rollupOptions!.plugins = [
       externalGlobals({
         'highlight.js': 'hljs',
