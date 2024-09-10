@@ -17,7 +17,7 @@
                            v-if="item.images !== null && item.images.length !== 0"
                            @click.native.capture="initPicViewer(item.id)"/>
       <div class="update-time">发布于 {{ item.updateTime }}</div>
-      <div class="operating-area">
+      <div class="operating-area" v-if="!hideCommentButton">
         <button class="add-comment-button" @click="handleClickComment(item.id)">
           <span class="button-icon">
             <svg t="1692067380859" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -28,7 +28,7 @@
           {{ commentNumList[item.id] === 0 ? '添加评论' : `${commentNumList[item.id]}条评论` }}
         </button>
       </div>
-      <ThinkingComment :id="item.id" v-show="commentListState[item.id]" class="thinking-comment"
+      <ThinkingComment :id="item.id" v-show="commentListState[item.id] || alwaysShowComment" class="thinking-comment"
                        @onCommentUpdate="updateAddCommentButton"/>
     </div>
     <slot></slot>
@@ -43,7 +43,9 @@ import ThinkingPictureList from "./ThinkingPictureList.vue";
 import {nextTick, shallowReactive, watch} from "vue";
 
 const props = defineProps({
-  thinkingList: Array
+  thinkingList: Array,
+  alwaysShowComment: Boolean,
+  hideCommentButton: Boolean
 })
 
 const imageBaseUrl = URL_IMAGE
