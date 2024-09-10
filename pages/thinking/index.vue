@@ -20,11 +20,11 @@
 
 <script>
 import {CODE_SUCCESS} from "~/utils/constants.js";
-import ThinkingList from "../components/ThinkingList.vue";
-import SkeletonView4Thinking from "../components/SkeletonView4Thinking.vue";
+import ThinkingList from "../../components/ThinkingList.vue";
+import SkeletonView4Thinking from "../../components/SkeletonView4Thinking.vue";
 import {RecordEvent, RecordPage} from "~/utils/StatisticsConstants.js";
 import {useCommitVisitRecord} from "~/apis/statistics-api.ts";
-import EmptyView from "../components/EmptyView.vue";
+import EmptyView from "../../components/EmptyView.vue";
 import {getThinkingListApi} from "~/apis/thinking-api.ts";
 
 export default {
