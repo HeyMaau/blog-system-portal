@@ -17,6 +17,11 @@ function getThinking() {
   getThinkingApi(route.params.id).then(response => {
     if (response.code === CODE_SUCCESS) {
       thinkingList.value.push(response.data)
+      thinkingList.value.forEach(item => {
+        if (item.images !== null && item.images.length !== 0) {
+          item.images = splitThinkingImages(item.images)
+        }
+      })
     } else {
       empty.value = true
     }
@@ -31,6 +36,10 @@ function getThinking() {
       empty.value = true
     }
   })
+}
+
+function splitThinkingImages(imageStr: string) {
+  return imageStr.split('-');
 }
 
 function setLoadingTimeout() {
