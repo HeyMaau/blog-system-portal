@@ -3,5 +3,5 @@ export class StateConstants {
 }
 
 export class FetchConstants {
-  public static TIME_OUT: number = 3000
+  public static TIME_OUT: number = 10000
 }
