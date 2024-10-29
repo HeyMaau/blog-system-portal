@@ -2,7 +2,7 @@
   <div class="main-page-container">
     <ArticleList :articleList="articleList" class="article-list"/>
     <div class="website-info-column">
-      <InfoCard :avatarSrc="avatarUrl" :title="authorInfoData.data.userName">
+      <InfoCard :avatarSrc="authorInfoData.data.avatar" :title="authorInfoData.data.userName">
         <div class="info-item">
           <span class="info-icon">
             <svg t="1675052094498" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +102,6 @@ noMore.value = articleListData.value.data.noMore
 const {data: authorInfoData} = await useAsyncData('authorInfo', () =>
   getAdminInfoApi()
 )
-const avatarUrl = ref(import.meta.env.VITE_PUBLIC_IMAGE_BASE_URL + authorInfoData.value.data.avatar)
 
 onMounted(() => {
   window.addEventListener('scroll', windowScroll, true)
