@@ -4,7 +4,7 @@
       v-for="(image, index) in images"
       v-show="index - (limit - 1) <= 0"
       class="picture-item"
-      :src="imageBaseUrl + image"/>
+      :src="image"/>
     <div class="more-pictures-mask" v-if="images.length > limit">
           <span class="more-pictures-mask-text">
             {{ `+ ${images.length - limit}` }}
@@ -22,11 +22,6 @@ export default {
   props: {
     limit: Number,
     images: Array
-  },
-  data() {
-    return {
-      imageBaseUrl: URL_IMAGE.value
-    }
   }
 }
 </script>

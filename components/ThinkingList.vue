@@ -2,7 +2,7 @@
   <div class="thinking-list" id="thinking-list-container">
     <div class="thinking-list-item" v-for="item in thinkingList" :key="item.id">
       <div class="author-info-area">
-        <img :src="imageBaseUrl + item.user.avatar" class="author-avatar">
+        <img :src="item.user.avatar" class="author-avatar">
         <div class="author-name-sign-area">
           <span class="author-name">{{ item.user.userName }}</span>
           <span class="author-sign">{{ item.user.sign }}</span>
@@ -48,7 +48,6 @@ const props = defineProps({
   hideCommentButton: Boolean
 })
 
-const imageBaseUrl = URL_IMAGE
 let picViewer = null
 let commentListState = shallowReactive({})
 const commentNumList = shallowReactive({})
