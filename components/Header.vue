@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import {CODE_SUCCESS, URL_IMAGE} from "~/utils/constants";
+import {CODE_SUCCESS} from "~/utils/constants";
 import {mapStores} from "pinia";
 import {useArticleCategoryStore} from "~/store/useArticleCategoryStore.ts";
 import {getCategoryListApi} from "~/apis/category-api.ts";
@@ -89,7 +89,7 @@ export default {
     async getAuthorInfo() {
       const response = await getAdminInfoApi()
       if (response.code === CODE_SUCCESS) {
-        this.avatarUrl = URL_IMAGE.value + response.data.avatar
+        this.avatarUrl = response.data.avatar
       }
     },
     async getCategories() {
