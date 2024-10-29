@@ -24,7 +24,7 @@
 </template>
 
 <script setup>
-import {CODE_SUCCESS, URL_IMAGE} from "~/utils/constants";
+import {CODE_SUCCESS} from "~/utils/constants";
 import {getFullArticleApi} from "~/apis/article-api.ts";
 import {onBeforeUpdate, reactive} from "vue";
 import {ElMessage} from "element-plus";

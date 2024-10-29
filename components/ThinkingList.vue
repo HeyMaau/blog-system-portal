@@ -36,7 +36,6 @@
 </template>
 
 <script setup>
-import {URL_IMAGE} from "~/utils/constants";
 import Viewer from "viewerjs";
 import ThinkingComment from "./ThinkingComment.vue";
 import ThinkingPictureList from "./ThinkingPictureList.vue";

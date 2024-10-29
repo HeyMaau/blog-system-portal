@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import {URL_IMAGE} from "~/utils/constants";
-import Viewer from "viewerjs";
 
 export default {
   name: "ThinkingPictureList",
