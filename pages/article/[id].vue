@@ -1,10 +1,10 @@
 <template>
   <div class="article-container">
-    <img :src="coverUrl" class="article-detail-cover">
+    <img :src="article.cover" class="article-detail-cover">
     <h1 class="article-title">
       {{ article.title }}
     </h1>
-    <AuthorInfoBanner :avatarSrc="avatarUrl" :name="authorInfoData.data.userName"
+    <AuthorInfoBanner :avatarSrc="authorInfoData.data.avatar" :name="authorInfoData.data.userName"
                       :signature="authorInfoData.data.sign"/>
     <div class="article-main-container">
       <div v-html="article.content" class="article-content" ref="articleContentRef" id="articleContent"></div>
@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import {CODE_SUCCESS, URL_IMAGE} from "~/utils/constants.js";
+import {CODE_SUCCESS} from "~/utils/constants.js";
 import AuthorInfoBanner from "~/components/AuthorInfoBanner.vue";
 import Catalog from "~/components/Catalog.vue";
 import ArticleComment from "~/components/ArticleComment.vue";
@@ -77,14 +77,6 @@ let updateTime = computed(() => {
     let index = article.value.updateTime.lastIndexOf(':');
     return article.value.updateTime.slice(0, index)
   }
-})
-
-let avatarUrl = computed(() => {
-  return URL_IMAGE.value + authorInfoData.value.data.avatar
-})
-
-let coverUrl = computed(() => {
-  return URL_IMAGE.value + article.value.cover
 })
 
 const headers = ref([])
