@@ -33,7 +33,7 @@
 
 <script>
 import ArticleList from "../../components/ArticleList.vue";
-import {CODE_SUCCESS, URL_IMAGE} from "~/utils/constants.js";
+import {CODE_SUCCESS} from "~/utils/constants.js";
 import InfoCard from "../../components/InfoCard.vue";
 import {trimArticleSummary} from "~/utils/article-util.js";
 import EmptyView from "../../components/EmptyView.vue";
@@ -108,7 +108,7 @@ export default {
     getCurrentCategoryInfo(list) {
       list.forEach(item => {
         if (item.id === this.categoryID) {
-          this.categoryCover = URL_IMAGE.value + item.cover
+          this.categoryCover = item.cover
           this.categoryDescription = item.description
           this.categoryName = item.name
         }
