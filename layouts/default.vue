@@ -28,7 +28,7 @@ const routerPath = useCurrentRouterPath()
   position: fixed;
   width: 100%;
   min-width: 1100px;
-  z-index: 1;
+  z-index: 11;
 }
 
 .main {
