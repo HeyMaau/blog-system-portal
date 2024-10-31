@@ -43,35 +43,35 @@ export default defineNuxtConfig({
         {rel: 'icon', type: 'image/x-icon', href: '/favicon.png'},
         {
           rel: 'stylesheet',
-          href: 'https://cdn.staticfile.net/element-plus/2.4.4/index.min.css'
+          href: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/element-plus/2.4.4/index.min.css'
         },
         {
           rel: 'stylesheet',
-          href: 'https://cdn.staticfile.net/viewerjs/1.11.3/viewer.min.css'
+          href: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/viewerjs/1.11.3/viewer.min.css'
         },
         {
           rel: 'stylesheet',
-          href: 'https://cdn.staticfile.net/highlight.js/11.8.0/styles/androidstudio.min.css'
+          href: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/highlight.js/11.8.0/styles/androidstudio.min.css'
         }
       ],
       script: [
         {
-          src: 'https://cdn.staticfile.net/vue/3.4.38/vue.global.prod.min.js'
+          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/vue/3.4.38/vue.global.prod.min.js'
         },
         {
-          src: 'https://cdn.staticfile.net/element-plus/2.4.4/index.full.min.js'
+          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/element-plus/2.4.4/index.full.min.js'
         },
         {
-          src: 'https://cdn.staticfile.net/element-plus-icons-vue/2.3.1/index.iife.min.js'
+          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/element-plus-icons-vue/2.3.1/index.iife.min.js'
         },
         {
-          src: 'https://cdn.staticfile.net/viewerjs/1.11.3/viewer.min.js'
+          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/viewerjs/1.11.3/viewer.min.js'
         },
         {
-          src: 'https://cdn.staticfile.net/highlight.js/11.8.0/highlight.min.js'
+          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/highlight.js/11.8.0/highlight.min.js'
         },
         {
-          src: 'https://cdn.staticfile.net/highlight.js/11.8.0/languages/groovy.min.js'
+          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/highlight.js/11.8.0/languages/groovy.min.js'
         }
       ]
     }
