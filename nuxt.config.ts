@@ -5,6 +5,12 @@ import type {ViteConfig} from "@nuxt/schema";
 export default defineNuxtConfig({
   devtools: {enabled: true},
   compatibilityDate: '2024-04-03',
+  routeRules: {
+    '/thinking': {ssr: false},
+    '/feedback': {ssr: false},
+    '/search': {ssr: false},
+    '/category/**': {ssr: false}
+  },
   app: {
     head: {
       title: '卧卷',
