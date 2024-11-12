@@ -1,9 +1,11 @@
 <template>
   <div class="container" id="container">
-    <img
+    <el-image
       v-for="(image, index) in images"
       v-show="index - (limit - 1) <= 0"
       class="picture-item"
+      loading="lazy"
+      fit="cover"
       :src="image"/>
     <div class="more-pictures-mask" v-if="images.length > limit">
           <span class="more-pictures-mask-text">
