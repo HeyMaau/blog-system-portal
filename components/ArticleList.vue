@@ -8,13 +8,13 @@
           <nuxt-link :to="`/article/${item.id}`" target="_blank" class="article-title">{{ item.title }}</nuxt-link>
         </div>
         <div class="richtext-container">
-          <img :src="item.cover" class="article-cover" loading="lazy" v-show="collapseState[item.id]"/>
+          <el-image :src="item.cover" class="article-cover" fit="cover" loading="lazy" v-show="collapseState[item.id]"/>
           <div class="article-content">
             <div class="article-summary" v-show="collapseState[item.id]">
               {{ item.content }}
             </div>
             <div class="article-detail-container" v-show="!collapseState[item.id]">
-              <img :src="item.cover" class="article-detail-cover" loading="lazy"/>
+              <el-image :src="item.cover" class="article-detail-cover" fit="cover" loading="lazy"/>
               <div v-html="articleContent[item.id]" class="article-detail"
                    :id="`articleDetail_${item.id}`">
               </div>
