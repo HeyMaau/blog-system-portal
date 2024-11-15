@@ -6,6 +6,9 @@
       class="picture-item"
       loading="lazy"
       fit="cover"
+      :preview-src-list="images"
+      :initial-index="index"
+      :infinite="false"
       :src="image"/>
     <div class="more-pictures-mask" v-if="images.length > limit">
           <span class="more-pictures-mask-text">

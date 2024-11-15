@@ -14,8 +14,7 @@
       </div>
       <ThinkingPictureList :id="`thinking-picture-list-${item.id}`" class="picture-area" :images="item.images"
                            :limit="4"
-                           v-if="item.images !== null && item.images.length !== 0"
-                           @click.native.capture="initPicViewer(item.id)"/>
+                           v-if="item.images !== null && item.images.length !== 0"/>
       <div class="update-time">发布于 {{ item.updateTime }}</div>
       <div class="operating-area" v-if="!hideCommentButton">
         <button class="add-comment-button" @click="handleClickComment(item.id)">
@@ -36,10 +35,9 @@
 </template>
 
 <script setup>
-import Viewer from "viewerjs";
 import ThinkingComment from "./ThinkingComment.vue";
 import ThinkingPictureList from "./ThinkingPictureList.vue";
-import {nextTick, shallowReactive, watch} from "vue";
+import {shallowReactive, watch} from "vue";
 
 const props = defineProps({
   thinkingList: Array,
@@ -70,27 +68,6 @@ function initCommentListState() {
 function updateAddCommentButton(id, data) {
   commentNumList[id] = data.length
 }
-
-function initPicViewer(id) {
-  if (id === lastInitPicViewerID) {
-    return
-  }
-  if (picViewer !== null) {
-    picViewer.destroy()
-  }
-  nextTick(() => {
-    picViewer = new Viewer(document.getElementById(`thinking-picture-list-${id}`), {
-      inline: false,
-      title: false,
-      toolbar: true,
-      transition: false,
-      navbar: false,
-      loop: false
-    })
-    lastInitPicViewerID = id
-  })
-}
-
 
 </script>
 
