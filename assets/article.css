@@ -89,3 +89,15 @@
   color: #8590a6;
   padding: 16px 0;
 }
+
+:deep(table tr:not(:last-child)) {
+  border-bottom: 1px solid silver;
+}
+
+:deep(table tr:first-child td) {
+  font-weight: 600;
+}
+
+:deep(td) {
+  padding: 0.6em;
+}
