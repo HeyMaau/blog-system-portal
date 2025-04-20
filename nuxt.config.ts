@@ -58,6 +58,10 @@ export default defineNuxtConfig({
         {
           rel: 'stylesheet',
           href: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/highlight.js/11.8.0/styles/androidstudio.min.css'
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://unpkg.com/vditor@3.11.0/dist/index.css'
         }
       ],
       script: [

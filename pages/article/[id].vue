@@ -7,9 +7,11 @@
     <AuthorInfoBanner :avatarSrc="authorInfoData.data.avatar" :name="authorInfoData.data.userName"
                       :signature="authorInfoData.data.sign"/>
     <div class="article-main-container">
-      <div v-html="article.content" class="article-content" ref="articleContentRef" id="articleContent"></div>
+      <div v-html="article.content" class="article-content" ref="articleContentRef" id="articleContent"
+           v-if="article.type === '0'"></div>
+      <div class="article-content" ref="articleMarkDownRef" v-else/>
       <div class="article-update-time">编辑于 {{ updateTime }}</div>
-      <div class="article-catalog-container" ref="catalogContainerRef">
+      <div class="article-catalog-container" ref="catalogContainerRef" v-if="article.type === '0'">
         <Catalog :headers="headers" :activeHeader="currentHeader" class="article-catalog"/>
       </div>
     </div>
@@ -32,6 +34,7 @@ import {useAsyncData, useRoute} from "#app";
 import {computed, onBeforeUnmount, onMounted, ref, shallowRef} from "vue";
 import {getFullArticleApi} from "~/apis/article-api.ts";
 import {getAdminInfoApi} from "~/apis/user-api.ts";
+import VditorPreview from 'vditor/dist/method.min'
 
 const article = shallowRef({})
 const description = shallowRef('')
@@ -85,6 +88,19 @@ const currentHeader = ref('')
 
 
 let articleContentRef = ref()
+let articleMarkDownRef = ref()
+
+function initVditorPreview() {
+  VditorPreview.preview(articleMarkDownRef.value, article.value.content, {
+    hljs: {
+      lineNumber: true
+    },
+    markdown: {
+      toc: true,
+      mark: true
+    }
+  })
+}
 
 function extractArticleHeader() {
   let children = articleContentRef.value.children
@@ -124,17 +140,21 @@ function trackCatalog() {
 }
 
 onMounted(() => {
-  extractArticleHeader()
-  setCatalogHeight()
-  window.addEventListener("scroll", trackCatalog)
-  const picViewer = new Viewer(document.getElementById('articleContent'), {
-    inline: false,
-    title: false,
-    toolbar: false,
-    transition: false,
-    navbar: false
-  })
-  hljs.highlightAll()
+  if (article.value.type === '0') {
+    extractArticleHeader()
+    setCatalogHeight()
+    window.addEventListener("scroll", trackCatalog)
+    const picViewer = new Viewer(document.getElementById('articleContent'), {
+      inline: false,
+      title: false,
+      toolbar: false,
+      transition: false,
+      navbar: false
+    })
+    hljs.highlightAll()
+  } else {
+    initVditorPreview()
+  }
   useCommitVisitRecord(RecordPage.PAGE_NAME_ARTICLE_PAGE + route.params.id, null, RecordEvent.EVENT_NAME_VISIT)
 })
 
