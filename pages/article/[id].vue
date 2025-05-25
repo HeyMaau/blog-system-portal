@@ -38,7 +38,6 @@ import {computed, onBeforeUnmount, onMounted, ref, shallowRef} from "vue";
 import {getFullArticleApi} from "~/apis/article-api.ts";
 import {getAdminInfoApi} from "~/apis/user-api.ts";
 import {MdPreview} from 'md-editor-v3';
-import 'md-editor-v3/lib/preview.css';
 
 const article = shallowRef({})
 const description = shallowRef('')

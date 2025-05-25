@@ -61,7 +61,7 @@ export default defineNuxtConfig({
         },
         {
           rel: 'stylesheet',
-          href: 'https://unpkg.com/vditor@3.11.0/dist/index.css'
+          href: 'https://s4.zstatic.net/npm/md-editor-v3@4.21.3/lib/preview.css'
         }
       ],
       script: [
