@@ -6,13 +6,16 @@
     </h1>
     <AuthorInfoBanner :avatarSrc="authorInfoData.data.avatar" :name="authorInfoData.data.userName"
                       :signature="authorInfoData.data.sign"/>
-    <div class="article-main-container">
+    <div class="article-main-container" ref="articleMainContainerRef">
       <div v-html="article.content" class="article-content" ref="articleContentRef" id="articleContent"
            v-if="article.type === '0'"></div>
-      <div class="article-content" ref="articleMarkDownRef" v-else/>
+      <MdPreview :editorId="MD_PREVIEW_ID" :modelValue="article.content" class="article-content" v-else/>
       <div class="article-update-time">编辑于 {{ updateTime }}</div>
-      <div class="article-catalog-container" ref="catalogContainerRef" v-if="article.type === '0'">
-        <Catalog :headers="headers" :activeHeader="currentHeader" class="article-catalog"/>
+      <div class="article-catalog-container" ref="catalogContainerRef">
+        <Catalog :headers="headers" :activeHeader="currentHeader" class="article-catalog" v-if="article.type === '0'"/>
+        <ClientOnly v-else>
+          <MarkDownCatalog :id="MD_PREVIEW_ID" :scrollElement="scrollElement" class="article-catalog"/>
+        </ClientOnly>
       </div>
     </div>
     <ArticleComment/>
@@ -34,11 +37,21 @@ import {useAsyncData, useRoute} from "#app";
 import {computed, onBeforeUnmount, onMounted, ref, shallowRef} from "vue";
 import {getFullArticleApi} from "~/apis/article-api.ts";
 import {getAdminInfoApi} from "~/apis/user-api.ts";
-import VditorPreview from 'vditor/dist/method.min'
+import {MdPreview} from 'md-editor-v3';
+import 'md-editor-v3/lib/preview.css';
 
 const article = shallowRef({})
 const description = shallowRef('')
 const keywords = shallowRef('')
+
+const MD_PREVIEW_ID = "md_preview_id"
+
+let scrollElement;
+if (import.meta.env.SSR) {
+  scrollElement = "body";
+} else {
+  scrollElement = document.documentElement;
+}
 
 useHead({
   title: () => `${article.value.title} - 卧卷`,
@@ -86,21 +99,8 @@ const headers = ref([])
 const headerDoms = ref([])
 const currentHeader = ref('')
 
-
-let articleContentRef = ref()
-let articleMarkDownRef = ref()
-
-function initVditorPreview() {
-  VditorPreview.preview(articleMarkDownRef.value, article.value.content, {
-    hljs: {
-      lineNumber: true
-    },
-    markdown: {
-      toc: true,
-      mark: true
-    }
-  })
-}
+const articleContentRef = ref()
+const articleMainContainerRef = ref()
 
 function extractArticleHeader() {
   let children = articleContentRef.value.children
@@ -122,10 +122,10 @@ function extractArticleHeader() {
   }
 }
 
-let catalogContainerRef = ref()
+const catalogContainerRef = ref()
 
 function setCatalogHeight() {
-  let offsetHeight = articleContentRef.value.offsetHeight;
+  let offsetHeight = articleMainContainerRef.value.offsetHeight;
   catalogContainerRef.value.style.minHeight = offsetHeight + 'px'
 }
 
@@ -140,9 +140,9 @@ function trackCatalog() {
 }
 
 onMounted(() => {
+  setCatalogHeight()
   if (article.value.type === '0') {
     extractArticleHeader()
-    setCatalogHeight()
     window.addEventListener("scroll", trackCatalog)
     const picViewer = new Viewer(document.getElementById('articleContent'), {
       inline: false,
@@ -152,8 +152,6 @@ onMounted(() => {
       navbar: false
     })
     hljs.highlightAll()
-  } else {
-    initVditorPreview()
   }
   useCommitVisitRecord(RecordPage.PAGE_NAME_ARTICLE_PAGE + route.params.id, null, RecordEvent.EVENT_NAME_VISIT)
 })
@@ -199,9 +197,10 @@ onBeforeUnmount(() => {
 
 .article-content {
   padding-top: 16px;
+  background: none;
 }
 
-:deep(.article-content img) {
+:deep(#articleContent img) {
   max-width: 100%;
   cursor: zoom-in;
 }
@@ -211,19 +210,29 @@ onBeforeUnmount(() => {
   object-fit: cover;
 }
 
-:deep(blockquote) {
+:deep(#articleContent blockquote) {
   border-left: 3px solid #D3D3D3;
   color: #646464;
   padding-left: 1em;
   margin: 1.4em 0;
 }
 
-:deep(.article-content a) {
+:deep(#articleContent a) {
   border-bottom: 1px solid #808080;
 }
 
 :deep(.hljs) {
   padding: 10px;
+}
+
+:deep(h1),
+:deep(h2),
+:deep(h3),
+:deep(h4),
+:deep(h5),
+:deep(h6) {
+  padding-top: 52px;
+  margin-top: -52px;
 }
 
 </style>

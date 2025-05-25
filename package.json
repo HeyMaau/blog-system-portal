@@ -15,8 +15,8 @@
     "@pinia/nuxt": "^0.5.3",
     "highlight.js": "^11.8.0",
     "howler": "^2.2.4",
+    "md-editor-v3": "^4.21.3",
     "pinia": "^2.1.7",
-    "vditor": "^3.11.0",
     "viewerjs": "^1.11.3"
   },
   "devDependencies": {
