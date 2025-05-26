@@ -3,7 +3,7 @@
 import {getAudioListApi} from "~/apis/audio-api";
 import type {BlogAudio} from "~/pojo/BlogAudio";
 //@ts-ignore
-import {Howl} from "https://jsd.onmicrosoft.cn/npm/howler@2.2.4/+esm";
+import {Howl} from "https://cdn.jsdelivr.net/npm/howler@2.2.4/+esm";
 import {onBeforeUnmount} from "vue";
 import {useCommitVisitRecord} from "~/apis/statistics-api";
 import {RecordComponent, RecordEvent} from "~/utils/StatisticsConstants";
