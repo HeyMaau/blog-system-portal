@@ -16,8 +16,8 @@
             <div class="article-detail-container" v-show="!collapseState[item.id]">
               <el-image :src="item.cover" class="article-detail-cover" fit="cover" loading="lazy"/>
               <div v-html="articleContent[item.id]" class="article-detail"
-                   :id="`articleDetail_${item.id}`">
-              </div>
+                   :id="`articleDetail_${item.id}`" v-if="item.type === '0'" />
+              <MdPreview :editorId="`md_${item.id}`" :modelValue="articleContent[item.id]" v-else/>
               <div class="article-update-time">编辑于 {{ item.updateTime }}</div>
               <button class="hide-article-detail" @click="hideArticleDetail(item.id)">收起
                 <el-icon>
@@ -48,6 +48,7 @@ import {getFullArticleApi} from "~/apis/article-api.ts";
 import {nextTick, onBeforeUpdate, reactive, shallowRef} from "vue";
 import {ElMessage} from "element-plus";
 import {ArrowDown, ArrowUp} from "@element-plus/icons-vue";
+import {MdPreview} from "md-editor-v3";
 
 const props = defineProps({
   articleList: Array
