@@ -107,7 +107,7 @@ initCollapseState()
 <style src="@/assets/article.css" scoped/>
 <style scoped>
 
-:deep(blockquote) {
+:deep(.article-detail blockquote) {
   border-left: 3px solid #D3D3D3;
   color: #646464;
   padding-left: 1em;
