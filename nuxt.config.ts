@@ -61,27 +61,33 @@ export default defineNuxtConfig({
         },
         {
           rel: 'stylesheet',
-          href: 'https://s4.zstatic.net/npm/md-editor-v3@4.21.3/lib/preview.css'
+          href: 'https://cdn.jsdelivr.net/npm/md-editor-v3@4.21.3/lib/preview.min.css'
         }
       ],
       script: [
         {
-          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/vue/3.4.38/vue.global.prod.min.js'
+          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/vue/3.4.38/vue.global.prod.min.js',
+          defer: true
         },
         {
-          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/element-plus/2.4.4/index.full.min.js'
+          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/element-plus/2.4.4/index.full.min.js',
+          defer: true
         },
         {
-          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/element-plus-icons-vue/2.3.1/index.iife.min.js'
+          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/element-plus-icons-vue/2.3.1/index.iife.min.js',
+          defer: true
         },
         {
-          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/viewerjs/1.11.3/viewer.min.js'
+          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/viewerjs/1.11.3/viewer.min.js',
+          defer: true
         },
         {
-          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/highlight.js/11.8.0/highlight.min.js'
+          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/highlight.js/11.8.0/highlight.min.js',
+          defer: true
         },
         {
-          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/highlight.js/11.8.0/languages/groovy.min.js'
+          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/highlight.js/11.8.0/languages/groovy.min.js',
+          defer: true
         }
       ]
     }
