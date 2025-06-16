@@ -29,7 +29,7 @@ import Catalog from "~/components/Catalog.vue";
 import ArticleComment from "~/components/ArticleComment.vue";
 import Viewer from "viewerjs"
 import {createMetaKeywords, trimArticleContent4Description} from "~/utils/article-util.js";
-import hljs from 'highlight.js'
+import hljs from 'highlight.js/lib/core'
 import {RecordEvent, RecordPage} from "~/utils/StatisticsConstants.js";
 import {useCommitVisitRecord} from "~/apis/statistics-api.ts";
 import {useHead} from "unhead";
@@ -38,6 +38,9 @@ import {computed, onBeforeUnmount, onMounted, ref, shallowRef} from "vue";
 import {getFullArticleApi} from "~/apis/article-api.ts";
 import {getAdminInfoApi} from "~/apis/user-api.ts";
 import {MdPreview} from 'md-editor-v3';
+import {registerLanguage} from "~/utils/highlight-js-util.js";
+
+registerLanguage(hljs)
 
 const article = shallowRef({})
 const description = shallowRef('')

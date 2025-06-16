@@ -43,16 +43,20 @@
 <script setup>
 import {CODE_SUCCESS} from "~/utils/constants";
 import Viewer from "viewerjs"
-import hljs from 'highlight.js'
+import hljs from 'highlight.js/lib/core'
 import {getFullArticleApi} from "~/apis/article-api.ts";
 import {nextTick, onBeforeUpdate, reactive, shallowRef} from "vue";
 import {ElMessage} from "element-plus";
 import {ArrowDown, ArrowUp} from "@element-plus/icons-vue";
 import {MdPreview} from "md-editor-v3";
+import {registerLanguage} from "~/utils/highlight-js-util.js";
 
 const props = defineProps({
   articleList: Array
 })
+
+registerLanguage(hljs)
+
 const articleList = shallowRef(props.articleList)
 
 const articleContent = reactive({})
