@@ -66,29 +66,41 @@ export default defineNuxtConfig({
       ],
       script: [
         {
-          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/vue/3.4.38/vue.global.prod.min.js',
-          defer: true
+          type:'importmap',
+          innerHTML: JSON.stringify({
+            imports: {
+              // "vue": "https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.38/vue.esm-browser.prod.min.js",
+              "highlight.js": "https://cdn.jsdelivr.net/npm/highlight.js@11.8.0/+esm",
+              "viewerjs": "https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.esm.min.js"
+              // "element-plus": "https://cdnjs.cloudflare.com/ajax/libs/element-plus/2.4.4/index.full.min.mjs",
+              // '@element-plus/icons-vue': "https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2.3.1/+esm"
+            }
+          })
         },
-        {
-          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/element-plus/2.4.4/index.full.min.js',
-          defer: true
-        },
-        {
-          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/element-plus-icons-vue/2.3.1/index.iife.min.js',
-          defer: true
-        },
-        {
-          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/viewerjs/1.11.3/viewer.min.js',
-          defer: true
-        },
-        {
-          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/highlight.js/11.8.0/highlight.min.js',
-          defer: true
-        },
-        {
-          src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/highlight.js/11.8.0/languages/groovy.min.js',
-          defer: true
-        }
+        // {
+        //   src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/vue/3.4.38/vue.global.prod.min.js',
+        //   defer: true
+        // },
+        // {
+        //   src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/element-plus/2.4.4/index.full.min.js',
+        //   defer: true
+        // },
+        // {
+        //   src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/element-plus-icons-vue/2.3.1/index.iife.min.js',
+        //   defer: true
+        // },
+        // {
+        //   src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/viewerjs/1.11.3/viewer.min.js',
+        //   defer: true
+        // },
+        // {
+        //   src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/highlight.js/11.8.0/highlight.min.js',
+        //   defer: true
+        // },
+        // {
+        //   src: 'https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/highlight.js/11.8.0/languages/groovy.min.js',
+        //   defer: true
+        // }
       ]
     }
   },
@@ -105,8 +117,21 @@ export default defineNuxtConfig({
       imageBaseUrl: ''
     }
   },
-  hooks: {
-    "vite:extendConfig": setViteConfig
+  // hooks: {
+  //   "vite:extendConfig": setViteConfig
+  // }
+  vite: {
+    build: {
+      rollupOptions: {
+        external: ['highlight.js', 'viewerjs'],
+        output: {
+          globals: {
+            'highlight.js': 'hljs',
+            'viewerjs': 'Viewer'
+          },
+        },
+      },
+    },
   }
 })
 
