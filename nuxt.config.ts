@@ -55,7 +55,7 @@ export default defineNuxtConfig({
         },
         {
           rel: 'stylesheet',
-          href: 'https://cdn.jsdelivr.net/npm/md-editor-v3@4.21.3/lib/preview.min.css'
+          href: 'https://s4.zstatic.net/npm/md-editor-v3@4.21.3/lib/style.css'
         }
       ]
     }
