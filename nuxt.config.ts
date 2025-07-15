@@ -72,5 +72,8 @@ export default defineNuxtConfig({
       serverBaseUrl: '',
       imageBaseUrl: ''
     }
+  },
+  nitro: {
+    compressPublicAssets: true
   }
 })
