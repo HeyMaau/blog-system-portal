@@ -44,7 +44,7 @@
       :prefix-icon="Search"
       v-model="input">
     </el-input>
-    <img :src="avatarUrl" id="avatar"/>
+    <img :src="avatarUrl" id="avatar" fetchpriority="high"/>
   </div>
 </template>
 

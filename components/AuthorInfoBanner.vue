@@ -1,6 +1,6 @@
 <template>
   <div class="banner-container">
-    <img :src="avatarSrc" class="banner-avatar"/>
+    <img :src="avatarSrc" class="banner-avatar" fetchpriority="high"/>
     <div class="banner-author-info-container">
       <div class="banner-author-info-name">{{ name }}</div>
       <div class="banner-author-info-signature">{{ signature }}</div>

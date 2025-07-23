@@ -272,7 +272,7 @@ onBeforeUnmount(() => {
 <template>
   <div class="audio-player-container">
     <div class="audio-player-header">
-      <img :src="currentCoverUrl" class="audio-player-header-cover" referrerpolicy="no-referrer"
+      <img :src="currentCoverUrl" class="audio-player-header-cover" referrerpolicy="no-referrer" fetchpriority="high"
            loading="lazy">
       <div class="audio-player-header-info">
         <span class="audio-player-header-info-name">{{ currentAudioName }}</span>
